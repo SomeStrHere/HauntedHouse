@@ -22,3 +22,14 @@ def clearConsole(wait) : #function to clear console on Linux or Windows
 
     except :
        os.system('clear') #clears console on Linux
+
+def sleep(wait) :
+    """Delays program execution with the dealy given as 'wait'.
+    
+    Args : wait (int or float) : A value representing how long time.sleep() should delay
+           execution.
+    
+    """
+    import time 
+
+    time.sleep(wait)
