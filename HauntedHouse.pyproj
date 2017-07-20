@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="asciiDrawings.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dice.py">
       <SubType>Code</SubType>
     </Compile>
