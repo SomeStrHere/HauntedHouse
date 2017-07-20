@@ -8,7 +8,24 @@ from helpers import *
 
 def main() :
     
-    pass
+    #pass #TODO
+    welcomeScreen()
+
+
+def welcomeScreen() :
+
+    clearConsole(0)
+    print("\n")
+    print("                                               | |")
+    print("                                              =====")
+    print("                                              [   ]")
+    print("                    __________________________[___]__________                               ")
+    print("                   /                                         \\")
+    print("                  /                                           \\")
+    print("                 /                                             \\")
+    print("                 ------------------------------------------------")
+    print("                 |                                               |")
+
 
 if __name__ == "__main__" :
     main()
