@@ -92,9 +92,62 @@ def gameIntroductionMenu() :
             varMenu = False
 
         elif userSelects == '4' :
-            clearConsole(0)
-            print('\nTesting - use mobile phone')
             varMenu = False
+            clearConsole(0)
+            print('\nYou decide to use your phone and call for help.')
+
+            print('\n# Dice Roll #')
+            print('\nIf you roll 1-2... you left your phone in the taxi, doh!\n' +
+                  '\nRolling a 3-4; your battery is flat\n' +
+                  '\nRolling a 5, you call your friend.' +
+                  '\n\nRolling a 6; you call your parents.')
+                  #'who are worried about you, say they will try to find you at\n'
+                  #'first light and they transfer 250 bit coins into your wallet.'
+
+            input('\n~ Press Enter to roll ~\n')
+            roll = diceRoll(6)
+
+            print('\nYou rolled a {0}!\n'.format(roll))
+
+            if roll == 1 or roll == 2 :
+                print('Annoyed with yourself for leaving your phone in the taxi, you ' +
+                      'walk up to the garage door looking for shelter.')
+                # TO DO present user with new scene, options - OOP?
+
+            elif roll == 3 or roll == 4 :
+                print('You pull out your phone... and it\'s dead!\n' +
+                      'Well that sucks! You quickly think about your options...\n\n' +
+                      'You can\'t decide whether to knock on the door so early in the ' +
+                      'morning, loaded down with bags and smelling of drink\nor to see if ' +
+                      'there would be room to pitch your tent in the garden, and hope ' +
+                      'the owners don\'t mind.\n'
+                      )
+
+                print('You decide to flip a coin; \'Heads\' you reluctantly knock on the door ' +
+                      'and ask for help. If it\'s \'Tails\'; you go\n check out the garden ' +
+                      'through what looks like an open gate.')
+
+                input('\n~ Press Enter to flip a coin ~\n')
+
+                coinFace = coinToss()
+
+                print('\nIt\'s {0}!\n'.format(coinFace))
+
+                if coinFace == 'Heads' :
+                    print('You walk up to the front door and...')
+                    print('TODO, OOP?') # TODO
+
+                elif coinFace == 'Tails':
+                    print('You walk up to the garden gate and...')
+                    print('TODO, OOP?') # TODO
+            
+            elif roll == 5 :
+                print('You pick up your phone and call a friend...')
+                print('TODO, OOP? Remember phone conversation with friend') # TODO
+
+            else : # You rolled a 6
+                print('You pick up your phone and call your parents...')
+                print('TODO, OOP? Remember to credit bitcoin wallet with 250') # TODO
 
         elif userSelects == '5' :
             varMenu = False

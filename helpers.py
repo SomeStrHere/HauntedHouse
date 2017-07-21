@@ -1,5 +1,7 @@
 # A file containing useful generic functions, such as for clearing the console.
 
+import random
+
 def clearConsole(wait) : #function to clear console on Linux or Windows
     """Clears console, with optional time delay.
 
@@ -33,3 +35,12 @@ def sleep(wait) :
     import time 
 
     time.sleep(wait)
+
+
+def coinToss() :
+
+    coinFaces = ["Heads", "Tails"]
+
+    index = random.randint(0,1) 
+
+    return (coinFaces[index])
