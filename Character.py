@@ -35,10 +35,15 @@ class Character(object) :
         heightInFeet = random.choice(heightInFeetData)
         fitnessLevel = random.choice(fitnessLevelData)
 
+        # Instantiated ? Not sure how to access values in HauntedHouse.py - TODO
+        randomCharacter = Character(firstName, age, heightInFeet, fitnessLevel)
+
         return(print('Your automatically generated character has the following ' +
                     'details :\n\nFirst Name - {0}\nAge - {1}\nHeight in Feet - {2}\
                     \nFitness Level - {3}\n'.format(firstName, age, heightInFeet, 
                                                                  fitnessLevel)))
+
+
 
 
             
