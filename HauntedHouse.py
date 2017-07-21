@@ -97,9 +97,35 @@ def gameIntroductionMenu() :
             varMenu = False
 
         elif userSelects == '5' :
-            print('\nTesting - run away and exit game')
             varMenu = False
+            clearConsole(0)
+            print('\nYou realise you\'ve made a mistake, this doesn\'t feel right, despite ' +
+                  'the weather you opt to chase after the taxi.\n'
+                  )
 
+            print('# Dice Roll #')
+            print('\nIf you roll greater than a 1 on a 6 side dice, you run after the taxi ' +
+                  'and the taxi driver notices and stops to\npick you up, which will exit ' +
+                  'the game immediatley. If you roll a 1, the taxi driver doesn\'t see you ' +
+                  'and\nthe game will exit in 10 seconds.\n'
+                  )
+
+            input('~ Press Enter to roll ~')
+            roll = diceRoll(6)
+
+            print('\nYou rolled a {0}!'.format(roll))
+
+            if roll == 1 :
+                print('Exiting game in...')
+                for x in range(10):
+                    print(x)
+                    sleep(1)
+                    x = (x + 1)
+                sys.exit()
+
+            else :
+                sys.exit()
+ 
         else :
             #TODO implement ability to exit program after x number of errors are given here
             print('\nSorry; that was an invalid option, please try again\n')
