@@ -20,12 +20,24 @@ def diceRoll(maxInt) :
     return(diceResult)
 
 def diceDelayCountdown(diceNumber, delay) :
+    """Prints a countdown to the user with a corresponding execution delay.
 
-            if roll == number :
-                print('in...')
-                for x in range(delay):
-                    print(x)
-                    sleep(1)
-                    x = (x + 1)
+    Prints a countdown to the user and pauses code execution between each count; the count
+    and delay depends on the arguments given when called.
+    
+    Args : diceNumber (int) : An int representing the dice roll result which triggers the
+                              countdown delay condition.
+
+    Args : delay (int, float) : An int or float representing the length of the count and
+                                corresponding delay; set at 1 second between count. 
+    
+    """
+
+    if diceRoll() == diceNumber :
+        print('in...')
+        for x in range(delay) :
+            print(x)
+            sleep(1)
+            x = (x + 1)
 
 
