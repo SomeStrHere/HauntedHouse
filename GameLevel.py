@@ -52,8 +52,8 @@ class OutsideLevel(GameLevel) :
         super().__init__(levelDescription, floor)
         self.dayTime = dayTime
 
-    start = OutsideLevel('Start Area', 'Gravel drive')
+        start = OutsideLevel('Start Area', 'Gravel drive')
 
-    patio = OutsideLevel('The Patio', 'Grass and paving stones')
+        patio = OutsideLevel('The Patio', 'Grass and paving stones')
 
-    garden = OutsideLevel('The Rear Garden', 'Grass')
+        garden = OutsideLevel('The Rear Garden', 'Grass')
