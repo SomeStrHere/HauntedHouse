@@ -27,8 +27,14 @@
     <Compile Include="dice.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GameLevel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HauntedHouse.py" />
     <Compile Include="helpers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Character.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

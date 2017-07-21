@@ -1,28 +1,53 @@
 # A console based adventure game
 # Created by https://github.com/SomeStrHere
-# V: 0.0.1
+# V: 0.2.0
 
 import sys
-from dice import diceRoll
+from dice import *
 from helpers import *
 from asciiDrawings import *
+from GameLevel import *
+from Character import *
 
 def main() :
     
     gameIntroduction()
 
-
+    
 def gameIntroduction() :
 
     clearConsole(0)
     
-    print('\n')
     print('Welcome to HAUNTED HOUSE, a text based adventure game.\n')
     # Delays in code execution to improve screen output and the user experience.
     #sleep(0.85) 
     print('You will be presented with numerous choices throughout the game and ' +
           'the choices you make\nwill influence your experience within the game.\n')
-    #sleep(3.5)
+    #sleep(3)
+
+    # Setup a user or random generated character
+    userCharacterOpt = input('Would you like to setup your own character or use a ' +
+                             'randomly generated character?\n\n~ Yes) Character setup ~ ' +
+                            '\n\n~ No) Random Character ~ ').upper()
+
+    sleep(0.5)
+
+    characterMenu = True
+    while characterMenu :
+
+        if userCharacterOpt == 'YES' or userCharacterOpt == 'Y' :
+            characterMenu = False
+            print('\n')
+            Character.createCharacter()
+
+        elif userCharacterOpt == 'NO' or userCharacterOpt == 'N' :
+            characterMenu = False
+            print('\n')
+            Character.createRandomCharacter()
+
+        else :
+            print('Invalid entry')
+            characterMenu = True
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
@@ -166,15 +191,11 @@ def gameIntroductionMenu() :
             input('~ Press Enter to roll ~')
             roll = diceRoll(6)
 
-            print('\nYou rolled a {0}!'.format(roll))
+            print('\nYou rolled a {0}!\n'.format(roll))
 
             if roll == 1 :
                 print('Exiting game in...')
-                for x in range(10):
-                    print(x)
-                    sleep(1)
-                    x = (x + 1)
-                sys.exit()
+                diceDelayCountdown(1, 10, roll)
 
             else :
                 sys.exit()
