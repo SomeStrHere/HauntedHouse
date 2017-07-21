@@ -6,6 +6,7 @@ import sys
 from dice import diceRoll
 from helpers import *
 from asciiDrawings import *
+from GameLevel import *
 
 def main() :
     
