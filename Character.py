@@ -16,10 +16,13 @@ class Character(object) :
         age = int(input('What is your age in whole years? '))
         fitnessLevel = input('What is your fitness level (Poor, Okay, Great)? ')
 
-        return(print('Your character as the following details : ' + 
-                     '\n\nFirst Name - {0}\nAge - {1}\nHeight in Feet - {2}\
-                    \nFitness Level - {3}\n'.format(firstName, age, heightInFeet, 
-                                                                 fitnessLevel)))
+        # Alternative print method more suited to testing due to data being entered by user
+        #return(print('\nYour character as the following details : ' + 
+        #             '\n\nFirst Name - {0}\nAge - {1}\nHeight in Feet - {2}\
+        #            \nFitness Level - {3}\n'.format(firstName, age, heightInFeet, 
+        #                                                         fitnessLevel)))
+
+        return(print('\nYour character as been setup.\n'))
 
     def createRandomCharacter() :
         firstNameData = ['Gareth', 'Dan', 'Rachel', 'Ethereal', 'Raby', 'Carrie', 'Erika',
@@ -32,7 +35,7 @@ class Character(object) :
         heightInFeet = random.choice(heightInFeetData)
         fitnessLevel = random.choice(fitnessLevelData)
 
-        return(print('Your automatically generated character as the following ' +
+        return(print('Your automatically generated character has the following ' +
                     'details :\n\nFirst Name - {0}\nAge - {1}\nHeight in Feet - {2}\
                     \nFitness Level - {3}\n'.format(firstName, age, heightInFeet, 
                                                                  fitnessLevel)))

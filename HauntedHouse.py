@@ -18,16 +18,36 @@ def gameIntroduction() :
 
     clearConsole(0)
     
-    #Character.createRandomCharacter()    # TODO add character generation to start of game
-    #Character.createCharacter()          # TODO add character generation to start of game
-
-    print('\n')
     print('Welcome to HAUNTED HOUSE, a text based adventure game.\n')
     # Delays in code execution to improve screen output and the user experience.
     #sleep(0.85) 
     print('You will be presented with numerous choices throughout the game and ' +
           'the choices you make\nwill influence your experience within the game.\n')
-    #sleep(3.5)
+    #sleep(3)
+
+    # Setup a user or random generated character
+    userCharacterOpt = input('Would you like to setup your own character or use a ' +
+                             'randomly generated character?\n\n~ Yes) Character setup ~ ' +
+                            '\n\n~ No) Random Character ~ ').upper()
+
+    sleep(0.5)
+
+    characterMenu = True
+    while characterMenu :
+
+        if userCharacterOpt == 'YES' or userCharacterOpt == 'Y' :
+            characterMenu = False
+            print('\n')
+            Character.createCharacter()
+
+        elif userCharacterOpt == 'NO' or userCharacterOpt == 'N' :
+            characterMenu = False
+            print('\n')
+            Character.createRandomCharacter()
+
+        else :
+            print('Invalid entry')
+            characterMenu = True
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
