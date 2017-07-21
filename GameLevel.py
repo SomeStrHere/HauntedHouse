@@ -1,59 +1,70 @@
-class GameLevel(object):
+class GameLevel(object) :
     """A level within the game is a distinct area; seperate, yet connected to other game areas."""
 
-    def __init__(self, levelDescription, floor, roof, light) : # The constructor
-        self.levelDescription = levelDescription
+    def __init__(self, levelName, floor, roof, lighting, lightType) : # The constructor
+        self.levelName = levelName
         self.floor = floor
         self.roof = roof
-        self.light = light
-        #self.door = door
-        #self.window = window
-        #self.staircase = staircase
+        self.lighting = lighting # Is there a light (appliance) in the room
+        self.lightType = lightType
+
 
     # Instantiate game levels
-        lobby = GameLevel('The Main Reception', 'Hardwood floor', 'Ceiling with Chandeliers', 
-                          '2 large chandeliers'
+        lobby = GameLevel('Reception Area', 'hardwood floor', 'ceiling with chandeliers', 
+                          True, '2 large chandeliers'
                           )
 
-        basement = GameLevel('The Basement', 'Earth floor with disturbed ground', 'Ceiling is floorboards', 
-                             'Light fitting is missing a bulb'
+        lobby.stairway = True
+
+        basement = GameLevel('Basement', 'bare earth floor with disturbed ground', 'floorboards', 
+                             True, 'incandecent light fitting without a bulb'
                              )
 
-        garage = GameLevel('A Large Cluttered Garage', 'Concrete floor', 'A boarded ceiling',
-                           'Flurocent strip lighting'
+        basement.stairwway = True
+
+        garage = GameLevel('Garage', 'concrete floor', 'boarded ceiling',
+                           True, 'fluorescent strip lighting'
                            )
 
-        dinningRoom = GameLevel('The Dinning Room', 'Polished wood floor', 'Pattered wallpaper',
-                                'An amount of candles in holders on and around the dinning table'
+        dinningRoom = GameLevel('Dinning Room', 'polished wood floor', 'pattered wallpaper',
+                                True, 'candles in holders'
                                )
 
-        #kitchen = GameLevel('', '', '')
+        kitchen = GameLevel('Kitchen', 'laminate flooring', 'white painted plaster', 
+                            True, 'downlighters')
     
-        #utility = GameLevel('', '', '')
+        utility = GameLevel('Utility Room', 'stone tiles', 'white painted plaster', 
+                            True, 'incandecent bulb')
 
-        #library = GameLevel('', '', '')
+        library = GameLevel('Library', 'stained wood flooring', 'Dark painted plaster', 
+                            True, 'floor lamps')
 
-        #masterBedroom = GameLevel('', '', '')
+        masterBedroom = GameLevel('Master Bedroom', 'carpet', 'white painted plaster', 
+                                  True, 'incandecent bulb with shade')
 
-        #secondBedroom = GameLevel('', '', '')
+        secondBedroom = GameLevel('Second Bedroom', 'carpet', 'white painted plaster', 
+                                  True, 'incandecent bulb with shade')
 
-        #nursery = GameLevel('', '', '')
+        nursery = GameLevel('Nursery', 'carpet', 'white painted plaster', 
+                            True, 'incandecent bulb with shade')
 
-        #landing = GameLevel('', '', '')
+        landing = GameLevel('Landing', 'carpet', 'white painted plaster',
+                           True, 'incandecent bulb with shade')
 
-        #attick = GameLevel('', '', '')
+        landing.stairway = True
+
+        attick = GameLevel('Attick', 'bare floorboards', 'bare brick', False, 'n/a')
 
 
 # Instantiate outdoor game sub levels
 class OutsideLevel(GameLevel) : 
     """Sub class of GameLevel for outdoor levels of the game."""
 
-    def __init__(self, levelDescription, floor) :
-        super().__init__(levelDescription, floor)
-        self.dayTime = dayTime
+    def __init__(self, levelName, floor, lighting, lightType) :
+        super().__init__(levelName, floor, lighting, lightType)
 
-        start = OutsideLevel('Start Area', 'Gravel drive')
+        start = OutsideLevel('Start Area', 'gravel drive', True, 'street lamp')
 
-        patio = OutsideLevel('The Patio', 'Grass and paving stones')
+        patio = OutsideLevel('The Patio', 'grass and paving stones', True, 'security light')
 
-        garden = OutsideLevel('The Rear Garden', 'Grass')
+        garden = OutsideLevel('The Rear Garden', 'grass', False, 'n/a')

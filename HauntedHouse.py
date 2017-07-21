@@ -7,10 +7,11 @@ from dice import *
 from helpers import *
 from asciiDrawings import *
 from GameLevel import *
+from Character import *
 
 def main() :
-    
-    gameIntroduction()
+    createRandomCharacter()
+    #gameIntroduction()
 
 
 def gameIntroduction() :
@@ -171,7 +172,6 @@ def gameIntroductionMenu() :
 
             if roll == 1 :
                 print('Exiting game in...')
-
                 diceDelayCountdown(1, 10, roll)
 
             else :
