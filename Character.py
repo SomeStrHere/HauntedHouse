@@ -1,4 +1,4 @@
-import random # Used to create a random character
+import random # Used to create a random character; breaks if I remove this line
 
 class Character(object) :
     """None AI player of the game."""

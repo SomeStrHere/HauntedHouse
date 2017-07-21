@@ -31,6 +31,18 @@ class Possesions(Objects) :
     #[storage] location, i.e trouser pocket, holdhall 1, holdhall 2, rucksack
     # left hand, right hand
 
+    # Not used currentLocation and currentLevel here because if the players possesses them,
+    # then the possessions location will be where the player is.
 
+class Weapons(Objects) :
+    """A class to store data and functions related to in game weapons"""
 
+    def __init__(self, name, description, canBePickedUp, canBeCarried, canBePossessed, 
+                 twoHandedCarry, itemType, foundLocation, 
+                 foundLevel, currentLocation, currentLevel, weaponType) : 
+        super().__init__(name, description, canBePickedUp, canBeCarried, canBePossessed, 
+                 twoHandedCarry, itemType, foundLocation, foundLevel, 
+                 currentLocation, currentLevel)
+
+        self.weaponType = weaponType
 
