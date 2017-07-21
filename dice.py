@@ -19,4 +19,13 @@ def diceRoll(maxInt) :
 
     return(diceResult)
 
+def diceDelayCountdown(diceNumber, delay) :
+
+            if roll == number :
+                print('in...')
+                for x in range(delay):
+                    print(x)
+                    sleep(1)
+                    x = (x + 1)
+
 
