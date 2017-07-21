@@ -46,8 +46,10 @@ def gameIntroduction() :
             Character.createRandomCharacter()
 
         else :
-            print('Invalid entry')
-            characterMenu = True
+            print('Invalid  input, please try again')
+            sleep(2)
+            gameIntroduction()
+
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
