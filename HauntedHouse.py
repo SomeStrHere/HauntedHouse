@@ -1,6 +1,6 @@
 # A console based adventure game
 # Created by https://github.com/SomeStrHere
-# V: 0.0.1
+# V: 0.1.0
 
 import sys
 from dice import diceRoll
