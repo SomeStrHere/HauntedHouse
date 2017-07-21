@@ -1,6 +1,6 @@
 # A console based adventure game
 # Created by https://github.com/SomeStrHere
-# V: 0.1.0
+# V: 0.2.0
 
 import sys
 from dice import *
@@ -10,14 +10,17 @@ from GameLevel import *
 from Character import *
 
 def main() :
-    createRandomCharacter()
-    #gameIntroduction()
+    
+    gameIntroduction()
 
-
+    
 def gameIntroduction() :
 
     clearConsole(0)
     
+    #Character.createRandomCharacter()    # TODO add character generation to start of game
+    #Character.createCharacter()          # TODO add character generation to start of game
+
     print('\n')
     print('Welcome to HAUNTED HOUSE, a text based adventure game.\n')
     # Delays in code execution to improve screen output and the user experience.
