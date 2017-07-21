@@ -1,6 +1,7 @@
 # A file containing useful functions related to dice
 
 import random
+from helpers import *
 
 def diceRoll(maxInt) :
     """Returns a pseudo random dice roll of range 1 through x.
@@ -19,7 +20,7 @@ def diceRoll(maxInt) :
 
     return(diceResult)
 
-def diceDelayCountdown(diceNumber, delay) :
+def diceDelayCountdown(diceNumber, delay, roll) :
     """Prints a countdown to the user with a corresponding execution delay.
 
     Prints a countdown to the user and pauses code execution between each count; the count
@@ -29,15 +30,18 @@ def diceDelayCountdown(diceNumber, delay) :
                               countdown delay condition.
 
     Args : delay (int, float) : An int or float representing the length of the count and
-                                corresponding delay; set at 1 second between count. 
+                                corresponding delay; set at 1 second between count.
+
+    Args : roll (int) : An int representing the result of previously called diceRoll()
     
     """
 
-    if diceRoll() == diceNumber :
-        print('in...')
+    if diceRoll(roll) == diceNumber :
         for x in range(delay) :
             print(x)
             sleep(1)
             x = (x + 1)
-
+    else :
+        pass
+    
 

@@ -3,7 +3,7 @@
 # V: 0.1.0
 
 import sys
-from dice import diceRoll
+from dice import *
 from helpers import *
 from asciiDrawings import *
 from GameLevel import *
@@ -167,15 +167,12 @@ def gameIntroductionMenu() :
             input('~ Press Enter to roll ~')
             roll = diceRoll(6)
 
-            print('\nYou rolled a {0}!'.format(roll))
+            print('\nYou rolled a {0}!\n'.format(roll))
 
             if roll == 1 :
                 print('Exiting game in...')
-                for x in range(10):
-                    print(x)
-                    sleep(1)
-                    x = (x + 1)
-                sys.exit()
+
+                diceDelayCountdown(1, 10, roll)
 
             else :
                 sys.exit()
