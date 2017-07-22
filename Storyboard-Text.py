@@ -134,6 +134,35 @@ print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
 #
 print('\nYou pick up your phone and call your parents...\n')
 
+# Number of dials is random int 1 to 3
+numberofDials = random.randint(1,3)
+
+for x in range(numberofDials) :
+    print('Dialing...')
+    # 0.5 second delay between each dial
+    sleep(0.5)
+
+characterName = "" # TODO
+# Start conversation    
+print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
+sleep(0.3)
+print('{0}: I\'m sorry, I got a taxi after a party  on my way over...'.format(characterName))
+print('{0}: and the taxi dropped me off at a strange house in the middle of nowhere...'.format(characterName))
+print('{0}: Then the storm blew in.'.format(characterName))
+sleep(0.3)
+print('Parents: Oh no!')
+sleep(0.3)
+print('Parents: Are you okay?, we\'re a bit stranded by the storm ourselves...')
+print('Parents: We\'ll wire you some Bitcoins, in case you need them')
+print('Parents: Get shelter as best as you can, and we\'ll come pick you up once the storm breaks')
+sleep(0.3)
+print('{0}: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into'.format(characterName))
+print('{0}: Bye for now'.format(characterName))
+print('Parents: Bye, take care')
+
+# Add 200 bitcoins to characters balance
+# Start patio level
+
 
 #
 # Level = Start, player selects option 5 - exit game
