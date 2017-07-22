@@ -24,6 +24,8 @@ print('\nYou walk to the garden gate...\n')
 #
 # Level = Start, player selects option 4 - player opts to use mobile phone to call for help
 #
+# Print outs for option 4 on the start menu are already included in HauntedHouse.py
+print('\nYou decide to use your phone and call for help.')
             #elif roll == 3 or roll == 4 :
             #    print('You pull out your phone... and it\'s dead!\n' +
             #          'Well that sucks! You quickly think about your options...\n\n' +
@@ -36,14 +38,29 @@ print('\nYou walk to the garden gate...\n')
             #    print('You decide to flip a coin; \'Heads\' you reluctantly knock on the door ' +
             #          'and ask for help. If it\'s \'Tails\'; you go\n check out the garden ' +
             #          'through what looks like an open gate.')
-print('\nYou decide to use your phone and call for help.')
-# Print outs for option 4 on the start menu are already included in HauntedHouse.py
 
 # If coin flip result is Heads
-('You walk up to the front door and...') 
+('\nYou walk up to the front door and...\n') 
 # We could use the same statements for option 1 on start menu
 # or create some new statements for this deviation
 
-
 # If coin flip result is Tails
-print('You walk up to the garden gate and...')
+print('\nYou walk up to the garden gate and...\n')
+
+
+#
+# Level = Start, player selects option 4 - dice roll result = 5
+#
+print('\nYou pick up your phone and call a friend...\n')
+
+
+#
+# Level = Start, player selects option 4 - dice roll result = 6
+#
+print('\nYou pick up your phone and call your parents...\n')
+
+
+#
+# Level = Start, player selects option 5 - exit game
+#
+# Print outs for option 5 on the start menu are already included in HauntedHouse.py
