@@ -1,3 +1,6 @@
+from helpers import *
+from asciiDrawings import *
+
 # This file contains story board text segments for use within the game.
 # Currently setup here as a place holder so text segments can be moved to correct place when required.
 
@@ -6,19 +9,42 @@
 # 
 print('\nYou walk up to the front door...\n')
 print('The light from the lampost on the drive barley reaches the front door; you can make out ' +
-      'the shape of the door, and windows but little more, the house is in darkness.')
+      'the shape of the door, and windows but little more, the house is in darkness.\n')
+# Progress into moving the player through to another level
+print('# Dice Roll #')
+print('Roll 1 - 4 = knock on the door.')
+print('Roll 5 = Try to open the door.')
+# Start basement level
+print('Roll 6 = The doormat is a trapdoor and you fall linto the basement.')
+input('\n~ Press Enter to roll ~\n')
 
 
 #
 # Level = Start, player selects option 2 - walk to garage door
 #
 print('\nYou walk to garage door...\n')
+sleep(2)
+# Returns printout of ASCII drawing of front of closed garage door
+asciiClosedGarageFromStart()
+print('\nThe garage is attached to the house, and a thick hedge and fence ' +
+      'on the right side stops you from seeing past the garage into the ' +
+      'back of the property.\n')
+print('# Dice Roll #')
+print('Roll a 1 - 8 = Walk to the front door.')
+print('Roll 8+ = Walk through the open garden gate.')
+input('\n~ Press Enter to roll x2 D6 ~\n')
 
 
 #
 # Level = Start, player selects option 3 - walk to garden gate
 #
 print('\nYou walk to the garden gate...\n')
+print('\nThere is an openning in a large thick hedge with an open gate.\n')
+input('\n~ Press Enter to walk through the open gate ~\n')
+# Start patio level
+clearConsole(0)
+# Returns printout of ASCII drawing of front of closed garage door
+asciiPatioFromStart()
 
 
 #

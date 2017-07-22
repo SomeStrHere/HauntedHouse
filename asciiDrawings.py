@@ -70,7 +70,7 @@ def asciiPatioFromStart() :
     print("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''+++++++++++++'''''''''''''")
     print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''+++++++++++++''''''''''''")
 
-    def asciiClosedGarageFromStart() :
+def asciiClosedGarageFromStart() :
     """Prints an ASCII graphic of the closed garage as it appears to the character looking closeup from the start."""
 
     print("\n")
