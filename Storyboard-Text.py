@@ -1,5 +1,6 @@
 from helpers import *
 from asciiDrawings import *
+import random
 
 # This file contains story board text segments for use within the game.
 # Currently setup here as a place holder so text segments can be moved to correct place when required.
@@ -72,12 +73,60 @@ print('\nYou decide to use your phone and call for help.')
 
 # If coin flip result is Tails
 print('\nYou walk up to the garden gate and...\n')
+# We could use the same statements for option 3 on start menu
+# or create some new statements for this deviation
 
 
 #
 # Level = Start, player selects option 4 - dice roll result = 5
 #
-print('\nYou pick up your phone and call a friend...\n')
+clearConsole(0)
+print('\nYou pick up your phone and call a friend.\n')
+
+# Number of dials is random int 2 to 8
+numberofDials = random.randint(2,8)
+
+for x in range(numberofDials) :
+    print('Dialing...')
+    # 0.5 second delay between each dial
+    sleep(0.5)
+
+characterName = "" # TODO
+# Start conversation    
+print('Friend: Hello, wha\'s up?')
+sleep(0.3)
+print('{0}: Oh Hi, I need some help...'.format(characterName))
+print('{0}: I got invited to a party on the way back home from travelling...'.format(characterName))
+print('{0}: Looks like I got a little drunk and ended up getting dropped off at a strange house...'.format(characterName))
+print('{0}: Not sure where I am; can you help?'.format(characterName))
+sleep(1)
+print('Friend: That sucks... so you have no idea where you are?')
+sleep(0.3)
+print('{0}: No idea!'.format(characterName))
+sleep(0.3)
+print('Friend: How can I help you then; is anyone around, can you find out where you are?')
+sleep(0.3)
+print('{0}: There is no one around; just this creepy house, and I\'m freezing!'.format(characterName))
+sleep(0.3)
+print('Friend: Yeah; I heard about that crazy storm!')
+print('Friend: Well, you can\'t stay out all night, get some shelter, and I\'ll try and ' +
+      'find you when the storm breaks.')
+print('Friend: Don\'t forget you can pick the door open if you need to ' +
+      'just get some shelter')
+sleep(1)
+print('{0}: Hey yeah, forgot about my lockpicks!'.format(characterName))
+print('{0}: The house looks empty; so I\'ll try picking the lock'.format(characterName))
+sleep(0.3)
+print('Friend: Good plan; if that\'t doesn\'t work, better pitch your tent...')
+print('Friend: Stay safe, hopefully see you soon, bye!')
+sleep(0.3)
+print('{0}: Thanks, bye!'.format(characterName))
+print('\nPhone disconnects')
+
+print('# Attempt to pick the lock #')
+print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
+# If player doesn't role a 5+ send them to patio level 
+# (they'll need to pitch their tent or break in through the patio doors)
 
 
 #
