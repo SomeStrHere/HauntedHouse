@@ -10,12 +10,6 @@ class CharacterCreator :
         age = int(input('What is your age in whole years? '))
         fitnessLevel = input('What is your fitness level (Poor, Okay, Great)? ')
 
-        # Alternative print method more suited to testing due to data being entered by user
-        #return(print('\nYour character as the following details : ' + 
-        #             '\n\nFirst Name - {0}\nAge - {1}\nHeight in Feet - {2}\
-        #            \nFitness Level - {3}\n'.format(firstName, age, heightInFeet, 
-        #                                                         fitnessLevel)))
-
         character = Character(firstName, heightInFeet, age, fitnessLevel)
 
         return(character)
@@ -31,13 +25,14 @@ class CharacterCreator :
         heightInFeet = random.choice(heightInFeetData)
         fitnessLevel = random.choice(fitnessLevelData)
 
-        # Instantiated ? Not sure how to access values in HauntedHouse.py - TODO
-        # this method is called in HauntedHouse.py at the character creation. You can access the object from there.
+        # This method is called in HauntedHouse.py at the character creation.
+        # You can access the object from there.
         randomCharacter = Character(firstName, age, heightInFeet, fitnessLevel)
         
         print("Name: " + firstName)
-        print("Age: " + age)
-        print("Height: " + heightInFeet + "ft")
+        print("Age: {0}".format(age))
+        print("Height: {0} ft".format(heightInFeet))
         print("Fitness: " + fitnessLevel)
+        print("")
 
         return(randomCharacter)
