@@ -56,7 +56,7 @@ def gameIntroduction() :
 
 
     locations = createLocations()
-
+    # TODO declare start level as visited
     isGameComplete()
 
     # Setting the scene for the start of the game.
@@ -113,7 +113,29 @@ def gameIntroductionMenu() :
 
         if userSelects == '1' :
             clearConsole(0)
-            print('\nTesting - walk to front door') # TODO - see story board text in Storyboard-Text.py
+            print('\nYou walk up to the front door...\n')
+            print('The light from the lampost on the drive barley reaches the front door; you can make out ' +
+            'the shape of the door, and windows but little more, the house is in darkness.\n')
+            print('# Dice Roll #')
+            print('Roll 1 - 4 = knock on the door.')
+            print('Roll 5 = Try to open the door.')
+            print('Roll 6 = ... sssh it\'s a surprise!')
+            input('\n~ Press Enter to roll ~\n')
+            roll = diceRoll(6)
+            if roll ==  <= 4 :
+                print('Knock, Knock...')
+                # TODO add what happens next
+
+            elif roll == 5 :
+                print('You reach out for the door handle and tentatively turn it...')
+                # TODO add what happens next
+
+            else :
+                print('Surprise!')
+                print('You\'ve activated a trapdoor and find yourself in an underground room.')
+                # TODO start basement level
+                # TODO declare basement level as visited
+
             varMenu = False
 
         elif userSelects == '2' :

@@ -8,17 +8,6 @@ import random
 #
 # Level = Start, player selects option 1 - walk up to the front door
 # 
-print('\nYou walk up to the front door...\n')
-print('The light from the lampost on the drive barley reaches the front door; you can make out ' +
-      'the shape of the door, and windows but little more, the house is in darkness.\n')
-# Progress into moving the player through to another level
-print('# Dice Roll #')
-print('Roll 1 - 4 = knock on the door.')
-print('Roll 5 = Try to open the door.')
-# Start basement level
-print('Roll 6 = The doormat is a trapdoor and you fall linto the basement.')
-input('\n~ Press Enter to roll ~\n')
-
 
 #
 # Level = Start, player selects option 2 - walk to garage door
