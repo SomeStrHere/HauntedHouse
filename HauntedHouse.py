@@ -222,7 +222,7 @@ def isGameComplete() :
     for location in locations : 
 
         # Check if locations as been visited
-        if Location.checkVisited == True :
+        if Location.checkVisited() == True :
             # Increment counter if location as been visited
             LocationsVistedCounter = LocationsVistedCounter + 1
 
