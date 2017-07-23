@@ -32,6 +32,12 @@ class CharacterCreator :
         fitnessLevel = random.choice(fitnessLevelData)
 
         # Instantiated ? Not sure how to access values in HauntedHouse.py - TODO
+        # this method is called in HauntedHouse.py at the character creation. You can access the object from there.
         randomCharacter = Character(firstName, age, heightInFeet, fitnessLevel)
+        
+        print("Name: " + firstName)
+        print("Age: " + age)
+        print("Height: " + heightInFeet + "ft")
+        print("Fitness: " + fitnessLevel)
 
         return(randomCharacter)
