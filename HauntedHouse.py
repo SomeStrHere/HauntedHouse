@@ -22,11 +22,11 @@ def gameIntroduction() :
 
     clearConsole(0)
     welcomeGraphic()
-    print('Welcome to HAUNTED HOUSE, a text based adventure game.\n')
     input('~ Press Enter to continue ~')
+    clearConsole(0)
     # Delays in code execution to improve screen output and the user experience.
     #sleep(0.85) 
-    print('You will be presented with numerous choices throughout the game and ' +
+    print('\nYou will be presented with numerous choices throughout the game and ' +
           'the choices you make\nwill influence your experience within the game.\n')
     #sleep(3)
 
