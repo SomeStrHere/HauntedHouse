@@ -18,6 +18,7 @@ def main() :
 
     
 def gameIntroduction() :
+    global locations, character
 
     clearConsole(0)
     
@@ -55,6 +56,8 @@ def gameIntroduction() :
 
 
     locations = createLocations()
+
+    isGameComplete()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
@@ -222,7 +225,7 @@ def isGameComplete() :
     for location in locations : 
 
         # Check if locations as been visited
-        if Location.checkVisited() == True :
+        if location.checkVisited() == True :
             # Increment counter if location as been visited
             LocationsVistedCounter = LocationsVistedCounter + 1
 
