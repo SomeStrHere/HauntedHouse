@@ -316,7 +316,7 @@ def gameIntroductionMenu() :
                 # If player doesn't role a 5+ send them to patio level 
                 # (they'll need to pitch their tent or break in through the patio doors)
 
-                roll = diceRoll()
+                roll = diceRoll(6)
 
                 if roll >= 5 :
                     print('Congratulations! You picked the lock and step inside...')
