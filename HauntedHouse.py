@@ -21,8 +21,9 @@ def gameIntroduction() :
     global locations, character
 
     clearConsole(0)
-    
+    welcomeGraphic()
     print('Welcome to HAUNTED HOUSE, a text based adventure game.\n')
+    input('~ Press Enter to continue ~')
     # Delays in code execution to improve screen output and the user experience.
     #sleep(0.85) 
     print('You will be presented with numerous choices throughout the game and ' +
@@ -340,7 +341,7 @@ def gameIntroductionMenu() :
                     print('Picking the lock failed...')
                     print('You walk through the open gate next to the house...')
                     walk()
-                     sleep(1.3)
+                    sleep(1.3)
                     # TODO - start Patio level
 
             else : # You rolled a 6
