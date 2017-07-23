@@ -18,6 +18,7 @@ def main() :
 
     
 def gameIntroduction() :
+    global locations, character
 
     clearConsole(0)
     
@@ -55,6 +56,8 @@ def gameIntroduction() :
 
 
     locations = createLocations()
+
+    isGameComplete()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
@@ -211,6 +214,43 @@ def gameIntroductionMenu() :
             #TODO implement ability to exit program after x number of errors are given here
             print('\nSorry; that was an invalid option, please try again\n')
             varMenu = True
+
+def isGameComplete() :
+
+    # Check if all locations have been visited.
+    
+    LocationsVistedCounter = 0
+
+    # Loop through each location in list of locations
+    for location in locations : 
+
+        # Check if locations as been visited
+        if location.checkVisited() == True :
+            # Increment counter if location as been visited
+            LocationsVistedCounter = LocationsVistedCounter + 1
+
+    # Determine if all locations have been visited
+    if LocationsVistedCounter == len(locations) :
+        return(gameComplete())
+
+def gameComplete() :
+
+       print('Congratulations you have completed the game!')
+       # TODO produce ASCII graphic for completing the game
+
+       completeMenu = input('Would you like to play again? Y / N ').upper()
+
+       if completeMenu == 'Y' :
+           # Start game again from beginning
+           gameIntroduction()
+
+       elif completeMenu == 'N' :
+           sys.exit()
+
+       else :
+           clearConsole(0)
+           gameComplete()
+
 
 
 if __name__ == "__main__" :
