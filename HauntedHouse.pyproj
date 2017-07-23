@@ -43,7 +43,7 @@
     <Compile Include="CharacterCreator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Room.py">
+    <Compile Include="Location.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
