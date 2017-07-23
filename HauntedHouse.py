@@ -10,6 +10,7 @@ from helpers import *
 from asciiDrawings import *
 from GameLevel import *
 from Character import *
+from Room import *
 
 def main() :
     
@@ -51,7 +52,9 @@ def gameIntroduction() :
             print('Invalid  input, please try again')
             sleep(2)
             gameIntroduction()
+            
 
+    rooms = createRooms()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
