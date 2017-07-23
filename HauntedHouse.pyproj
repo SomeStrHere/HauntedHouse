@@ -37,13 +37,13 @@
     <Compile Include="Character.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Location.py" />
     <Compile Include="Objects.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CharacterCreator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Location.py">
     <Compile Include="Storyboard-Text.py">
       <SubType>Code</SubType>
     </Compile>
