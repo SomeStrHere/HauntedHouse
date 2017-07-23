@@ -177,7 +177,9 @@ def gameIntroductionMenu() :
         elif userSelects == '2' :
             clearConsole(0)
             print('\nYou walk up to the garage door...\n')
-            sleep(2)
+            # Walk() will produce a series of strings using sleep(x) to delay each statement.
+            walk()
+            sleep(1.5)
             # Returns printout of ASCII drawing of front of closed garage door
             asciiClosedGarageFromStart()
             print('\nThe garage is attached to the house, and a thick hedge and fence ' +
@@ -207,6 +209,7 @@ def gameIntroductionMenu() :
 
         elif userSelects == '3' :
             clearConsole(0)
+            # TODO Create a function for moving through this gate, with various options
             print('\nYou walk to the garden gate...\n')
             print('\nThere is an openning in a large thick hedge with an open gate.\n')
             input('\n~ Press Enter to walk through the open gate ~\n')
