@@ -4,11 +4,13 @@
 
 import sys
 import random
+from CharacterCreator import *
 from dice import *
 from helpers import *
 from asciiDrawings import *
 from GameLevel import *
 from Character import *
+from Location import *
 
 def main() :
     
@@ -39,18 +41,20 @@ def gameIntroduction() :
         if userCharacterOpt == 'YES' or userCharacterOpt == 'Y' :
             characterMenu = False
             print('\n')
-            Character.createCharacter()
+            character = CharacterCreator.createCharacter()
 
         elif userCharacterOpt == 'NO' or userCharacterOpt == 'N' :
             characterMenu = False
             print('\n')
-            Character.createRandomCharacter()
+            character = CharacterCreator.createRandomCharacter()
 
         else :
             print('Invalid  input, please try again')
             sleep(2)
             gameIntroduction()
 
+
+    locations = createLocations()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
