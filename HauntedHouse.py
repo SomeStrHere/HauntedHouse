@@ -111,8 +111,10 @@ def gameIntroductionMenu() :
         if userSelects == '1' :
             clearConsole(0)
             print('\nYou walk up to the front door...\n')
-            print('The light from the lampost on the drive barley reaches the front door; you can make out ' +
-            'the shape of the door, and windows but little more, the house is in darkness.\n')
+            walk()
+            sleep(1.3)
+            print('\nThe light from the lampost on the drive barley reaches the front door; you can make out ' +
+            'the shape of the door,\nand windows but little more, the house is in darkness.\n')
             print('# Dice Roll #')
             print('Roll 1 - 4 = knock on the door.')
             print('Roll 5 = Try to open the door.')
@@ -198,6 +200,8 @@ def gameIntroductionMenu() :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
                 print('You spot the garden gate and walk through it...')
+                walk()
+                sleep(1.3)
                 # TODO start Patio level
             else :
                 print('Lucky you; rolling that double 6!')
@@ -211,7 +215,9 @@ def gameIntroductionMenu() :
             clearConsole(0)
             # TODO Create a function for moving through this gate, with various options
             print('\nYou walk to the garden gate...\n')
-            print('\nThere is an openning in a large thick hedge with an open gate.\n')
+            walk()
+            sleep(1.3)
+            print('\nThere is an openning in a large thick hedge, the gate indeed is open\n')
             input('\n~ Press Enter to walk through the open gate ~\n')
             # TODO - start Patio level
             clearConsole(0)
@@ -238,7 +244,9 @@ def gameIntroductionMenu() :
 
             if roll == 1 or roll == 2 :
                 print('Annoyed with yourself for leaving your phone in the taxi, you ' +
-                      'walk up to the garage door looking for shelter.')
+                      'walk up to the garage door looking for some shelter.')
+                walk()
+                sleep(1.3)
                 #TODO
 
             elif roll == 3 or roll == 4 :
@@ -262,12 +270,16 @@ def gameIntroductionMenu() :
 
                 if coinFace == 'Heads' :
                     print('You walk up to the front door and...')
+                    walk()
+                    sleep(1.3)
                     # TODO
                     # We could use the same statements for option 1 on start menu
                     # or create some new statements for this deviation
 
                 elif coinFace == 'Tails':
                     print('You walk up to the garden gate and...')
+                    walk()
+                    sleep(1.3)
                     # TODO
                     # We could use the same statements for option 3 on start menu
                     # or create some new statements for this deviation
@@ -327,6 +339,8 @@ def gameIntroductionMenu() :
                 else :
                     print('Picking the lock failed...')
                     print('You walk through the open gate next to the house...')
+                    walk()
+                     sleep(1.3)
                     # TODO - start Patio level
 
             else : # You rolled a 6
@@ -399,7 +413,7 @@ def meaningOfLife() :
     if answer == '42' :
         print('That\'s it!')
         print('Now, you may enter...')
-        print('\nYou walk step inside...')
+        print('\nYou step inside...')
         #TODO - start Lobby level
                         
     else :
