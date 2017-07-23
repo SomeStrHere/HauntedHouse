@@ -27,3 +27,7 @@ class Room :
     def setPropertyValue(self, property, value) :
         self.properties[property] = value
 
+def createRooms() :
+    ## TODO
+    return []
+
