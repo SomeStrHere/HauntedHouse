@@ -4,6 +4,7 @@
 
 import sys
 import random
+from CharacterCreator import *
 from dice import *
 from helpers import *
 from asciiDrawings import *
@@ -39,12 +40,12 @@ def gameIntroduction() :
         if userCharacterOpt == 'YES' or userCharacterOpt == 'Y' :
             characterMenu = False
             print('\n')
-            Character.createCharacter()
+            character = CharacterCreator.createCharacter()
 
         elif userCharacterOpt == 'NO' or userCharacterOpt == 'N' :
             characterMenu = False
             print('\n')
-            Character.createRandomCharacter()
+            character = CharacterCreator.createRandomCharacter()
 
         else :
             print('Invalid  input, please try again')
