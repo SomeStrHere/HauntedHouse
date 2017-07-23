@@ -106,7 +106,7 @@ def gameIntroductionMenu() :
 
         if userSelects == '1' :
             clearConsole(0)
-            print('\nTesting - walk to front door')
+            print('\nTesting - walk to front door') # TODO - see story board text in Storyboard-Text.py
             varMenu = False
 
         elif userSelects == '2' :
