@@ -81,9 +81,6 @@ def gameIntroduction() :
     # display the ASCII graphic of the outside of the house
     asciiHouse()
 
-    # Descibre the weather, surroundings, the house and present the user the their first
-    # options - TODO
-
     print('It\'s stormy and foggy; you\'re already soaked through with the rain. but ' +
           'you can tell this isn\'t your family home.\nBeing away travelling since ' +
           'finishing University you expected to see some changes, afterall you\'ve ' +
@@ -122,30 +119,100 @@ def gameIntroductionMenu() :
             print('Roll 6 = ... sssh it\'s a surprise!')
             input('\n~ Press Enter to roll ~\n')
             roll = diceRoll(6)
-            if roll ==  <= 4 :
+            if roll  <= 4 :
                 print('Knock, Knock...')
-                # TODO add what happens next
+                sleep(2)
+                randomOption = random.randint(0,2)
+
+                if randomOption == 0 :
+                    print('Creeeeaaak')
+                    print('The front door slowly opens!!!')
+                    sleep(1)
+                    print('You can only see darkness; and can\'t mak anything out; ' +
+                          'you step inside...')
+                    #TODO - start Lobby level
+
+                elif randomOption == 1 :
+                    print('What was that...?')
+                    sleep(1)
+                    print('There it is again... very faint; difficult to make out ' +
+                          'but growing louder')
+                    print('Whooooo gooooeesss theerrrrreeee?????')
+                    sleep(1)
+                    print('WTF!')
+                    print('"This is certainly creepy"')
+                    print('"How much did I have to drink...?"')
+                    print('\nYou try to introduce yourself and explain your situation, ' +
+                          'but are interupted...')
+                    print('If you want to come in here, you\'ll need the password')
+                    sleep(1)
+                    print('"The password!"')
+                    sleep(0.3)
+                    print('All you have to do is tell me the meaning of life?')
+                    sleep(0.5)
+                    print('"Well, I can\'t stay out here all night"')
+                    meaningOfLife()                
+
+                else :
+                    print('No, answer; you try again')
+                    print('Knock, Knock')
+                    sleep(3)
+                    print('There is no answer; try the garden gate, it looks open')
+                    #TODO - start Patio level
 
             elif roll == 5 :
                 print('You reach out for the door handle and tentatively turn it...')
-                # TODO add what happens next
+                sleep(2)
+                print('It\'s locked!')
+                #TODO add facility to pick the lock
 
             else :
                 print('Surprise!')
                 print('You\'ve activated a trapdoor and find yourself in an underground room.')
                 # TODO start basement level
-                # TODO declare basement level as visited
+                # TODO declare basement level as visited?
 
             varMenu = False
 
         elif userSelects == '2' :
             clearConsole(0)
-            print('\nTesting - walk to garage door')
+            print('\nYou walk up to the garage door...\n')
+            sleep(2)
+            # Returns printout of ASCII drawing of front of closed garage door
+            asciiClosedGarageFromStart()
+            print('\nThe garage is attached to the house, and a thick hedge and fence ' +
+                  'on the right side stops you from seeing past the garage into the ' +
+                  'back of the property.\n')
+            print('# Dice Roll #')
+            print('Roll a 1 - 8 = Walk to the front door.')
+            print('Roll 9 - 11 = Walk through the open garden gate.')
+            input('\n~ Press Enter to roll x2 D6 ~\n')
+            roll = diceRoll(12)
+            if roll <= 8 :
+                #TODO - reload code block for 'walk up to front door'
+                # How best to do that?
+                pass
+            elif roll >= 9 and roll <= 11 :
+                print('The garage doesn\'t offer much help')
+                sleep(0.5)
+                print('You spot the garden gate and walk through it...')
+                # TODO start Patio level
+            else :
+                print('Lucky you; rolling that double 6!')
+                print('You find a key in the darkness, and try it in the garage door')
+                print('Wow! You\'r luck knows no bounds...')
+                print('You open the garage door just enough to squeeze inside...')
+                # TODO - start Garage level
             varMenu = False
 
         elif userSelects == '3' :
             clearConsole(0)
-            print('\nTesting - walk to garden gate')
+            print('\nYou walk to the garden gate...\n')
+            print('\nThere is an openning in a large thick hedge with an open gate.\n')
+            input('\n~ Press Enter to walk through the open gate ~\n')
+            # TODO - start Patio level
+            clearConsole(0)
+            asciiPatioFromStart()
             varMenu = False
 
         elif userSelects == '4' :
@@ -169,7 +236,7 @@ def gameIntroductionMenu() :
             if roll == 1 or roll == 2 :
                 print('Annoyed with yourself for leaving your phone in the taxi, you ' +
                       'walk up to the garage door looking for shelter.')
-                # TO DO present user with new scene, options - OOP?
+                #TODO
 
             elif roll == 3 or roll == 4 :
                 print('You pull out your phone... and it\'s dead!\n' +
@@ -192,19 +259,104 @@ def gameIntroductionMenu() :
 
                 if coinFace == 'Heads' :
                     print('You walk up to the front door and...')
-                    print('TODO, OOP?') # TODO
+                    # TODO
+                    # We could use the same statements for option 1 on start menu
+                    # or create some new statements for this deviation
 
                 elif coinFace == 'Tails':
                     print('You walk up to the garden gate and...')
-                    print('TODO, OOP?') # TODO
+                    # TODO
+                    # We could use the same statements for option 3 on start menu
+                    # or create some new statements for this deviation
             
             elif roll == 5 :
                 print('You pick up your phone and call a friend...')
-                print('TODO, OOP? Remember phone conversation with friend') # TODO
+                # Number of dials is random int 2 to 8
+                numberofDials = random.randint(2,8)
+
+                for x in range(numberofDials) :
+                    print('Dialing...')
+                    # 0.5 second delay between each dial
+                    sleep(0.5)
+
+                characterName = "" # TODO
+                # Start conversation    
+                print('Friend: Hello, wha\'s up?')
+                sleep(0.3)
+                print('{0}: Oh Hi, I need some help...'.format(characterName))
+                print('{0}: I got invited to a party on the way back home from travelling...'.format(characterName))
+                print('{0}: Looks like I got a little drunk and ended up getting dropped off at a strange house...'.format(characterName))
+                print('{0}: Not sure where I am; can you help?'.format(characterName))
+                sleep(1)
+                print('Friend: That sucks... so you have no idea where you are?')
+                sleep(0.3)
+                print('{0}: No idea!'.format(characterName))
+                sleep(0.3)
+                print('Friend: How can I help you then; is anyone around, can you find out where you are?')
+                sleep(0.3)
+                print('{0}: There is no one around; just this creepy house, and I\'m freezing!'.format(characterName))
+                sleep(0.3)
+                print('Friend: Yeah; I heard about that crazy storm!')
+                print('Friend: Well, you can\'t stay out all night, get some shelter, and I\'ll try and ' +
+                     'find you when the storm breaks.')
+                print('Friend: Don\'t forget you can pick the door open if you need to ' +
+                     'just get some shelter')
+                sleep(1)
+                print('{0}: Hey yeah, forgot about my lockpicks!'.format(characterName))
+                print('{0}: The house looks empty; so I\'ll try picking the lock'.format(characterName))
+                sleep(0.3)
+                print('Friend: Good plan; if that\'t doesn\'t work, better pitch your tent...')
+                print('Friend: Stay safe, hopefully see you soon, bye!')
+                sleep(0.3)
+                print('{0}: Thanks, bye!'.format(characterName))
+                print('\nPhone disconnects')
+
+                print('# Attempt to pick the lock #')
+                print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
+                # If player doesn't role a 5+ send them to patio level 
+                # (they'll need to pitch their tent or break in through the patio doors)
+
+                roll = diceRoll()
+
+                if roll >= 5 :
+                    print('Congratulations! You picked the lock and step inside...')
+                    # TODO - start Lobby level
+                else :
+                    print('Picking the lock failed...')
+                    print('You walk through the open gate next to the house...')
+                    # TODO - start Patio level
 
             else : # You rolled a 6
-                print('You pick up your phone and call your parents...')
-                print('TODO, OOP? Remember to credit bitcoin wallet with 250') # TODO
+                print('\nYou pick up your phone and call your parents...\n')
+
+                # Number of dials is random int 1 to 3
+                numberofDials = random.randint(1,3)
+
+                for x in range(numberofDials) :
+                    print('Dialing...')
+                    # 0.5 second delay between each dial
+                    sleep(0.5)
+
+                characterName = "" # TODO
+                # Start conversation    
+                print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
+                sleep(0.3)
+                print('{0}: I\'m sorry, I got a taxi after a party  on my way over...'.format(characterName))
+                print('{0}: and the taxi dropped me off at a strange house in the middle of nowhere...'.format(characterName))
+                print('{0}: Then the storm blew in.'.format(characterName))
+                sleep(0.3)
+                print('Parents: Oh no!')
+                sleep(0.3)
+                print('Parents: Are you okay?, we\'re a bit stranded by the storm ourselves...')
+                print('Parents: We\'ll wire you some Bitcoins, in case you need them')
+                print('Parents: Get shelter as best as you can, and we\'ll come pick you up once the storm breaks')
+                sleep(0.3)
+                print('{0}: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into'.format(characterName))
+                print('{0}: Bye for now'.format(characterName))
+                print('Parents: Bye, take care')
+
+                # TODO - Add 200 bitcoins to players bitcoin wallet/balance
+                # TODO - start Patio level
 
         elif userSelects == '5' :
             varMenu = False
@@ -236,6 +388,21 @@ def gameIntroductionMenu() :
             #TODO implement ability to exit program after x number of errors are given here
             print('\nSorry; that was an invalid option, please try again\n')
             varMenu = True
+
+def meaningOfLife() :
+    print('Now... what\'s the meaning of life? Hmmm')
+    answer = input('~ Enter your guess ~ ')
+    
+    if answer == '42' :
+        print('That\'s it!')
+        print('Now, you may enter...')
+        print('\nYou walk step inside...')
+        #TODO - start Lobby level
+                        
+    else :
+        print('Sorry, that\'s not correct')
+        meaningOfLife()
+
 
 def isGameComplete() :
 
