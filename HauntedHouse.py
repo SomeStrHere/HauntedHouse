@@ -566,7 +566,25 @@ def randomGateOptions(skipInt) :
             
     elif randomNumber >=5 and randomNumber <= 7 :
         # TODO - something else
-        print('Testing - A random value 5 - 7')
+        print('As you start looking at the gate at the side of the house; you notice a shiny coin ' +
+              'on the floor and pick it up')
+        print('The coin as "Teleportation Coin" written on it... so you give it a toss')
+        headsOrTails = coinToss()
+        if headsOrTails == 'Heads' :
+            print('Woooooooooooooooooooooooossssshhhh')
+            print('You\'re not outside anymore!')
+            print('You\'ve been teleported to...')
+            sleep(2)
+            print('A nursery!')
+            # TODO start Nursery level
+
+        else :
+            print('Shiiiiiiiiiiiiiiiiiiiiiittttttt!!!')
+            print('You\'re not outside anymore!')
+            print('You\'ve been teleported to...')
+            sleep(2)
+            print('hmmmm... you have no idea!')
+            # TODO start Attick level
 
     elif randomNumber >= 8 and randomNumber <= maxInt :
         print('After looking around, you have discovered that this large gate is unlocked.')
