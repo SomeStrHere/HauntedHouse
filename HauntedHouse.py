@@ -162,8 +162,8 @@ def gameIntroductionMenu() :
                     print('No, answer; you try again')
                     print('Knock, Knock')
                     sleep(3)
-                    print('There is no answer; try the garden gate, it looks open')
-                    #TODO - start Patio level
+                    print('There is no answer; try the garden gate')
+                    StartToPatioGate()
 
             elif roll == 5 :
                 print('You reach out for the door handle and tentatively turn it...')
@@ -203,9 +203,12 @@ def gameIntroductionMenu() :
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
-                print('You spot the garden gate at the other side of the property\nand walk through it...')
+                print('You spot the garden gate at the other side of the property...')
                 walk()
                 sleep(1.3)
+                print('You\'re in luck the gate as been left open')
+                input('~ Press Enter to go through the gate ~')
+                asciiPatioFromStart()
                 # TODO start Patio level
             else :
                 print('Lucky you; rolling that double 6!')
@@ -220,7 +223,7 @@ def gameIntroductionMenu() :
             print('\nYou walk to the garden gate...\n')
             walk()
             sleep(1.3)
-            StartToPatioGate()
+            StartToPatioGate('')
             varMenu = False
 
         elif userSelects == '4' :
@@ -233,8 +236,6 @@ def gameIntroductionMenu() :
                   '\nRolling a 3-4; your battery is flat\n' +
                   '\nRolling a 5, you call your friend.' +
                   '\n\nRolling a 6; you call your parents.')
-                  #'who are worried about you, say they will try to find you at\n'
-                  #'first light and they transfer 250 bit coins into your wallet.'
 
             input('\n~ Press Enter to roll ~\n')
             roll = diceRoll(6)
@@ -279,9 +280,7 @@ def gameIntroductionMenu() :
                     print('You walk up to the garden gate and...')
                     walk()
                     sleep(1.3)
-                    # TODO
-                    # We could use the same statements for option 3 on start menu
-                    # or create some new statements for this deviation
+                    StartToPatioGate('Dead Phone')
             
             elif roll == 5 :
                 print('You pick up your phone and call a friend...')
@@ -420,23 +419,52 @@ def meaningOfLife() :
         meaningOfLife()
 
 
-def StartToPatioGate() :
+def StartToPatioGate(deviation) :
     # Function to set the scene for progressing the player from the Start level to the Patio level. 
 
-    clearConsole(1)
-    print('\nAt the  left hand side of the house, there is a very large hedge; and a fence behind that.')
-    print('The hedge is too thick to climb through and too high for you to attempt to climb over.')
-    sleep(1.5)
-    print('\nLuckily')
-    sleep(0.3)
-    print('\n...or not')
-    sleep(0.5)
-    print('\nThere is an openning with a large gate.')
-    sleep(0.5)
-    print('If you could get through; you might be able to find shelter or get some help...')
-    input('\n~ Press Enter to see what happens next ~')
-    randomGateOptions(0)
+    deviation = ''
 
+    if deviation == 'Dead Phone' :
+        randomDeviation = random.randint(0,1)
+
+        if randomDeviation == 0:
+            print('Lucky you! The gate is open afterall')
+            print('~ Press Enter to go through the gate ~')
+            clearConsole(1.5)
+            asciiPatioFromStart()
+           #TODO start Patio level
+
+        else :
+            if character.heightInFeet > 6 :
+                print('Being tall as its advantages...')
+                print('You grab hold of a hanging rope, climb up and over the hedge')
+                clearConsole(1.5)
+                asciiPatioFromStart()
+                #TODO start Patio level
+            elif character.heightInFeet < 4 :
+                print('Being short as its advantages...')
+                print('You find a small hole in the hedge and pull yourself through')
+                clearConsole(1.5)
+                asciiPatioFromStart()
+            else :
+                randomGateOptions(0)
+
+
+    else : # If this isn't a deviation
+        clearConsole(1)
+        print('\nAt the  left hand side of the house, there is a very large hedge; and a fence behind that.')
+        print('The hedge is too thick to climb through and too high for you to attempt to climb over.')
+        sleep(1.5)
+        print('\nLuckily')
+        sleep(0.3)
+        print('\n...or not')
+        sleep(0.5)
+        print('\nThere is an openning with a large gate.')
+        sleep(0.5)
+        print('If you could get through; you might be able to find shelter or get some help...')
+        input('\n~ Press Enter to see what happens next ~')
+        randomGateOptions(0)
+   
 
 def randomGateOptions(skipInt) :
 
