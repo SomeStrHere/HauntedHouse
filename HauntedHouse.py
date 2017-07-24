@@ -102,7 +102,7 @@ def gameIntroductionMenu() :
         print('Here are your options:\n')
         print('1) Walk up to the front door')
         print('2) Walk up to the garage door')
-        print('3) Walk up to the garden gate, it appears to be open')
+        print('3) Walk up to the garden gate')
         print('4) Use your mobile phone')
         print('5) Run away, back down the drive (Exit the game)\n')
 
@@ -188,21 +188,22 @@ def gameIntroductionMenu() :
             # Returns printout of ASCII drawing of front of closed garage door
             asciiClosedGarageFromStart()
             print('\nThe garage is attached to the house, and a thick hedge and fence ' +
-                  'on the right side stops you from seeing past the garage into the ' +
+                  'on the right side stops you from seeing past\nthe garage into the ' +
                   'back of the property.\n')
             print('# Dice Roll #')
             print('Roll a 1 - 8 = Walk to the front door.')
-            print('Roll 9 - 11 = Walk through the open garden gate.')
+            print('Roll 9 - 11 = You try the other side of the property.')
             input('\n~ Press Enter to roll x2 D6 ~\n')
             roll = diceRoll(12)
+            print('\nYou rolled a {0}!\n'.format(roll))
             if roll <= 8 :
                 #TODO - reload code block for 'walk up to front door'
                 # How best to do that?
-                pass
+                print('Testing - TODO')
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
-                print('You spot the garden gate and walk through it...')
+                print('You spot the garden gate at the other side of the property\nand walk through it...')
                 walk()
                 sleep(1.3)
                 # TODO start Patio level
@@ -216,15 +217,10 @@ def gameIntroductionMenu() :
 
         elif userSelects == '3' :
             clearConsole(0)
-            # TODO Create a function for moving through this gate, with various options
             print('\nYou walk to the garden gate...\n')
             walk()
             sleep(1.3)
-            print('\nThere is an openning in a large thick hedge, the gate indeed is open\n')
-            input('\n~ Press Enter to walk through the open gate ~\n')
-            # TODO - start Patio level
-            clearConsole(0)
-            asciiPatioFromStart()
+            StartToPatioGate()
             varMenu = False
 
         elif userSelects == '4' :
@@ -423,6 +419,70 @@ def meaningOfLife() :
         print('Sorry, that\'s not correct')
         meaningOfLife()
 
+
+def StartToPatioGate() :
+    # Function to set the scene for progressing the player from the Start level to the Patio level. 
+
+    clearConsole(1)
+    print('\nAt the  left hand side of the house, there is a very large hedge; and a fence behind that.')
+    print('The hedge is too thick to climb through and too high for you to attempt to climb over.')
+    sleep(1.5)
+    print('\nLuckily')
+    sleep(0.3)
+    print('\n...or not')
+    sleep(0.5)
+    print('\nThere is an openning with a large gate.')
+    sleep(0.5)
+    print('If you could get through; you might be able to find shelter or get some help...')
+    input('\n~ Press Enter to see what happens next ~')
+    randomGateOptions(0)
+
+
+def randomGateOptions(skipInt) :
+
+    print('')
+    skipInt = 0
+    minInt = 0
+    maxInt = 9
+
+    # TODO - This commented out code block bellow is designed to stop a user
+    # from randomly generating the "wait 20 seconds" option back to back (buggy atm)
+
+    #while skipInt != 1 :
+    #    randomNumber = random.randint(minInt, maxInt)
+    #randomNumber = random.randint(1, maxInt)
+
+    randomNumber = random.randint(minInt, maxInt)
+
+    if randomNumber == 0 :
+        print('Woahhh')
+        print('You appear to be stuck within the space time continum!')
+        print('It\'ll take you 20 seconds to become unstuck...')
+        for x in range(20) :
+            print(x)
+            sleep(1)
+            x = (x + 1)
+        print('You\'re still outside the gate.. let\'s try again...')
+        randomGateOptions(1)
+
+    elif randomNumber == 1 or randomNumber == 2:
+        # TODO - something else 
+        print('Testing - A random value 1 - 2')
+
+    elif randomNumber == 3 or randomNumber == 4 :
+        # TODO - something else
+        print('Testing - A random value 3 - 4')
+
+    elif randomNumber >=5 and randomNumber <= 7 :
+        # TODO - something else
+        print('Testing - A random value 5 - 7')
+
+    elif randomNumber >= 8 and randomNumber <= maxInt :
+        print('After looking around, you have discovered that this large gate is unlocked.')
+        print('Nervously, you open the gate and state inside...')
+        clearConsole(1.5)
+        asciiPatioFromStart()
+        #TODO start Patio level
 
 def isGameComplete() :
 
