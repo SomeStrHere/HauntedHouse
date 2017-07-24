@@ -1,6 +1,6 @@
 # A console based adventure game
 # Created by https://github.com/SomeStrHere
-# V: 0.2.5
+# V: 0.3.0
 
 import sys
 import random
@@ -635,9 +635,31 @@ def doorOptions(option) :
     # The dialogue and options for players to pass through doorways
     # Locked option 1
     if randomNumber == 0 :
-       print('Testing - Locked option 1')
-       locations[0].setAsVisited()
+       print('The door is locked with a very sophisticated lock\nthere is no way ' +
+             'for you - or anyone! to pick this lock; it simply won\'t happen!')
+       sleep(1.5)
+       print('You take another look at the door...')
+       print('While the lock does indeed look formidable; the door and door frame ' +
+       'appears\nto only be made out of plywood!')
+       sleep(2)
+       print('If you\'re big and fit enough you can break through the door!')
+       
+       if character.heightInFeet >= 4.5 and character.fitnessLevel == 'Great' :
+           print('\nSmash!')
+           sleep(0.5)
+           print('Crash')
+           sleep(0.5)
+           print('/nYou\'ve done it, you\'ve smashed through the door!')
+           locations[0].setAsVisited()
+           print('New level...')
+           # TODO - not sure where to connect this generic function up to a specific doorway
 
+       else :
+            Print('There is no getting through this door; the lock is unbreakable, and a ' +
+                  'weakling like you can\'t break through the door either, pathetic!')
+            # TODO - finish
+            locations[0].setAsVisited()
+       
     # Locked option 2
     elif randomNumber >= 1 and randomNumber <= 3 :
         print('Testing - Locked option 2')
