@@ -12,9 +12,15 @@ class Objects(object) :
         self.twoHandedCarry = twoHandedCarry # Does it need two hands to carry it
         self.canBeCarried = canBeCarried
         self.canBePossessed = canBePossessed
-        self.itemType = itemType # clothing, furniture, ornament, weapon, shelter, food, drink, fuel, money
+        self.itemType = itemType
         self.foundLocation = foundLocation
         self.currentLocation = currentLocation
+
+        itemType = ['Clothing', 'Furniture', 'Ornament', 'Weapon', 'Shelter', 'Food', 'Drink', 'Fuel', 'Money', 'Tool']
+        # An example of a tool would be lockpicks or matches
+
+
+
 
 class Possesions(Objects) :
     """A subclass of Objects to store data and functions related to character possesions"""
@@ -27,6 +33,10 @@ class Possesions(Objects) :
 
         self.beingCarried = beingCarried
         self.location = location 
+
+        # Location in this context means where abouts on the person is the item stored, i.e pocket or rucksack
+        tent = Possesions('Tent', 'A tent to provide shelter', True, True, True, False, 'Shelter', 'Rucksack', 'Start', True, 'Rucksack')
+        lockpicks = Possesions('Lockpicks', 'Lockpicks to pick locks', True, True, True, False, 'Tool', 'Pocket', 'Start', True, 'Pocket')
 
     #[storage] location, i.e trouser pocket, holdhall 1, holdhall 2, rucksack
     # left hand, right hand

@@ -44,3 +44,13 @@ def coinToss() :
     index = random.randint(0,1) 
 
     return (coinFaces[index])
+
+
+def walk() :
+    """Creates slow scrolling txt to describe walking."""
+    sleep(0.5)
+    print('Walk...')
+    sleep(0.5)
+    print('......Walk...')
+    sleep(0.5)
+    print('............Walk')
