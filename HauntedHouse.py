@@ -578,7 +578,6 @@ def randomGateOptions(skipInt) :
             # TODO start Patio level
             
     elif randomNumber >=5 and randomNumber <= 7 :
-        # TODO - something else
         print('As you start looking at the gate at the side of the house; you notice a shiny coin ' +
               'on the floor and pick it up')
         print('The coin as "Teleportation Coin" written on it... so you give it a toss')
@@ -591,7 +590,6 @@ def randomGateOptions(skipInt) :
             sleep(2)
             print('A nursery!')
             # TODO start Nursery level
-            input() # Development / Testing
 
         else :
             locations[0].setAsVisited()
@@ -656,22 +654,47 @@ def doorOptions(option) :
             Print('There is no getting through this door; the lock is unbreakable, and a ' +
                   'weakling like you can\'t break through the door either, pathetic!')
             # TODO - finish
+            print('You\'d better try another way')
+            return(doorOptions('Other'))
             locations[0].setAsVisited()
        
     # Locked option 2
     elif randomNumber >= 1 and randomNumber <= 3 :
-        print('Testing - Locked option 2')
+        print('This door is locked, but it looks pickable')
+        print('Do you have lockpicks?')
+        input('~ Press Enter to check if you have lockpicks ~')
+
+        # TODO - how can we check if character is in possession of lockpicks?
+
         locations[0].setAsVisited()
 
     # Unlocked option 1
     elif randomNumber >= 4 and randomNumber <= 7 :
-        print('Testing - Unlocked option 1')
+        print('In the darkness, what you mustook for a door,')
+        print('was in fact just a curtain.')
         locations[0].setAsVisited()
+        return(print('You step inside...'))
 
     # Other options
     else :
-        print('Testing - Other options')
-        locations[0].setAsVisited()
+        print('You walk towards the dorway...')
+        sleep(2.5)
+        print('Flash!')
+        print('A blinding light, explodes around the edges of the door!')
+        print('# Dice Roll #')
+        #print('Roll a 1-2, you turn away in fright!')
+        #print('Roll a 3-4, you kickin the door regardless!')
+        #print('Roll a 5-6, you open the door and...')
+        roll = diceRoll(6)
+        if roll >= 1 <= 2 :
+            locations[0].setAsVisited()
+            return(print('You turn away in fright!'))
+        elif roll >= 3 <= 4 :
+            locations[0].setAsVisited()
+            return(print('You kick the door in regardless!'))
+        else :
+            locations[0].setAsVisited()
+            return(print('You open the door and...'))
 
 
 def isGameComplete() :
