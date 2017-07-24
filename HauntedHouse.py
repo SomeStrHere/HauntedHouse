@@ -197,9 +197,10 @@ def gameIntroductionMenu() :
             roll = diceRoll(12)
             print('\nYou rolled a {0}!\n'.format(roll))
             if roll <= 8 :
-                #TODO - reload code block for 'walk up to front door'
-                # How best to do that?
-                print('Testing - TODO')
+                walk()
+                # Present the user with a random dialogue
+                # for passing through the front door
+                doorOptions('all')
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
@@ -593,6 +594,44 @@ def randomGateOptions(skipInt) :
         clearConsole(1.5)
         asciiPatioFromStart()
         #TODO start Patio level
+
+
+def doorOptions(option) :
+
+    # Argument (option) determines which set of random 
+    # diaologues and options are returned to the player
+    minInt = 0
+    maxInt = 9
+
+    if option == 'all' :
+        randomNumber = random.randint(minInt, maxInt)
+
+    elif option == 'locked' :
+        randomNumber = random.randint(minInt, 3)
+
+    elif option == 'unlocked' :
+        randomNumber = random.randint(4, 7)
+
+    elif option == 'other' :
+        randomNumber = random.randint(8, maxInt)
+
+    # The dialogue and options for players to pass through doorways
+    # Locked option 1
+    if randomNumber == 0 :
+       print('Testing - Locked option 1')
+
+    # Locked option 2
+    elif randomNumber >= 1 and randomNumber <= 3 :
+        print('Testing - Locked option 2')
+
+    # Unlocked option 1
+    elif randomNumber >= 4 and randomNumber <= 7 :
+        print('Testing - Unlocked option 1')
+
+    # Other options
+    else :
+        print('Testing - Other options')
+
 
 def isGameComplete() :
 
