@@ -133,7 +133,7 @@ def gameIntroductionMenu() :
                     sleep(1)
                     print('You can only see darkness; and can\'t make anything out; ' +
                           'you step inside...')
-                    start.setAsVisited()
+                    locations[0].setAsVisited()
                     #TODO - start Lobby level
                     input() # Here to pause program execution during development
 
@@ -175,7 +175,7 @@ def gameIntroductionMenu() :
             else :
                 print('Surprise!')
                 print('You\'ve activated a trapdoor and find yourself in an underground room.')
-                start.setAsVisited()
+                locations[0].setAsVisited()
                 # TODO start basement level
                 # TODO declare basement level as visited?
 
@@ -210,7 +210,7 @@ def gameIntroductionMenu() :
                 sleep(1.3)
                 print('You\'re in luck the gate as been left open')
                 input('~ Press Enter to go through the gate ~')
-                start.setAsVisited()
+                locations[0].setAsVisited()
                 asciiPatioFromStart()
                 # TODO start Patio level
             else :
@@ -218,7 +218,7 @@ def gameIntroductionMenu() :
                 print('You find a key in the darkness, and try it in the garage door')
                 print('Wow! You\'r luck knows no bounds...')
                 print('You open the garage door just enough to squeeze inside...')
-                start.setAsVisited()
+                locations[0].setAsVisited()
                 # TODO - start Garage level
             varMenu = False
 
@@ -337,7 +337,7 @@ def gameIntroductionMenu() :
 
                 if roll >= 5 :
                     print('Congratulations! You picked the lock and step inside...')
-                    start.setAsVisited()
+                    locations[0].setAsVisited()
                     # TODO - start Lobby level
                 else :
                     print('Picking the lock failed...')
@@ -414,7 +414,7 @@ def meaningOfLife() :
         print('That\'s it!')
         print('Now, you may enter...')
         print('\nYou step inside...')
-        start.setAsVisited()
+        locations[0].setAsVisited()
         #TODO - start Lobby level
                         
     else :
@@ -434,7 +434,7 @@ def StartToPatioGate(deviation) :
             print('Lucky you! The gate is open afterall')
             print('~ Press Enter to go through the gate ~')
             clearConsole(1.5)
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart()
            #TODO start Patio level
 
@@ -443,14 +443,14 @@ def StartToPatioGate(deviation) :
                 print('Being tall as its advantages...')
                 print('You grab hold of a hanging rope, climb up and over the hedge')
                 clearConsole(1.5)
-                start.setAsVisited()
+                locations[0].setAsVisited()
                 asciiPatioFromStart()
                 #TODO start Patio level
             elif character.heightInFeet < 4 :
                 print('Being short as its advantages...')
                 print('You find a small hole in the hedge and pull yourself through')
                 clearConsole(1.5)
-                start.setAsVisited()
+                locations[0].setAsVisited()
                 asciiPatioFromStart()
             else :
                 randomGateOptions(0)
@@ -471,7 +471,7 @@ def StartToPatioGate(deviation) :
             sleep(1)
             print('As nervous as ever, you step inside the now open gate')
             clearConsole()
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart
             # TODO start Patio level
         else :
@@ -532,7 +532,7 @@ def randomGateOptions(skipInt) :
             print('That\'s correct... come on in')
             print('What else could you do... you step inside...')
             clearConsole(0)
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart
             # TODO start Patio level
         else :
@@ -549,7 +549,7 @@ def randomGateOptions(skipInt) :
             print('Oops; actually forgot about you there...')
             print('Thou shalt pass!')
             clearConsole(0)
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart
             # TODO start Patio level
 
@@ -564,7 +564,7 @@ def randomGateOptions(skipInt) :
             print('Click!')
             print('The gate opens and you step inside...')
             clearConsole(2)
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart()
             # TODO start Patio level
         else :
@@ -573,7 +573,7 @@ def randomGateOptions(skipInt) :
             newcharacter = CharacterCreator.createRandomCharacter()
             print('\nNow you can enter...')
             clearConsole(3)
-            start.setAsVisited()
+            locations[0].setAsVisited()
             asciiPatioFromStart()
             # TODO start Patio level
             
@@ -584,7 +584,7 @@ def randomGateOptions(skipInt) :
         print('The coin as "Teleportation Coin" written on it... so you give it a toss')
         headsOrTails = coinToss()
         if headsOrTails == 'Heads' :
-            start.setAsVisited()
+            locations[0].setAsVisited()
             print('Woooooooooooooooooooooooossssshhhh')
             print('You\'re not outside anymore!')
             print('You\'ve been teleported to...')
@@ -607,7 +607,7 @@ def randomGateOptions(skipInt) :
         sleep(2)
         print('...')
         clearConsole(1.5)
-        start.setAsVisited()
+        locations[0].setAsVisited()
         asciiPatioFromStart()
         #TODO start Patio level
 
@@ -635,22 +635,22 @@ def doorOptions(option) :
     # Locked option 1
     if randomNumber == 0 :
        print('Testing - Locked option 1')
-       start.setAsVisited()
+       locations[0].setAsVisited()
 
     # Locked option 2
     elif randomNumber >= 1 and randomNumber <= 3 :
         print('Testing - Locked option 2')
-        start.setAsVisited()
+        locations[0].setAsVisited()
 
     # Unlocked option 1
     elif randomNumber >= 4 and randomNumber <= 7 :
         print('Testing - Unlocked option 1')
-        start.setAsVisited()
+        locations[0].setAsVisited()
 
     # Other options
     else :
         print('Testing - Other options')
-        start.setAsVisited()
+        locations[0].setAsVisited()
 
 
 def isGameComplete() :
