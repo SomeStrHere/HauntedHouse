@@ -98,9 +98,9 @@ def gameIntroduction() :
 
 def gameIntroductionMenu() :
 
-    newLocation = currentLocation.choiceToNextLocation()
+    #newLocation = currentLocation.choiceToNextLocation()
 
-    print(newLocation.levelName)
+    #print(newLocation.levelName)
 
     varMenu = True
 
