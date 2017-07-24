@@ -121,6 +121,7 @@ def gameIntroductionMenu() :
             print('Roll 6 = ... sssh it\'s a surprise!')
             input('\n~ Press Enter to roll ~\n')
             roll = diceRoll(6)
+            print('\nYou rolled a {0}!\n'.format(roll))
             if roll  <= 4 :
                 print('Knock, Knock...')
                 sleep(2)
@@ -130,9 +131,10 @@ def gameIntroductionMenu() :
                     print('Creeeeaaak')
                     print('The front door slowly opens!!!')
                     sleep(1)
-                    print('You can only see darkness; and can\'t mak anything out; ' +
+                    print('You can only see darkness; and can\'t make anything out; ' +
                           'you step inside...')
                     #TODO - start Lobby level
+                    input() # Here to pause program execution during development
 
                 elif randomOption == 1 :
                     print('What was that...?')
@@ -140,10 +142,11 @@ def gameIntroductionMenu() :
                     print('There it is again... very faint; difficult to make out ' +
                           'but growing louder')
                     print('Whooooo gooooeesss theerrrrreeee?????')
-                    sleep(1)
+                    sleep(2.5)
                     print('WTF!')
                     print('"This is certainly creepy"')
                     print('"How much did I have to drink...?"')
+                    sleep(2.5)
                     print('\nYou try to introduce yourself and explain your situation, ' +
                           'but are interupted...')
                     print('If you want to come in here, you\'ll need the password')
