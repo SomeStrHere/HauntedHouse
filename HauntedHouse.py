@@ -15,7 +15,6 @@ from Location import *
 def main() :
     
     gameIntroduction()
-
     
 def gameIntroduction() :
     global locations, character
@@ -442,22 +441,22 @@ def isGameComplete() :
 
 def gameComplete() :
 
-       print('Congratulations you have completed the game!')
-       # TODO produce ASCII graphic for completing the game
+       clearConsole(0)
+       # Displays ASCII graphic for finishing the game
+       gameFinished()
 
-       completeMenu = input('Would you like to play again? Y / N ').upper()
+       # A to start a new game, X to quit
+       completeMenu = input().upper()
 
-       if completeMenu == 'Y' :
-           # Start game again from beginning
+       if completeMenu == 'A' :
            gameIntroduction()
 
-       elif completeMenu == 'N' :
+       elif completeMenu == 'X' :
            sys.exit()
 
        else :
            clearConsole(0)
            gameComplete()
-
 
 
 if __name__ == "__main__" :
