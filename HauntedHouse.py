@@ -513,8 +513,34 @@ def randomGateOptions(skipInt) :
         randomGateOptions(1)
 
     elif randomNumber == 1 or randomNumber == 2:
-        # TODO - something else 
-        print('Testing - A random value 1 - 2')
+        print('The gate as an unussual lock; a riddle lock!?')
+        print('Pressing the button marked "Riddle", you hear a voice... although it doesn\'t ' +
+              'appear to be coming from the speaker on the lock')
+        print('Answer this simple riddle and the gate will open...')
+        sleep(2)
+        riddleAnswer = input('What loses its head in the morning and gets it back at night?').upper()
+        if riddleAnswer == 'A PILLOW' or riddleAnswer == 'PILLOW' :
+            print('That\'s correct... come on in')
+            print('What else could you do... you step inside...')
+            clearConsole(0)
+            asciiPatioFromStart
+            # TODO start Patio level
+        else :
+            print('Thou shalt not pass!')
+            sleep(2)
+            print('Kidding... wait for 1 minute... only then can you enter!')
+            sleep(15)
+            print('...')
+            sleep(15)
+            print('...time ain\'t up yet...')
+            sleep(30)
+            print('...???')
+            sleep(60)
+            print('Oops; actually forgot about you there...')
+            print('Thou shalt pass!')
+            clearConsole(0)
+            asciiPatioFromStart
+            # TODO start Patio level
 
     elif randomNumber == 3 or randomNumber == 4 :
         # TODO - something else
