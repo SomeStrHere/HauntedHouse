@@ -543,9 +543,27 @@ def randomGateOptions(skipInt) :
             # TODO start Patio level
 
     elif randomNumber == 3 or randomNumber == 4 :
-        # TODO - something else
-        print('Testing - A random value 3 - 4')
-
+        print('As you approach the gate, you notice a piece of paper taped to it...')
+        print('It reads:')
+        print('All you have to do to unlock the gate and enter our patio ' +
+              'is\n answer this simple question')
+        noOfWheels = input('If you have the money to buy any card in the world; how many ' +
+              'wheels will your dream vehicle have? ')
+        if  noOfWheels == '2' :
+            print('Click!')
+            print('The gate opens and you step inside...')
+            clearConsole(2)
+            asciiPatioFromStart()
+            # TODO start Patio level
+        else :
+            print('What kind of animal are you1?!')
+            print('For that answer; we will have to randomly generate a new character for you!\n')
+            newcharacter = CharacterCreator.createRandomCharacter()
+            print('\nNow you can enter...')
+            clearConsole(3)
+            asciiPatioFromStart()
+            # TODO start Patio level
+            
     elif randomNumber >=5 and randomNumber <= 7 :
         # TODO - something else
         print('Testing - A random value 5 - 7')
