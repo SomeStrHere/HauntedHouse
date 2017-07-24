@@ -466,7 +466,6 @@ def StartToPatioGate(deviation) :
             # TODO start Patio level
         else :
             print('Silly fool! mwaaaawhahahahahah')
-            # Present the user with more options to get passed the gate
             randomGateOptions()
 
     else : # If this isn't a deviation
@@ -543,12 +542,12 @@ def randomGateOptions(skipInt) :
             # TODO start Patio level
 
     elif randomNumber == 3 or randomNumber == 4 :
-        print('As you approach the gate, you notice a piece of paper taped to it...')
-        print('It reads:')
+        print('As you approach the gate, you notice a piece of paper taped to it\n')
+        print('It reads\n')
         print('All you have to do to unlock the gate and enter our patio ' +
-              'is\n answer this simple question')
-        noOfWheels = input('If you have the money to buy any card in the world; how many ' +
-              'wheels will your dream vehicle have? ')
+              'is\nanswer this simple question')
+        noOfWheels = input('"If you have the money to buy any car in the world; how many ' +
+              'wheels will your dream vehicle have?" ')
         if  noOfWheels == '2' :
             print('Click!')
             print('The gate opens and you step inside...')
