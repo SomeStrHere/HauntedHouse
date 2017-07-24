@@ -17,7 +17,7 @@ def main() :
     gameIntroduction()
     
 def gameIntroduction() :
-    global locations, character
+    global locations, character, currentLocation
 
     clearConsole(0)
     welcomeGraphic()
@@ -57,7 +57,9 @@ def gameIntroduction() :
 
     locations = createLocations()
 
-    isGameComplete()
+    currentLocation = locations['start']
+
+    ## isGameComplete()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
@@ -95,6 +97,10 @@ def gameIntroduction() :
     gameIntroductionMenu()
 
 def gameIntroductionMenu() :
+
+    newLocation = currentLocation.choiceToNextLocation()
+
+    print(newLocation.levelName)
 
     varMenu = True
 
@@ -550,7 +556,7 @@ def randomGateOptions(skipInt) :
             print('Thou shalt pass!')
             clearConsole(0)
             locations[0].setAsVisited()
-            asciiPatioFromStart
+            asciiPatioFromStart()
             # TODO start Patio level
 
     elif randomNumber == 3 or randomNumber == 4 :

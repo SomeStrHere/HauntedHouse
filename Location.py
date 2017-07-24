@@ -27,8 +27,19 @@ class Location :
     def setPropertyValue(self, property, value) :
         self.properties[property] = value
 
+    def choiceToNextLocation(self) :
+        print("Where do you want to go next?")
+        locationNumber = 0;
+        for location in self.connectedRooms :
+            print(str(locationNumber) + ") " + location.levelName)
+            locationNumber += 1
+
+        userChoice = input("What is your choice? ")
+
+        return self.connectedRooms[int(userChoice)]
+
 def createLocations() :
-    locations = []
+    locations = {}
     lobby = Location('Reception Area', 'hardwood floor', 'ceiling with chandeliers', 
                       True, '2 large chandeliers'
                       )
@@ -41,7 +52,7 @@ def createLocations() :
                        True, 'fluorescent strip lighting'
                        )
 
-    dinningRoom = Location('Dinning Room', 'polished wood floor', 'pattered wallpaper',
+    diningRoom = Location('Dinning Room', 'polished wood floor', 'pattered wallpaper',
                             True, 'candles in holders'
                            )
 
@@ -74,34 +85,34 @@ def createLocations() :
 
     garden = Location('The Rear Garden', 'grass', None, False, 'n/a')
 
-    start.setConnectedLocations([garage, patio, lobby, patio, basement])
+    start.setConnectedLocations([garage, patio, lobby, basement])
     patio.setConnectedLocations([lobby, garden])
     basement.setConnectedLocations([lobby])
     kitchen.setConnectedLocations([lobby, utility])
     landing.setConnectedLocations([attick, masterBedroom, secondBedroom, nursery])
-    lobby.setConnectedLocations([patio, basement, kitchen, garage, dinningRoom, library])
+    lobby.setConnectedLocations([patio, basement, kitchen, garage, diningRoom, library])
     masterBedroom.setConnectedLocations([landing])
     secondBedroom.setConnectedLocations([landing])
     attick.setConnectedLocations([landing])
     utility.setConnectedLocations([kitchen])
-    dinningRoom.setConnectedLocations([lobby, garden])
+    diningRoom.setConnectedLocations([lobby, garden])
     nursery.setConnectedLocations([landing])
-    garden.setConnectedLocations([[patio, dinningRoom]])
+    garden.setConnectedLocations([[patio, diningRoom]])
     library.setConnectedLocations([lobby])
 
-    locations.append(start)
-    locations.append(patio)
-    locations.append(basement)
-    locations.append(kitchen)
-    locations.append(landing)
-    locations.append(lobby)
-    locations.append(masterBedroom)
-    locations.append(secondBedroom)
-    locations.append(attick)
-    locations.append(utility)
-    locations.append(dinningRoom)
-    locations.append(nursery)
-    locations.append(garden)
-    locations.append(library)
+    locations['start'] = start
+    locations['patio'] = patio
+    locations['basement'] = basement
+    locations['kitchen'] = kitchen
+    locations['landing'] = landing
+    locations['lobby'] = lobby
+    locations['masterBedroom'] = masterBedroom
+    locations['secondBedroom'] = secondBedroom
+    locations['attick'] = attick
+    locations['utility'] = utility
+    locations['diningRoom'] = diningRoom
+    locations['nursery'] = nursery
+    locations['garden'] = garden
+    locations['library'] = library
     return locations
 
