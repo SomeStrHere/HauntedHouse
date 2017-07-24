@@ -259,7 +259,7 @@ def gameIntroductionMenu() :
                       )
 
                 print('You decide to flip a coin; \'Heads\' you reluctantly knock on the door ' +
-                      'and ask for help. If it\'s \'Tails\'; you go\n check out the garden ' +
+                      'and ask for help. If it\'s \'Tails\'; you go\ncheck out the garden ' +
                       'through what looks like an open gate.')
 
                 input('\n~ Press Enter to flip a coin ~\n')
@@ -336,10 +336,7 @@ def gameIntroductionMenu() :
                     # TODO - start Lobby level
                 else :
                     print('Picking the lock failed...')
-                    print('You walk through the open gate next to the house...')
-                    walk()
-                    sleep(1.3)
-                    # TODO - start Patio level
+                    StartToPatioGate('Failed Pick Front Door')
 
             else : # You rolled a 6
                 print('\nYou pick up your phone and call your parents...\n')
@@ -449,6 +446,28 @@ def StartToPatioGate(deviation) :
             else :
                 randomGateOptions(0)
 
+    elif deviation == 'Failed Pick Front Door' :
+        print('You walk back towards the garden gate')
+        walk()
+        print('As you approach the gate, you hear laughter, but can\'t identify the source...')
+        print('hhehe, silly child; can\'t even pick a lock')
+        sleep(1)
+        print('Not sure if you\'ve passed out and are having a weird dream ' 
+              ',\nyou hear the same voice again')
+        print('Tell you what...')
+        print('If you can tell guess my favorite super hero, I\'ll open the gate...' )
+        superHero = input('~ Have a guess at the super hero and press Enter ~').upper()
+        if superHero == 'BATMAN' :
+            print('That\'s it!, come on in...')
+            sleep(1)
+            print('As nervous as ever, you step inside the now open gate')
+            clearConsole()
+            asciiPatioFromStart
+            # TODO start Patio level
+        else :
+            print('Silly fool! mwaaaawhahahahahah')
+            # Present the user with more options to get passed the gate
+            randomGateOptions()
 
     else : # If this isn't a deviation
         clearConsole(1)
@@ -508,6 +527,8 @@ def randomGateOptions(skipInt) :
     elif randomNumber >= 8 and randomNumber <= maxInt :
         print('After looking around, you have discovered that this large gate is unlocked.')
         print('Nervously, you open the gate and state inside...')
+        sleep(2)
+        print('...')
         clearConsole(1.5)
         asciiPatioFromStart()
         #TODO start Patio level
