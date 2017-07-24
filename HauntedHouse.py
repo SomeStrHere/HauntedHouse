@@ -591,9 +591,10 @@ def randomGateOptions(skipInt) :
             sleep(2)
             print('A nursery!')
             # TODO start Nursery level
+            input() # Development / Testing
 
         else :
-            start.setAsVisited()
+            locations[0].setAsVisited()
             print('Shiiiiiiiiiiiiiiiiiiiiiittttttt!!!')
             print('You\'re not outside anymore!')
             print('You\'ve been teleported to...')
