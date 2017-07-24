@@ -649,10 +649,8 @@ def doorOptions(option) :
            sleep(0.5)
            print('Crash')
            sleep(0.5)
-           print('/nYou\'ve done it, you\'ve smashed through the door!')
            locations[0].setAsVisited()
-           print('New level...')
-           # TODO - not sure where to connect this generic function up to a specific doorway
+           return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
 
        else :
             Print('There is no getting through this door; the lock is unbreakable, and a ' +

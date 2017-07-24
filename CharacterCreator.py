@@ -21,7 +21,7 @@ class CharacterCreator :
         fitnessLevelData = ['Poor', 'Okay', 'Great']
 
         firstName = random.choice(firstNameData)
-        age = random.randint(18, 55)
+        age = random.randint(18, 45)
         heightInFeet = random.choice(heightInFeetData)
         fitnessLevel = random.choice(fitnessLevelData)
 
