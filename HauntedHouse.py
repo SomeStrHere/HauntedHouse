@@ -193,13 +193,12 @@ def gameIntroductionMenu() :
             print('# Dice Roll #')
             print('Roll a 1 - 8 = Walk to the front door.')
             print('Roll 9 - 11 = You try the other side of the property.')
+            print('Roll double 6... and something else may happen')
             input('\n~ Press Enter to roll x2 D6 ~\n')
             roll = diceRoll(12)
             print('\nYou rolled a {0}!\n'.format(roll))
             if roll <= 8 :
                 walk()
-                # Present the user with a random dialogue
-                # for passing through the front door
                 doorOptions('all')
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
