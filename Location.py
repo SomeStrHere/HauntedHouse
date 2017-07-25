@@ -46,6 +46,7 @@ class Location :
         print('# Attack #')
         sleep(0.3)
         print("You're being attacked by a {0} called {1}".format(attacker.opponentType, attacker.name))
+        Opponent.randomAttack()
         ## TODO
 
     def doPuzzle(self) :

@@ -22,4 +22,26 @@ class Opponent :
         randomOpponent = Opponent(name, opponentType)
         return(randomOpponent)
 
+    def combatAttack() :
+        # Opponent makes a combat attack and you have to fight to survive/continue
+        pass
 
+    def fleeingAttack() :
+        # Opponent makes an attack, and then flees to an ajoining room
+        pass
+
+    def itemAttack() :
+        # Opponent forces you to answer questions or perform a task
+        # for each question or task you get wrong, a random item is confiscated (maybe returned after a delay)
+        pass
+
+    def delayAttack() :
+        # Player is fozen/stuck to the spont, and can't continue until a delay expires
+        pass
+
+    def randomAttack() :
+        # Randomly selects one of the attack methods when called
+        attacks = ['combatAttack()', 'fleeingAttack()', 'itemAttack()', 'delayAttack()', 'selectAttack()']
+        attack = random.choice(attacks)
+
+        return(attack)
