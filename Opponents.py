@@ -1,6 +1,7 @@
 # Details of the opponents a character may face within the game
 
 import random
+from helpers import *
 
 class Opponent :
     """Opponent class."""
@@ -27,8 +28,13 @@ class Opponent :
         pass
 
     def fleeingAttack() :
-        # Opponent makes an attack, and then flees to an ajoining room
-        pass
+        # Opponent makes an attack, and then flees
+        print('\nphawack!')
+        sleep(0.3)
+        print('You\'re stuck hard across the head!')
+        print('Dazed and confused, you struggle to regain your composure')
+        sleep(3)
+        print('Your attack as fled!')
 
     def itemAttack() :
         # Opponent forces you to answer questions or perform a task
