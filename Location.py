@@ -1,4 +1,5 @@
 from dice import *
+from Opponents import *
 
 class Location :
 
@@ -41,11 +42,11 @@ class Location :
         return self.connectedRooms[int(userChoice)]
 
     def getAttacked(self, character) :
+        attacker = Opponent.createRandomOpponent()
         print('# Attack #')
         sleep(0.3)
-        print("You're being attacked by a {0}".format('TODO - insert list item here'))
+        print("You're being attacked by a {0} called {1}".format(attacker.opponentType, attacker.name))
         ## TODO
-        pass
 
     def doPuzzle(self) :
         ##TODO
