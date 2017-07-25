@@ -1,5 +1,7 @@
 # Details of the opponents a character may face within the game
 
+import random
+
 class Opponent :
     """Opponent class."""
 
@@ -10,7 +12,7 @@ class Opponent :
         self.opponentType = opponentType
         self.typeDescription = typeDescription
 
-        names = ['Refus', 'Red Shirt', 'Amelia', 'Howler', 'The Phantom', '01100111 01101000 01101111 01110011 01110100 ',
+        names = ['Refus', 'Red Shirt', 'Amelia', 'Howler', 'The Phantom', '01100111 01101000 01101111 01110011 01110100',
                 'Dark Lord', 'Punisher', 'Reaper', 'Hitch', 'AntiSanta']
         name = random.choice(names)
 
@@ -20,4 +22,11 @@ class Opponent :
                            'Demon' : 'TODO Demon description', 'Vampire' : 'TODO Vampire description', 
                            'Bad Actor' : 'TODO Bad Actor description'}
 
+        oppnentTypesList = ['Ghost', 'Undead', 'Demon', 'Vampire', 'Bad Actor']
+        # Use random to generate key for dictionary
+        type = dict[random.choice(opponentTypesList)]
+        opponentType = type
+        # Use the generated key to access the associatted dictionary value
+        typeDescription = dict[type]
+        
 
