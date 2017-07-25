@@ -1,5 +1,6 @@
 from dice import *
 from Opponents import *
+from puzzles import *
 
 class Location :
 
@@ -47,13 +48,15 @@ class Location :
         sleep(0.3)
         print("You're being attacked by a {0} called {1}".format(attacker.opponentType, attacker.name))
         Opponent.randomAttack()
-        ## TODO
 
     def doPuzzle(self) :
-        ##TODO
-        pass
+        # Run a random puzzle from the Puzzle class
+        Puzzle.randomPuzzle()
 
     def repairWeapons(self, character) :
+        # Tools will randomly become broken after they have been used once
+        # Using a broken tool will reduce success rate by 30%
+        # repairing the tool will remove the decrease in success rate.
         ## TODO
         pass
 
