@@ -41,6 +41,9 @@ class Location :
         return self.connectedRooms[int(userChoice)]
 
     def getAttacked(self, character) :
+        print('# Attack #')
+        sleep(0.3)
+        print("You're being attacked by a {0}".format('TODO - insert list item here'))
         ## TODO
         pass
 
@@ -91,7 +94,7 @@ class Patio(Location) :
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
 
-        ## Items that can be found in the garage
+        ## Items that can be found in the patio location
         self.itemsAvailable = []
 
     def doAction(self, diceRoll, character) :

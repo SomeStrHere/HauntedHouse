@@ -11,6 +11,7 @@ from asciiDrawings import *
 from GameLevel import *
 from Character import *
 from Location import *
+from Opponents import *
 
 def main() :
     
