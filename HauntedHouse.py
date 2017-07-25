@@ -1,5 +1,5 @@
 # A console based adventure game
-# Created by https://github.com/SomeStrHere
+# Created by https://github.com/SomeStrHere and https://github.com/kieranjen
 # V: 0.3.0
 
 import sys
@@ -139,9 +139,10 @@ def gameIntroductionMenu() :
                     sleep(1)
                     print('You can only see darkness; and can\'t make anything out; ' +
                           'you step inside...')
-                    locations[0].setAsVisited()
+
                     #TODO - start Lobby level
-                    input() # Here to pause program execution during development
+                    locations['start'].setAsVisited()
+                    currentLocation = locations['patio']
 
                 elif randomOption == 1 :
                     print('What was that...?')
@@ -181,9 +182,9 @@ def gameIntroductionMenu() :
             else :
                 print('Surprise!')
                 print('You\'ve activated a trapdoor and find yourself in an underground room.')
-                locations[0].setAsVisited()
+                locations['start'].setAsVisited()
+                currentLocation = locations['basement']
                 # TODO start basement level
-                # TODO declare basement level as visited?
 
             varMenu = False
 
@@ -216,7 +217,8 @@ def gameIntroductionMenu() :
                 sleep(1.3)
                 print('You\'re in luck the gate as been left open')
                 input('~ Press Enter to go through the gate ~')
-                locations[0].setAsVisited()
+                locations['start'].setAsVisited()
+                currentLocation = locations['patio']
                 asciiPatioFromStart()
                 # TODO start Patio level
             else :
@@ -224,7 +226,8 @@ def gameIntroductionMenu() :
                 print('You find a key in the darkness, and try it in the garage door')
                 print('Wow! You\'r luck knows no bounds...')
                 print('You open the garage door just enough to squeeze inside...')
-                locations[0].setAsVisited()
+                locations['start'].setAsVisited()
+                currentLocation = locations['garage']
                 # TODO - start Garage level
             varMenu = False
 
@@ -343,7 +346,8 @@ def gameIntroductionMenu() :
 
                 if roll >= 5 :
                     print('Congratulations! You picked the lock and step inside...')
-                    locations[0].setAsVisited()
+                    locations['start'].setAsVisited()
+                    currentLocation = locations['lobby']
                     # TODO - start Lobby level
                 else :
                     print('Picking the lock failed...')
@@ -379,6 +383,8 @@ def gameIntroductionMenu() :
                 print('Parents: Bye, take care')
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
+                locations['start'].setAsVisited()
+                currentLocation = locations['patio']
                 # TODO - start Patio level
 
         elif userSelects == '5' :
@@ -420,7 +426,8 @@ def meaningOfLife() :
         print('That\'s it!')
         print('Now, you may enter...')
         print('\nYou step inside...')
-        locations[0].setAsVisited()
+        locations['start'].setAsVisited()
+        currentLocation = locations['lobby']
         #TODO - start Lobby level
                         
     else :
@@ -440,7 +447,8 @@ def StartToPatioGate(deviation) :
             print('Lucky you! The gate is open afterall')
             print('~ Press Enter to go through the gate ~')
             clearConsole(1.5)
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart()
            #TODO start Patio level
 
@@ -449,14 +457,16 @@ def StartToPatioGate(deviation) :
                 print('Being tall as its advantages...')
                 print('You grab hold of a hanging rope, climb up and over the hedge')
                 clearConsole(1.5)
-                locations[0].setAsVisited()
+                locations['start'].setAsVisited()
+                currentLocation = locations['patio']
                 asciiPatioFromStart()
                 #TODO start Patio level
             elif character.heightInFeet < 4 :
                 print('Being short as its advantages...')
                 print('You find a small hole in the hedge and pull yourself through')
                 clearConsole(1.5)
-                locations[0].setAsVisited()
+                locations['start'].setAsVisited()
+                currentLocation = locations['patio']
                 asciiPatioFromStart()
             else :
                 randomGateOptions(0)
@@ -477,7 +487,8 @@ def StartToPatioGate(deviation) :
             sleep(1)
             print('As nervous as ever, you step inside the now open gate')
             clearConsole()
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart
             # TODO start Patio level
         else :
@@ -538,7 +549,8 @@ def randomGateOptions(skipInt) :
             print('That\'s correct... come on in')
             print('What else could you do... you step inside...')
             clearConsole(0)
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart
             # TODO start Patio level
         else :
@@ -555,7 +567,8 @@ def randomGateOptions(skipInt) :
             print('Oops; actually forgot about you there...')
             print('Thou shalt pass!')
             clearConsole(0)
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart()
             # TODO start Patio level
 
@@ -570,7 +583,8 @@ def randomGateOptions(skipInt) :
             print('Click!')
             print('The gate opens and you step inside...')
             clearConsole(2)
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart()
             # TODO start Patio level
         else :
@@ -579,7 +593,8 @@ def randomGateOptions(skipInt) :
             newcharacter = CharacterCreator.createRandomCharacter()
             print('\nNow you can enter...')
             clearConsole(3)
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['patio']
             asciiPatioFromStart()
             # TODO start Patio level
             
@@ -589,7 +604,8 @@ def randomGateOptions(skipInt) :
         print('The coin as "Teleportation Coin" written on it... so you give it a toss')
         headsOrTails = coinToss()
         if headsOrTails == 'Heads' :
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['nursery']
             print('Woooooooooooooooooooooooossssshhhh')
             print('You\'re not outside anymore!')
             print('You\'ve been teleported to...')
@@ -598,7 +614,8 @@ def randomGateOptions(skipInt) :
             # TODO start Nursery level
 
         else :
-            locations[0].setAsVisited()
+            locations['start'].setAsVisited()
+            currentLocation = locations['attick']
             print('Shiiiiiiiiiiiiiiiiiiiiiittttttt!!!')
             print('You\'re not outside anymore!')
             print('You\'ve been teleported to...')
@@ -612,7 +629,8 @@ def randomGateOptions(skipInt) :
         sleep(2)
         print('...')
         clearConsole(1.5)
-        locations[0].setAsVisited()
+        locations['start'].setAsVisited()
+        currentLocation = locations['patio']
         asciiPatioFromStart()
         #TODO start Patio level
 
@@ -653,7 +671,7 @@ def doorOptions(option) :
            sleep(0.5)
            print('Crash')
            sleep(0.5)
-           locations[0].setAsVisited()
+           locations[(currentLocation)].setAsVisited()
            return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
 
        else :
@@ -662,7 +680,7 @@ def doorOptions(option) :
             # TODO - finish
             print('You\'d better try another way')
             return(doorOptions('Other'))
-            locations[0].setAsVisited()
+            
        
     # Locked option 2
     elif randomNumber >= 1 and randomNumber <= 3 :
@@ -672,13 +690,13 @@ def doorOptions(option) :
 
         # TODO - how can we check if character is in possession of lockpicks?
 
-        locations[0].setAsVisited()
+        locations[(currentLocation)].setAsVisited()
 
     # Unlocked option 1
     elif randomNumber >= 4 and randomNumber <= 7 :
         print('In the darkness, what you mustook for a door,')
         print('was in fact just a curtain.')
-        locations[0].setAsVisited()
+        locations[(currentLocation)].setAsVisited()
         return(print('You step inside...'))
 
     # Other options
@@ -693,13 +711,13 @@ def doorOptions(option) :
         #print('Roll a 5-6, you open the door and...')
         roll = diceRoll(6)
         if roll >= 1 <= 2 :
-            locations[0].setAsVisited()
+            locations[(currentLocation)].setAsVisited()
             return(print('You turn away in fright!'))
         elif roll >= 3 <= 4 :
-            locations[0].setAsVisited()
+            locations[(currentLocation)].setAsVisited()
             return(print('You kick the door in regardless!'))
         else :
-            locations[0].setAsVisited()
+            locations[(currentLocation)].setAsVisited()
             return(print('You open the door and...'))
 
 
