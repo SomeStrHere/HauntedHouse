@@ -6,7 +6,10 @@ class Character :
         self.heightInFeet = heightInFeet
         self.age = age
         self.fitnessLevel = fitnessLevel
+        self.inventory = []
 
+    def getItem(self, item) :
+        self.inventory.append(item)
 
 
 

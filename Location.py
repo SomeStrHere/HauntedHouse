@@ -1,3 +1,5 @@
+from dice import *
+
 class Location :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
@@ -8,7 +10,7 @@ class Location :
         self.lightType = lightType
 
         self.connectedRooms = []
-        self.properties = {}
+        self.properties = {'unlocked': True}
 
         self.visited = False
 
@@ -37,6 +39,49 @@ class Location :
         userChoice = input("What is your choice? ")
 
         return self.connectedRooms[int(userChoice)]
+
+    def getAttacked(self, character) :
+        ## TODO
+
+    def doPuzzle(self) :
+        ##TODO
+
+    def repairWeapons(self, character) :
+        ## TODO
+
+
+class Garage(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+        ## Items that can be found in the garage
+        self.itemsAvailable = []
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def searchLocation(self, character) :
+        itemFound = random.choice(self.itemsAvailable)
+        itemsAvailable.remove(itemFound)
+        character.getItem(itemFound)
+        
 
 def createLocations() :
     locations = {}
@@ -99,6 +144,8 @@ def createLocations() :
     nursery.setConnectedLocations([landing])
     garden.setConnectedLocations([[patio, diningRoom]])
     library.setConnectedLocations([lobby])
+
+    patio.actions = [["You decide to go to a new location.", ]]
 
     locations['start'] = start
     locations['patio'] = patio
