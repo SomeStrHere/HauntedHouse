@@ -123,18 +123,17 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self) :
+    def locationIntroduction(self, deviation = '') :
+        entered = True
+        ## Only display the introduction stuff if you have not visited before
         if(self.visited == False) :
-            randomDeviation = random.randint(0, 1)
-            if randomDeviation == 0 :
+            if deviation == 'Failed Pick Front Door' :
                 randomDeviation = random.randint(0,1)
 
                 if randomDeviation == 0:
                     print('Lucky you! The gate is open afterall')
                     print('~ Press Enter to go through the gate ~')
                     clearConsole(1.5)
-                    locations['start'].setAsVisited()
-                    currentLocation = locations['patio']
                     asciiPatioFromStart()
                    #TODO start Patio level
 
@@ -143,21 +142,18 @@ class Patio(Location) :
                         print('Being tall as its advantages...')
                         print('You grab hold of a hanging rope, climb up and over the hedge')
                         clearConsole(1.5)
-                        locations['start'].setAsVisited()
-                        currentLocation = locations['patio']
                         asciiPatioFromStart()
                         #TODO start Patio level
                     elif character.heightInFeet < 4 :
                         print('Being short as its advantages...')
                         print('You find a small hole in the hedge and pull yourself through')
                         clearConsole(1.5)
-                        locations['start'].setAsVisited()
-                        currentLocation = locations['patio']
                         asciiPatioFromStart()
                     else :
-                        randomGateOptions(0)
+                        ## Execute the gate options method and decide whther you are given access
+                        entered = randomGateOptions()
 
-            elif deviation == 1 :
+            else :
                 print('You walk back towards the garden gate')
                 walk()
                 print('As you approach the gate, you hear laughter, but can\'t identify the source...')
@@ -173,16 +169,109 @@ class Patio(Location) :
                     sleep(1)
                     print('As nervous as ever, you step inside the now open gate')
                     clearConsole()
-                    locations['start'].setAsVisited()
-                    currentLocation = locations['patio']
-                    asciiPatioFromStart
+                    asciiPatioFromStart()
                     # TODO start Patio level
                 else :
                     print('Silly fool! mwaaaawhahahahahah')
-                    randomGateOptions()
+                    entered = randomGateOptions()
 
         else :
+            ## Simple message if you have been in the patio area already
             print("You've returned to the patio area")
+
+        return entered
+
+    def randomGateOptions(self) :
+
+        print('')
+        minInt = 0
+        maxInt = 7
+        access = True
+
+        # TODO - This commented out code block bellow is designed to stop a user
+        # from randomly generating the "wait 20 seconds" option back to back (buggy atm)
+
+        #while skipInt != 1 :
+        #    randomNumber = random.randint(minInt, maxInt)
+        #randomNumber = random.randint(1, maxInt)
+
+        randomNumber = random.randint(minInt, maxInt)
+
+        if randomNumber == 0 :
+            print('Woahhh')
+            print('You appear to be stuck within the space time continum!')
+            print('It\'ll take you 20 seconds to become unstuck...')
+            for x in range(20) :
+                print(x)
+                sleep(1)
+                x = (x + 1)
+            print('You\'re still outside the gate.. let\'s try again...')
+            randomGateOptions()
+
+        elif randomNumber == 1 or randomNumber == 2:
+            print('The gate as an unusual lock; a riddle lock!?')
+            print('Pressing the button marked "Riddle", you hear a voice... although it doesn\'t ' +
+                  'appear to be coming from the speaker on the lock')
+            print('Answer this simple riddle and the gate will open...')
+            sleep(2)
+            riddleAnswer = input('What loses its head in the morning and gets it back at night?').upper()
+            if riddleAnswer == 'A PILLOW' or riddleAnswer == 'PILLOW' :
+                print('That\'s correct... come on in')
+                print('What else could you do... you step inside...')
+                clearConsole(0)
+                asciiPatioFromStart()
+                # TODO start Patio level
+            else :
+                print('Thou shalt not pass!')
+                sleep(2)
+                print('Kidding... wait for 1 minute... only then can you enter!')
+                sleep(15)
+                print('...')
+                sleep(15)
+                print('...time ain\'t up yet...')
+                sleep(30)
+                print('...???')
+                sleep(60)
+                print('Oops; actually forgot about you there...')
+                print('Thou shalt pass!')
+                clearConsole(0)
+                asciiPatioFromStart()
+                # TODO start Patio level
+
+        elif randomNumber == 3 or randomNumber == 4 :
+            print('As you approach the gate, you notice a piece of paper taped to it\n')
+            print('It reads\n')
+            print('All you have to do to unlock the gate and enter our patio ' +
+                  'is\nanswer this simple question')
+            noOfWheels = input('"If you have the money to buy any car in the world; how many ' +
+                  'wheels will your dream vehicle have?" ')
+            if  noOfWheels == '2' :
+                print('Click!')
+                print('The gate opens and you step inside...')
+                clearConsole(2)
+                asciiPatioFromStart()
+                # TODO start Patio level
+            else :
+                access = False
+                ## Execute your below code in HauntedHouse if the locationIntroduction returns false.
+                ## Maybe use a random number to decide what to do.
+                
+                ## print('What kind of animal are you1?!')
+                ## print('For that answer; we will have to randomly generate a new character for you!\n')
+                ## newcharacter = CharacterCreator.createRandomCharacter()
+                ## print('\nNow you can enter...')
+                ## clearConsole(3)
+                ## asciiPatioFromStart()
+                # TODO start Patio level
+
+        elif randomNumber >= 5 and randomNumber <= maxInt :
+            print('After looking around, you have discovered that this large gate is unlocked.')
+            print('Nervously, you open the gate and state inside...')
+            sleep(2)
+            print('...')
+            clearConsole(1.5)
+            asciiPatioFromStart()
+            #TODO start Patio level
         
 
 def createLocations() :
