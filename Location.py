@@ -1,6 +1,8 @@
 from dice import *
 from Opponents import *
 from puzzles import *
+from asciiDrawings import *
+import random
 
 class Location :
 
@@ -255,7 +257,7 @@ class Patio(Location) :
                 access = False
                 ## Execute your below code in HauntedHouse if the locationIntroduction returns false.
                 ## Maybe use a random number to decide what to do.
-                
+
                 ## print('What kind of animal are you1?!')
                 ## print('For that answer; we will have to randomly generate a new character for you!\n')
                 ## newcharacter = CharacterCreator.createRandomCharacter()
@@ -317,7 +319,7 @@ def createLocations() :
 
     start = Location('Start Area', 'gravel drive', None, True, 'street lamp')
 
-    patio = Location('The Patio', 'grass and paving stones', None, True, 'security light')
+    patio = Patio('The Patio', 'grass and paving stones', None, True, 'security light')
 
     garden = Location('The Rear Garden', 'grass', None, False, 'n/a')
 
