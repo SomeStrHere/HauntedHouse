@@ -671,7 +671,7 @@ def doorOptions(option) :
            sleep(0.5)
            print('Crash')
            sleep(0.5)
-           locations[(currentLocation)].setAsVisited()
+           currentLocation.setAsVisited()
            return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
 
        else :
@@ -690,13 +690,13 @@ def doorOptions(option) :
 
         # TODO - how can we check if character is in possession of lockpicks?
 
-        locations[(currentLocation)].setAsVisited()
+        currentLocation.setAsVisited()
 
     # Unlocked option 1
     elif randomNumber >= 4 and randomNumber <= 7 :
         print('In the darkness, what you mustook for a door,')
         print('was in fact just a curtain.')
-        locations[(currentLocation)].setAsVisited()
+        currentLocation.setAsVisited()
         return(print('You step inside...'))
 
     # Other options
@@ -711,13 +711,13 @@ def doorOptions(option) :
         #print('Roll a 5-6, you open the door and...')
         roll = diceRoll(6)
         if roll >= 1 <= 2 :
-            locations[(currentLocation)].setAsVisited()
+            currentLocation.setAsVisited()
             return(print('You turn away in fright!'))
         elif roll >= 3 <= 4 :
-            locations[(currentLocation)].setAsVisited()
+            currentLocation.setAsVisited()
             return(print('You kick the door in regardless!'))
         else :
-            locations[(currentLocation)].setAsVisited()
+            currentLocation.setAsVisited()
             return(print('You open the door and...'))
 
 

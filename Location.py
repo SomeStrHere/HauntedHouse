@@ -14,6 +14,8 @@ class Location :
         self.connectedRooms = []
         self.properties = {'unlocked': True}
 
+        self.itemsAvailable = []
+
         self.visited = False
 
     def checkVisited(self) :
@@ -60,6 +62,11 @@ class Location :
         ## TODO
         pass
 
+    def searchLocation(self, character) :
+        itemFound = random.choice(self.itemsAvailable)
+        self.itemsAvailable.remove(itemFound)
+        character.getItem(itemFound)
+
 
 class Garage(Location) :
 
@@ -87,11 +94,6 @@ class Garage(Location) :
             self.doPuzzle()
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
-
-    def searchLocation(self, character) :
-        itemFound = random.choice(self.itemsAvailable)
-        itemsAvailable.remove(itemFound)
-        character.getItem(itemFound)
 
 
 class Patio(Location) :
@@ -121,10 +123,66 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def searchLocation(self, character) :
-        itemFound = random.choice(self.itemsAvailable)
-        itemsAvailable.remove(itemFound)
-        character.getItem(itemFound)
+    def locationIntroduction(self) :
+        if(self.visited == False) :
+            randomDeviation = random.randint(0, 1)
+            if randomDeviation == 0 :
+                randomDeviation = random.randint(0,1)
+
+                if randomDeviation == 0:
+                    print('Lucky you! The gate is open afterall')
+                    print('~ Press Enter to go through the gate ~')
+                    clearConsole(1.5)
+                    locations['start'].setAsVisited()
+                    currentLocation = locations['patio']
+                    asciiPatioFromStart()
+                   #TODO start Patio level
+
+                else :
+                    if character.heightInFeet > 6 :
+                        print('Being tall as its advantages...')
+                        print('You grab hold of a hanging rope, climb up and over the hedge')
+                        clearConsole(1.5)
+                        locations['start'].setAsVisited()
+                        currentLocation = locations['patio']
+                        asciiPatioFromStart()
+                        #TODO start Patio level
+                    elif character.heightInFeet < 4 :
+                        print('Being short as its advantages...')
+                        print('You find a small hole in the hedge and pull yourself through')
+                        clearConsole(1.5)
+                        locations['start'].setAsVisited()
+                        currentLocation = locations['patio']
+                        asciiPatioFromStart()
+                    else :
+                        randomGateOptions(0)
+
+            elif deviation == 1 :
+                print('You walk back towards the garden gate')
+                walk()
+                print('As you approach the gate, you hear laughter, but can\'t identify the source...')
+                print('hhehe, silly child; can\'t even pick a lock')
+                sleep(1)
+                print('Not sure if you\'ve passed out and are having a weird dream ' 
+                      ',\nyou hear the same voice again')
+                print('Tell you what...')
+                print('If you can tell guess my favorite super hero, I\'ll open the gate...' )
+                superHero = input('~ Have a guess at the super hero and press Enter ~').upper()
+                if superHero == 'BATMAN' :
+                    print('That\'s it!, come on in...')
+                    sleep(1)
+                    print('As nervous as ever, you step inside the now open gate')
+                    clearConsole()
+                    locations['start'].setAsVisited()
+                    currentLocation = locations['patio']
+                    asciiPatioFromStart
+                    # TODO start Patio level
+                else :
+                    print('Silly fool! mwaaaawhahahahahah')
+                    randomGateOptions()
+
+        else :
+            print("You've returned to the patio area")
         
 
 def createLocations() :
