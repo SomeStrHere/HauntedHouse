@@ -419,8 +419,14 @@ class Lobby(Location) :
                 entered = False
                 # TODO start basement level
 
+        elif(deviation == 'Failed Pick Front Door') :
+            print("LOGIC WHEN LOCK ISN'T PICKED")
+
+        elif(deviation == 'Picked Front Door') :
+            print("You manage to pick the lock and gain access to the house.")
+
         else :
-            print("You have returned to teh lobby area.")
+            print("You have returned to the lobby area.")
 
         return entered, nextLocation
 

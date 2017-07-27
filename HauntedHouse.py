@@ -277,13 +277,13 @@ def gameIntroductionMenu() :
                 roll = diceRoll(6)
 
                 if roll >= 5 :
-                    print('Congratulations! You picked the lock and step inside...')
-                    locations['start'].setAsVisited()
+                    entered, nextLocation = locations['lobby'].locationIntroduction(deviation = 'Picked Front Door')
+                    locations['lobby'].setAsVisited()
                     currentLocation = locations['lobby']
                     # TODO - start Lobby level
                 else :
                     print('Picking the lock failed...')
-                    StartToPatioGate('Failed Pick Front Door')
+                    ## TODO - What happens if failed?
 
             else : # You rolled a 6
                 print('\nYou pick up your phone and call your parents...\n')
@@ -296,7 +296,7 @@ def gameIntroductionMenu() :
                     # 0.5 second delay between each dial
                     sleep(0.5)
 
-                characterName = "" # TODO
+                characterName = character.firstName # TODO
                 # Start conversation    
                 print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
                 sleep(0.3)
@@ -315,9 +315,24 @@ def gameIntroductionMenu() :
                 print('Parents: Bye, take care')
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
-                locations['start'].setAsVisited()
-                currentLocation = locations['patio']
-                # TODO - start Patio level
+                entered, nextLocation = locations['patio'].locationIntroduction()
+
+                ## If access is given above then enter the patio area
+                if entered == True :
+                    locations['patio'].setAsVisited()
+                    currentLocation = locations['patio']
+
+                ## If not given access to the patio area above make the user choose a new location. 
+                ## Feel free if yu want to change this to teleport or something
+                else :
+                    if(nextLocation in locations) :
+                        currentLocation = locations[nextLocation]
+                    else :
+                        print("You could not enter the patio area")
+                        print()
+                        print("Please choose a new location to visit.")
+                        currentLocation.choiceToNextLocation()
+                varMenu = False
 
         elif userSelects == '5' :
             varMenu = False
