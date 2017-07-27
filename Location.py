@@ -95,7 +95,7 @@ class Garage(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
@@ -167,7 +167,7 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
@@ -346,7 +346,7 @@ class Lobby(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
@@ -455,7 +455,7 @@ class DinningRoom(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
@@ -519,11 +519,14 @@ class DinningRoom(Location) :
                         visited = True
                         nextLocation = 'Dinning Room'
 
-                        timeout(1, attackString)
+                        ##timeout(1, attackString)
 
-                        attackString = (
-                            'Insert details of the attack here' # TODO
-                            )
+                        ##attackString = (
+                            ##'Insert details of the attack here' # TODO
+                            ##)
+
+                        opponent = createRandomOpponent()
+                        opponent.itemAttack(character)
 
                         # Execute hidden delay, can't use time.sleep as I want the delay to be in the background.
                         # I'm researching how best to do the above.
