@@ -685,7 +685,19 @@ class DinningRoom(Location) :
                 nextLocation = 'Dinning Room'
 
             elif (indoorProgression >= 1 and indoorProgression <= 3) :
-                pass # TODO
+                print('Being mindful of your predicament; being inside a house, which is not your own...')
+                print('your nervously knock on the door')
+                sleep(0.5)
+                print('Knock')
+                sleep(0.3)
+                print('Knock')
+                sleep(0.3)
+                print('You hear a voice from inside the room')
+                print('"Enter"')
+                print('Unsure of what\'s to come, you open the door and step inside')
+                print('Looking around the room, you can\'t see anyone... who was it beckoned you in...?')
+                visited = True
+                nextLocation = 'Dinning Room'
 
             else :
                 print('You reach out to grab the handle, and it disapears in front of you; melting into the door!')
