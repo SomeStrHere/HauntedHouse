@@ -671,7 +671,80 @@ class DinningRoom(Location) :
         elif (self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('\nYou walk up to the door...\n') # Entering the dinning room from inside the house
-            # TODO
+
+            indoorProgression = random.randint(0,6)
+
+            if (indoorProgression == 0) :
+                print('and it swings open in front of you')
+                print('You can hear faint chuckling as you step inside, and feel a cool breeze blow across your face')
+                print('as if someone left a window open')
+                visited = True
+                nextLocation = 'Dinning Room'
+
+            elif (indoorProgression >= 1 and indoorProgression <= 3) :
+                pass # TODO
+
+            else :
+                print('You reach out to grab the handle, and it disapears in front of you; melting into the door!')
+                sleep(0.5)
+                print('Laughter seems to be all around you')
+                sleep(0.5)
+                print('You shake you head, as if to see if you\'re dreaming')
+                sleep(0.5)
+                print('Looking back, the door handle is there oncemore')
+                sleep(0.5)
+                print('Grabbing the handle, you attempt to open the door')
+                print('The handle won\'t turn, the door won\'t open, and worse still...')
+                print('You can\'t let go of the door handle, you\'re stuck!')
+                sleep(1)
+                print('Panic begins to set in... shit!, shit!')
+                sleep(0.5)
+                print('A "chuckle" can be heard, as if coming from inside the room')
+                sleep(0.3)
+                print('You like my little tric, huh?')
+                print('You\'re too stunned to answer')
+                sleep(0.5)
+                print('Answer my riddle and you will be free...')
+                print('...you don\'t seem to have much choice\n')
+
+                riddleResult = Puzzle.riddlePuzzle()
+
+                if riddleResult :
+                    print('Oh, well done; I knew you had it in you')
+                    sleep(1)
+                    print('Definatley, after first making sure your hand is free; you open the door')
+                    print('and step inside...')
+                    visited = True
+                    nextLocation = 'Dinning Room'
+
+                elif riddleResult :
+                    print('Oh, that is a shame... "laughter grows louder and louder"')
+                    print('Looks like you won\'t be going anywhere')
+                    sleep(1)
+                    print('Then silence, deadly silence... and you still can\'t remove your hand or open the door')
+                    sleep(30)
+                    sleep('"hehe')
+                    sleep(30)
+                    print('"bored now"')
+                    print('Flash!')
+                    sleep(0.3)
+                    print('Your hand is released from the door, and you fall to the ground in a heap!')
+                    print('\n~ Are you sure you want to visit the Dinning Room? Y/N ~')
+                    userAnswer = input().upper()
+
+                    if userAnswer == 'Y' :
+                        sleep(1)
+                        print('\nThe door swings open slowly')
+                        print('Cautiously, yet determined you enter the Dinning Room')
+                        visited = True
+                        nextLocation = 'Dinning Room'
+
+                    else :
+                        print('You turn away back into the Lobby')
+                        print('The door swings ajar and shuts again')
+                        print('Doing so repeatedly, as if to mock you\n')
+                        visited = False
+                        nextLocation = 'Lobby'
 
         else :
             print("You have returned to the dinning room.")
