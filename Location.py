@@ -591,7 +591,7 @@ class DinningRoom(Location) :
                             visited = True
                             nextLocation = 'Dinning Room'
                         else :
-                            print('Pitt!')
+                            print('Pity!')
                             sleep(0.5)
                             print('We would have had fun with you...')
                             print('But...')
@@ -604,14 +604,37 @@ class DinningRoom(Location) :
                             nextLocation = 'Patio'
                     
             elif (progression == 3 or progression == 4) :
-                # Player enters through the patio doors by force
+                print('You can feel the warm eminating from the room; even with no one insight\n' + 
+                      'it is a dam sight more welcoming than the freezing cold stormy night outside on the patio!')
+                sleep(1)
+                print('The doors are locked, but you\'ve made up your mind')
+                print('You have little choice... you\'re going to kick your way through the patio doors!')
+                sleep(1)
+                print('You lunge forward with all your might and...')
+
+                kicksRequired = 0
+                
+                if character.fitnessLevel == 'Poor' :
+                    kicksRequired = 5
+                
+                elif character.fitnessLevel == 'Okay' :
+                    kicksRequired = 4
+
+                else :
+                    kicksRequired = 2
+
+                for steps in range(kicksRequired) :
+                    print('\nKick!')
+                    print('...')
+                    sleep(1.5) # Delay between kicks
+
+                print('You\'re through')
+                print('No alarms sounded, no one rushed to see what you were doing')
+                print('All is well... or is it?\n')
                 visited = True
                 nextLocation = 'Dinning Room'
-                # TODO
 
             else :
-                visited = True
-                nextLocation = 'Dinning Room'
                 print('You can feel the warm eminating from the room; even with no one insight\n' + 
                       'it is a dam sight more welcoming than the freezing cold stormy night outside on the patio!')
                 sleep(1)
