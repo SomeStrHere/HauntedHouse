@@ -2,6 +2,7 @@ from dice import *
 from Opponents import *
 from puzzles import *
 from asciiDrawings import *
+from HauntedHouse import meaningOfLife
 import random
 
 class Location :
@@ -75,9 +76,6 @@ class Garage(Location) :
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
 
-        ## Items that can be found in the garage
-        self.itemsAvailable = []
-
     def doAction(self, diceRoll, character) :
         if(diceRoll == 1) :
             ## Go to new location
@@ -103,9 +101,6 @@ class Patio(Location) :
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
 
-        ## Items that can be found in the patio location
-        self.itemsAvailable = []
-
     def doAction(self, diceRoll, character) :
         if(diceRoll == 1) :
             ## Go to new location
@@ -127,6 +122,7 @@ class Patio(Location) :
 
     def locationIntroduction(self, deviation = '') :
         entered = True
+        nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
         if(self.visited == False) :
             if deviation == 'Failed Pick Front Door' :
@@ -181,7 +177,7 @@ class Patio(Location) :
             ## Simple message if you have been in the patio area already
             print("You've returned to the patio area")
 
-        return entered
+        return entered, nextLocation
 
     def randomGateOptions(self) :
 
@@ -274,11 +270,115 @@ class Patio(Location) :
             clearConsole(1.5)
             asciiPatioFromStart()
             #TODO start Patio level
+
+class Lobby(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, deviation = '') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False) :
+            clearConsole(0)
+            print('\nYou walk up to the front door...\n')
+            walk()
+            sleep(1.3)
+            print('\nThe light from the lampost on the drive barley reaches the front door; you can make out ' +
+            'the shape of the door,\nand windows but little more, the house is in darkness.\n')
+            print('# Dice Roll #')
+            print('Roll 1 - 4 = knock on the door.')
+            print('Roll 5 = Try to open the door.')
+            print('Roll 6 = ... sssh it\'s a surprise!')
+            input('\n~ Press Enter to roll ~\n')
+            roll = diceRoll(6)
+            print('\nYou rolled a {0}!\n'.format(roll))
+            if roll  <= 4 :
+                print('Knock, Knock...')
+                sleep(2)
+                randomOption = random.randint(0,2)
+
+                if randomOption == 0 :
+                    print('Creeeeaaak')
+                    print('The front door slowly opens!!!')
+                    sleep(1)
+                    print('You can only see darkness; and can\'t make anything out; ' +
+                          'you step inside...')
+
+                elif randomOption == 1 :
+                    print('What was that...?')
+                    sleep(1)
+                    print('There it is again... very faint; difficult to make out ' +
+                          'but growing louder')
+                    print('Whooooo gooooeesss theerrrrreeee?????')
+                    sleep(2.5)
+                    print('WTF!')
+                    print('"This is certainly creepy"')
+                    print('"How much did I have to drink...?"')
+                    sleep(2.5)
+                    print('\nYou try to introduce yourself and explain your situation, ' +
+                          'but are interupted...')
+                    print('If you want to come in here, you\'ll need the password')
+                    sleep(1)
+                    print('"The password!"')
+                    sleep(0.3)
+                    print('All you have to do is tell me the meaning of life?')
+                    sleep(0.5)
+                    print('"Well, I can\'t stay out here all night"')
+                    meaningOfLife()                
+
+                else :
+                    print('No, answer; you try again')
+                    print('Knock, Knock')
+                    sleep(3)
+                    print('There is no answer; try the garden gate')
+                    nextLocation = 'patio'
+                    entered = False
+
+            elif roll == 5 :
+                print('You reach out for the door handle and tentatively turn it...')
+                sleep(2)
+                print('It\'s locked!')
+                #TODO add facility to pick the lock
+
+            else :
+                print('Surprise!')
+                print('You\'ve activated a trapdoor and find yourself in an underground room.')
+                nextLocation = 'basement'
+                entered = False
+                # TODO start basement level
+
+        else :
+            print("You have returned to teh lobby area.")
+
+        return entered, nextLocation
+
+
         
 
 def createLocations() :
     locations = {}
-    lobby = Location('Reception Area', 'hardwood floor', 'ceiling with chandeliers', 
+    lobby = Lobby('Reception Area', 'hardwood floor', 'ceiling with chandeliers', 
                       True, '2 large chandeliers'
                       )
 

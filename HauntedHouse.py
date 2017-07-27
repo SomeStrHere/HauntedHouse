@@ -238,7 +238,7 @@ def gameIntroductionMenu() :
             sleep(1.3)
 
             ## Runs the patio introduction and returns whether access has been granted.
-            entered = locations['patio'].locationIntroduction()
+            entered, nextLocation = locations['patio'].locationIntroduction()
 
             ## If access is given above then enter the patio area
             if entered == True :
@@ -248,10 +248,13 @@ def gameIntroductionMenu() :
             ## If not given access to the patio area above make the user choose a new location. 
             ## Feel free if yu want to change this to teleport or something
             else :
-                print("You could not enter the patio area")
-                print()
-                print("Please choose a new location to visit.")
-                currentLocation.choiceToNextLocation()
+                if(nextLocation in locations) :
+                    currentLocation = locations[nextLocation]
+                else :
+                    print("You could not enter the patio area")
+                    print()
+                    print("Please choose a new location to visit.")
+                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '4' :
