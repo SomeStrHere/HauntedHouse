@@ -14,6 +14,8 @@ from Location import *
 
 def main() :
     
+    global interupt
+    interupt = False
     gameIntroduction()
     
 def gameIntroduction() :
@@ -505,6 +507,8 @@ def gameComplete() :
            clearConsole(0)
            gameComplete()
 
+def delayedAttack(mins, string) :
+    ## TODO
 
 if __name__ == "__main__" :
     main()

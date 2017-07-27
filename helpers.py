@@ -14,15 +14,18 @@ def clearConsole(wait=0) : #function to clear console on Linux or Windows
     """
 
     import time
+    import platform
     time.sleep(wait) 
     # produces a delay based on the argument given to clearConsole()
     
     import os
 
-    try :
+    operatingSystem = platform.system()
+
+    if(operatingSystem == 'Windows') :
        os.system('cls') #clears console on Windows
 
-    except :
+    else :
        os.system('clear') #clears console on Linux
 
 def sleep(wait) :
