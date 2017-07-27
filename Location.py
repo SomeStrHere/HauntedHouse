@@ -519,7 +519,12 @@ class DinningRoom(Location) :
                         print('You step inside...')
                         visited = True
                         nextLocation = 'Dinning Room'
-                        # TODO
+
+                        timeout(1, attackString)
+
+                        attackString = (
+                            'Insert details of the attack here' # TODO
+                            )
 
                         # Execute hidden delay, can't use time.sleep as I want the delay to be in the background.
                         # I'm researching how best to do the above.
