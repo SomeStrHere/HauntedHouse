@@ -16,6 +16,11 @@ class Character :
     def getItem(self, item) :
         self.inventory.append(item)
 
+    def takeRandomItem(self) :
+        takenItem = random.choice(self.inventory)
+        self.inventory.remove(takenItem)
+        return takenItem
+
 
 
             

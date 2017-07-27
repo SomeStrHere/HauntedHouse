@@ -68,7 +68,7 @@ def timeout(mins, string):
            string (string) : A given string to be printed after the delay.
     
     """
-    # The bellow executes after timeout expires
+    # The below executes after timeout expires
     # Source for feature = https://stackoverflow.com/questions/18406165/creating-a-timer-in-python
     print(string)
 
@@ -78,4 +78,9 @@ def timeout(mins, string):
     # duration is in seconds
     t = Timer(mins * 60, timeout)
     t.start()
+
+def getRandomQuestion() :
+    questions = [{'question': 'What is the number 5 in binary?', 'answer': '101'}]
+
+    return random.choice(questions)
 
