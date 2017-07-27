@@ -95,6 +95,53 @@ class Garage(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
+    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('\nYou walk up to the garage door...\n')
+            # Walk() will produce a series of strings using sleep(x) to delay each statement.
+            walk()
+            sleep(1.5)
+            # Returns printout of ASCII drawing of front of closed garage door
+            asciiClosedGarageFromStart()
+            print('\nThe garage is attached to the house, and a thick hedge and fence ' +
+                  'on the right side stops you from seeing past\nthe garage into the ' +
+                  'back of the property.\n')
+            print('# Dice Roll #')
+            print('Roll a 1 - 8 = Walk to the front door.')
+            print('Roll 9 - 11 = You try the other side of the property.')
+            print('Roll double 6... and something else may happen')
+            input('\n~ Press Enter to roll x2 D6 ~\n')
+            roll = diceRoll(12)
+            print('\nYou rolled a {0}!\n'.format(roll))
+            if roll <= 8 :
+                entered = False
+                nextLocation = 'lobby'
+            elif roll >= 9 and roll <= 11 :
+                print('The garage doesn\'t offer much help')
+                sleep(0.5)
+                print('You spot the garden gate at the other side of the property...')
+                walk()
+                sleep(1.3)
+                print('You\'re in luck the gate as been left open')
+                input('~ Press Enter to go through the gate ~')
+                entered = False
+                nextLocation = 'garden'
+            else :
+                print('Lucky you; rolling that double 6!')
+                print('You find a key in the darkness, and try it in the garage door')
+                print('Wow! You\'r luck knows no bounds...')
+                print('You open the garage door just enough to squeeze inside...')
+                entered = True
+
+        else :
+            print("You return to the garage.")
+
+        return entered, nextLocation
+
 
 class Patio(Location) :
 
@@ -125,6 +172,10 @@ class Patio(Location) :
         nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
         if(self.visited == False) :
+            clearConsole(0)
+            print('\nYou walk to the garden gate...\n')
+            walk()
+            sleep(1.3)
             if deviation == 'Failed Pick Front Door' :
                 randomDeviation = random.randint(0,1)
 
@@ -295,11 +346,11 @@ class Lobby(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '') :
+    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False) :
+        if(self.visited == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk up to the front door...\n')
             walk()
