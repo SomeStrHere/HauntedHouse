@@ -54,3 +54,25 @@ def walk() :
     print('......Walk...')
     sleep(0.5)
     print('............Walk')
+
+
+def timeout(mins, string):
+    """Executes code after a given delay, in a seperate thread to main code.
+    
+    Args : mins (int) : A value representing how long the timer will wait before
+                        executing code in the timer thread.
+
+           string (string) : A given string to be printed after the delay.
+    
+    """
+    # The bellow executes after timeout expires
+    # Source for feature = https://stackoverflow.com/questions/18406165/creating-a-timer-in-python
+    print(string)
+
+    from threading import Timer
+    import time
+
+    # duration is in seconds
+    t = Timer(mins * 60, timeout)
+    t.start()
+
