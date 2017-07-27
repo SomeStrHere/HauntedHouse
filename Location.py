@@ -496,7 +496,11 @@ class DinningRoom(Location) :
 
                 if doorLocked == 'locked' :
                     print('Not relishing the idea of pitching up your tent on an unknown property, and\n ' +
-                          'being so cold, you could audition for Snowman! you knock on the door...')
+                          'being so cold, you could audition for Snowman! you knock on the door...\n')
+                    print('Knock')
+                    sleep(0.5)
+                    print('Knock')
+                    sleep(1)
 
                     print('# Dice Roll #')
                     print('Roll = 1-2; all seems well') # door opens on it's own, attack is triggered after time delay
@@ -506,18 +510,85 @@ class DinningRoom(Location) :
                     roll = diceRoll(6)
 
                     if roll == 1 or roll == 2 :
-                        pass # TODO
+                        print('The lights flicker, as if someone is walking beside them...')
+                        print('but, you see no one')
+                        sleep(1)
+                        print('Click')
+                        sleep(0.5)
+                        print('The door opens, as if on its own')
+                        print('You step inside...')
+                        visited = True
+                        nextLocation = 'Dinning Room'
+                        # TODO
 
+                        # Execute hidden delay, can't use time.sleep as I want the delay to be in the background.
+                        # I'm researching how best to do the above.
+                        # Trigger attack after hidden delay expires.
+                        
                     elif roll == 3 or roll == 4 :
-                        pass # TODO
+                        print('The air grows cold, you shiver and your spine tingles')
+                        print('The candles are out, and the thin smoke moves as if to dance')
+                        sleep(1)
+                        print('A shadow grows larger as it approaches the door')
+                        sleep(0.5)
+                        print('You can feel the hairs on the back of your neck standing up')
+                        print('Relieved and terrified in equal measure, you\'re frozen to the spot')
+                        sleep(1)
+                        print('In the darkness something reaches towards the door... difficult to see')
+                        sleep(0.3)
+                        print('Click')
+                        sleep(0.3)
+                        print('Now unlocked the door swings open')
+                        print('The darkness retreats from the doorway, as if to beckon you inside')
+                        sleep(0.5)
+                        print('You step inside')
+                        sleep(0.3)
+                        print('Sharply, the door; as if on its own, slams shut behind you')
+                        print('Click!')
+                        print('You\'re inside now!')
+                        print('You glance over to the lights which are now again lit')
+                        print('Looking back, whomever opened the door for you, as gone; you appear to be alone')
+                        visited = True
+                        nextLocation = 'Dinning Room'
 
                     else :
-                        pass # TODO
+                        print('...?')
+                        sleep(2)
+                        if self.lighting == True :
+                            print('Despite, signs the house is occupied, your knocking appears to go unasnwered')
+                        else :
+                            print('Despite, the {0}, being lit, your knocking appears to go unanswered'.format(self.lightType))
+                        print('then...')
+                        sleep(0.5)
+                        print('POOF!')
+                        sleep(0.3)
+                        print('FLASH!')
+                        sleep(0.3)
+                        print('Dazed and confused you take stock of your surroundings...')
+                        print('You\'re surrounded by fog, you can\'t make anything out')
+                        sleep(1)
+                        print('Then, a voice breaks the silence')
+                        sleep(0.5)
+                        print('Earthling!')
+                        print('Thou shalt not pass... unless')
+                        print('You master our little challenge')
+                        sleep(1)
+                        print('Let the challenge begin!')
+                        Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
 
+                        if passed :
+                            pass # TODO - The player passed the challenge
+                        else :
+                            pass # TODO - The player passed the challenge
+
+                        visited = True
+                        nextLocation = 'Dinning Room'
                     
             else : # 4, 5, 6
                 # Player breaks in, enters through a window, etc
-                pass
+                visited = True
+                nextLocation = 'Dinning Room'
+                # TODO
             
         elif (self.visited == False and prevLocation == 'inside') :
             clearConsole(0)

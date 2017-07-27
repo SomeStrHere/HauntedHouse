@@ -8,15 +8,19 @@ class Puzzle :
 
     def questionsPuzzle() :
 
+        passed = False
+
         pass
 
-        return()
+        return(passed)
 
     def riddlePuzzle() :
 
+        passed = False
+
         pass
 
-        return()
+        return(passed)
         
     def randomPuzzle() :
 
