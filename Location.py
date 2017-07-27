@@ -431,6 +431,104 @@ class Lobby(Location) :
         return entered, nextLocation
 
 
+class DinningRoom(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('\nYou walk up to the patio doors...\n')
+
+            # Generate random to determine which type of progression the player
+            # makes into the Dinning Room.
+
+            # Decided to not annouce like a dice roll here, because I'd like to keep
+            # the player guessing and be surprised.
+            progression = random.randint(0,6)
+
+            if (progression == 0) :
+                self.lighting = False
+                print('Peering inside, with your faced pressed tightly agains the glass; there is little to see\n' +
+                      'the place is in total darkness.')
+                print('You spot the candle holders, reflecting the moonlight through the storm cloud; it\'s about\n' +
+                      'all you can see. Still unsure if this place is abandoned, or at least vacant for the night\n ' +
+                      'or sheltering a family, asleep upstairs, you decide to make the best of what shelter you ' +
+                      'have with you, your tent.') 
+                entered = False
+                # Player stays outside (patio level);
+                # Maybe retries to enter Patio doors after a delay?
+
+            elif (progression >= 1 and progression <= 3) :
+                self.lighting = True
+                light = self.lighting
+                print('The room is somewhat iluminated by {0}, but, you can\'t see anyone.'.format(light))
+                doorLocked = random.choice['open', 'locked']
+                print('Urged on by the storm, you try the door and find it {0}'.format(doorLocked))
+
+                if doorLocked == 'open' :
+                    print('Tentatively, you slowly open the door, and prepared to be confronted at any moment, ' +
+                          'you step inside... you\'re far too tired, and far too cold\n' +
+                          'to wait outside and hope someone finds you before you freeze to death.')
+
+                if doorLocked == 'locked' :
+                    print('Not relishing the idea of pitching up your tent on an unknown property, and\n ' +
+                          'being so cold, you could audition for Snowman! you knock on the door...')
+
+                    print('# Dice Roll #')
+                    print('Roll = 1-2; all seems well') # door opens on it's own, attack is triggered after time delay
+                    print('Roll = 3-4; someone lets you in') # ghost, vampire... unknown to player straight away
+                    print('Roll = 5+; something unexpected') # falls unconcious, awakes 1 minute later, etc
+                    input('\n~ Press Enter to roll\n')
+                    roll = diceRoll(6)
+
+                    if roll == 1 or roll == 2 :
+                        pass # TODO
+
+                    elif roll == 3 or roll == 4 :
+                        pass # TODO
+
+                    else :
+                        pass # TODO
+
+                    
+            else : # 4, 5, 6
+                # Player breaks in, enters through a window, etc
+                pass
+            
+        elif (self.visited == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('\nYou walk up to the door...\n') # Entering the dinning room from inside the house
+            # TODO
+
+        else :
+            print("You have returned to the dinning room.")
+
+        return entered, nextLocation
+
         
 
 def createLocations() :
@@ -447,7 +545,7 @@ def createLocations() :
                        True, 'fluorescent strip lighting'
                        )
 
-    diningRoom = Location('Dinning Room', 'polished wood floor', 'pattered wallpaper',
+    diningRoom = DinningRoom('Dinning Room', 'polished wood floor', 'pattered wallpaper',
                             True, 'candles in holders'
                            )
 
