@@ -479,8 +479,7 @@ class DinningRoom(Location) :
                       'or sheltering a family, asleep upstairs, you decide to make the best of what shelter you ' +
                       'have with you, your tent.') 
                 entered = False
-                # Player stays outside (patio level);
-                # Maybe retries to enter Patio doors after a delay?
+                nextLocation = 'Patio'
 
             elif (progression >= 1 and progression <= 3) :
                 self.lighting = True
@@ -582,18 +581,69 @@ class DinningRoom(Location) :
                         Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
 
                         if passed :
-                            pass # TODO - The player passed the challenge
+                            print('Congratulations!')
+                            print('You have passed our challenge')
+                            sleep(1)
+                            print('The fog slowly fades; you\'re back, facing the patio doors')
+                            print('Swinging open, the doors now out of your way')
+                            sleep(0.5)
+                            print('You step inside...')
+                            visited = True
+                            nextLocation = 'Dinning Room'
                         else :
-                            pass # TODO - The player passed the challenge
-
-                        visited = True
-                        nextLocation = 'Dinning Room'
+                            print('Pitt!')
+                            sleep(0.5)
+                            print('We would have had fun with you...')
+                            print('But...')
+                            sleep(0.5)
+                            print('Rules are rules')
+                            print('You can\'t enter here, at least not yet')
+                            sleep(0.5)
+                            print('Exasperated and still freezing, you step back from the patio doors')
+                            visited = False
+                            nextLocation = 'Patio'
                     
-            else : # 4, 5, 6
-                # Player breaks in, enters through a window, etc
+            elif (progression == 3 or progression == 4) :
+                # Player enters through the patio doors by force
                 visited = True
                 nextLocation = 'Dinning Room'
                 # TODO
+
+            else :
+                visited = True
+                nextLocation = 'Dinning Room'
+                print('You can feel the warm eminating from the room; even with no one insight\n' + 
+                      'it is a dam sight more welcoming than the freezing cold stormy night outside on the patio!')
+                sleep(1)
+                print('A sound, a movement... something makes you look up')
+                print('It\'s a window, an open window')
+                sleep(1.5)
+                print('You\'re far too cold and tired to be pleasent about things, you\'re going inside!')
+                print('Stepping back, you take a quick run up and leap for the open window')
+
+                if (character.heightInFeet < 4.5 and character.fitnessLevel == 'Poor') :
+                    print('...')
+                    sleep(1)
+                    print('You give it your best effort, but you\'re not able to pull youself up to where you can\n' +
+                          'enter the window.')
+                    print('Annoyed, with yourself; you feel defeanted')
+                    sleep(0.5)
+                    print('What now...')
+                    visited = False
+                    nextLocation = 'Patio'
+
+                else :
+                    print('...')
+                    sleep(1)
+                    print('Got it!')
+                    print('You\'ve managed it!')
+                    print('Despite the freezing cold and torrential rain, you\'ve managed it!')
+                    sleep(1)
+                    print('Holding on to the window ledge, you pull yourself up')
+                    print('...and through the window you go.')
+                    print('You\'re inside...')
+                    visited = True
+                    nextLocation = 'Dinning Room'
             
         elif (self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
