@@ -437,7 +437,7 @@ def createLocations() :
                          True, 'incandecent light fitting without a bulb'
                          )
 
-    garage = Location('Garage', 'concrete floor', 'boarded ceiling',
+    garage = Garage('Garage', 'concrete floor', 'boarded ceiling',
                        True, 'fluorescent strip lighting'
                        )
 
@@ -494,6 +494,7 @@ def createLocations() :
     locations['start'] = start
     locations['patio'] = patio
     locations['basement'] = basement
+    locations['garage'] = garage
     locations['kitchen'] = kitchen
     locations['landing'] = landing
     locations['lobby'] = lobby
