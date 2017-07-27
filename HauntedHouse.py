@@ -1,6 +1,6 @@
 # A console based adventure game
-# Created by https://github.com/SomeStrHere
-# V: 0.2.5
+# Created by https://github.com/SomeStrHere and https://github.com/kieranjen
+# V: 0.3.0
 
 import sys
 import random
@@ -17,7 +17,7 @@ def main() :
     gameIntroduction()
     
 def gameIntroduction() :
-    global locations, character
+    global locations, character, currentLocation
 
     clearConsole(0)
     welcomeGraphic()
@@ -57,7 +57,9 @@ def gameIntroduction() :
 
     locations = createLocations()
 
-    isGameComplete()
+    currentLocation = locations['start']
+
+    ## isGameComplete()
 
     # Setting the scene for the start of the game.
     print('You\'ve arrived; the long drive to the house felt longer this evening, much ' +
@@ -96,6 +98,10 @@ def gameIntroduction() :
 
 def gameIntroductionMenu() :
 
+    #newLocation = currentLocation.choiceToNextLocation()
+
+    #print(newLocation.levelName)
+
     varMenu = True
 
     while varMenu :
@@ -109,125 +115,60 @@ def gameIntroductionMenu() :
         userSelects = input('~ Please enter your (number) choice and press Enter ~\n')
 
         if userSelects == '1' :
-            clearConsole(0)
-            print('\nYou walk up to the front door...\n')
-            walk()
-            sleep(1.3)
-            print('\nThe light from the lampost on the drive barley reaches the front door; you can make out ' +
-            'the shape of the door,\nand windows but little more, the house is in darkness.\n')
-            print('# Dice Roll #')
-            print('Roll 1 - 4 = knock on the door.')
-            print('Roll 5 = Try to open the door.')
-            print('Roll 6 = ... sssh it\'s a surprise!')
-            input('\n~ Press Enter to roll ~\n')
-            roll = diceRoll(6)
-            print('\nYou rolled a {0}!\n'.format(roll))
-            if roll  <= 4 :
-                print('Knock, Knock...')
-                sleep(2)
-                randomOption = random.randint(0,2)
 
-                if randomOption == 0 :
-                    print('Creeeeaaak')
-                    print('The front door slowly opens!!!')
-                    sleep(1)
-                    print('You can only see darkness; and can\'t make anything out; ' +
-                          'you step inside...')
-                    locations[0].setAsVisited()
-                    #TODO - start Lobby level
-                    input() # Here to pause program execution during development
+            entered, nextLocation = locations['lobby'].locationIntroduction()
 
-                elif randomOption == 1 :
-                    print('What was that...?')
-                    sleep(1)
-                    print('There it is again... very faint; difficult to make out ' +
-                          'but growing louder')
-                    print('Whooooo gooooeesss theerrrrreeee?????')
-                    sleep(2.5)
-                    print('WTF!')
-                    print('"This is certainly creepy"')
-                    print('"How much did I have to drink...?"')
-                    sleep(2.5)
-                    print('\nYou try to introduce yourself and explain your situation, ' +
-                          'but are interupted...')
-                    print('If you want to come in here, you\'ll need the password')
-                    sleep(1)
-                    print('"The password!"')
-                    sleep(0.3)
-                    print('All you have to do is tell me the meaning of life?')
-                    sleep(0.5)
-                    print('"Well, I can\'t stay out here all night"')
-                    meaningOfLife()                
-
-                else :
-                    print('No, answer; you try again')
-                    print('Knock, Knock')
-                    sleep(3)
-                    print('There is no answer; try the garden gate')
-                    StartToPatioGate()
-
-            elif roll == 5 :
-                print('You reach out for the door handle and tentatively turn it...')
-                sleep(2)
-                print('It\'s locked!')
-                #TODO add facility to pick the lock
+            if(entered == True) :
+                locations['lobby'].setAsVisited()
+                currentLocation = locations['lobby']
 
             else :
-                print('Surprise!')
-                print('You\'ve activated a trapdoor and find yourself in an underground room.')
-                locations[0].setAsVisited()
-                # TODO start basement level
-                # TODO declare basement level as visited?
+                if(nextLocation in locations) :
+                    currentLocation = locations[nextLocation]
+                else :
+                    print("You could not enter the lobby area")
+                    print()
+                    print("Please choose a new location to visit.")
+                    currentLocation.choiceToNextLocation()
 
             varMenu = False
 
         elif userSelects == '2' :
-            clearConsole(0)
-            print('\nYou walk up to the garage door...\n')
-            # Walk() will produce a series of strings using sleep(x) to delay each statement.
-            walk()
-            sleep(1.5)
-            # Returns printout of ASCII drawing of front of closed garage door
-            asciiClosedGarageFromStart()
-            print('\nThe garage is attached to the house, and a thick hedge and fence ' +
-                  'on the right side stops you from seeing past\nthe garage into the ' +
-                  'back of the property.\n')
-            print('# Dice Roll #')
-            print('Roll a 1 - 8 = Walk to the front door.')
-            print('Roll 9 - 11 = You try the other side of the property.')
-            print('Roll double 6... and something else may happen')
-            input('\n~ Press Enter to roll x2 D6 ~\n')
-            roll = diceRoll(12)
-            print('\nYou rolled a {0}!\n'.format(roll))
-            if roll <= 8 :
-                walk()
-                doorOptions('all')
-            elif roll >= 9 and roll <= 11 :
-                print('The garage doesn\'t offer much help')
-                sleep(0.5)
-                print('You spot the garden gate at the other side of the property...')
-                walk()
-                sleep(1.3)
-                print('You\'re in luck the gate as been left open')
-                input('~ Press Enter to go through the gate ~')
-                locations[0].setAsVisited()
-                asciiPatioFromStart()
-                # TODO start Patio level
+            entered, nextLocation = locations['garage'].locationIntroduction()
+
+            if(entered == True) :
+                locations['garage'].setAsVisited()
+                currentLocation = locations['garage']
             else :
-                print('Lucky you; rolling that double 6!')
-                print('You find a key in the darkness, and try it in the garage door')
-                print('Wow! You\'r luck knows no bounds...')
-                print('You open the garage door just enough to squeeze inside...')
-                locations[0].setAsVisited()
-                # TODO - start Garage level
+                if(nextLocation in locations) :
+                    currentLocation = locations[nextLocation]
+                else :
+                    print("You could not enter the garage area.")
+                    print()
+                    print("Please choose a new location to visit.")
+                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '3' :
-            clearConsole(0)
-            print('\nYou walk to the garden gate...\n')
-            walk()
-            sleep(1.3)
-            StartToPatioGate('')
+
+            ## Runs the patio introduction and returns whether access has been granted.
+            entered, nextLocation = locations['patio'].locationIntroduction()
+
+            ## If access is given above then enter the patio area
+            if entered == True :
+                locations['patio'].setAsVisited()
+                currentLocation = locations['patio']
+
+            ## If not given access to the patio area above make the user choose a new location. 
+            ## Feel free if yu want to change this to teleport or something
+            else :
+                if(nextLocation in locations) :
+                    currentLocation = locations[nextLocation]
+                else :
+                    print("You could not enter the patio area")
+                    print()
+                    print("Please choose a new location to visit.")
+                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '4' :
@@ -336,12 +277,13 @@ def gameIntroductionMenu() :
                 roll = diceRoll(6)
 
                 if roll >= 5 :
-                    print('Congratulations! You picked the lock and step inside...')
-                    locations[0].setAsVisited()
+                    entered, nextLocation = locations['lobby'].locationIntroduction(deviation = 'Picked Front Door')
+                    locations['lobby'].setAsVisited()
+                    currentLocation = locations['lobby']
                     # TODO - start Lobby level
                 else :
                     print('Picking the lock failed...')
-                    StartToPatioGate('Failed Pick Front Door')
+                    ## TODO - What happens if failed?
 
             else : # You rolled a 6
                 print('\nYou pick up your phone and call your parents...\n')
@@ -354,7 +296,7 @@ def gameIntroductionMenu() :
                     # 0.5 second delay between each dial
                     sleep(0.5)
 
-                characterName = "" # TODO
+                characterName = character.firstName # TODO
                 # Start conversation    
                 print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
                 sleep(0.3)
@@ -373,7 +315,24 @@ def gameIntroductionMenu() :
                 print('Parents: Bye, take care')
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
-                # TODO - start Patio level
+                entered, nextLocation = locations['patio'].locationIntroduction()
+
+                ## If access is given above then enter the patio area
+                if entered == True :
+                    locations['patio'].setAsVisited()
+                    currentLocation = locations['patio']
+
+                ## If not given access to the patio area above make the user choose a new location. 
+                ## Feel free if yu want to change this to teleport or something
+                else :
+                    if(nextLocation in locations) :
+                        currentLocation = locations[nextLocation]
+                    else :
+                        print("You could not enter the patio area")
+                        print()
+                        print("Please choose a new location to visit.")
+                        currentLocation.choiceToNextLocation()
+                varMenu = False
 
         elif userSelects == '5' :
             varMenu = False
@@ -414,203 +373,13 @@ def meaningOfLife() :
         print('That\'s it!')
         print('Now, you may enter...')
         print('\nYou step inside...')
-        locations[0].setAsVisited()
+        locations['start'].setAsVisited()
+        currentLocation = locations['lobby']
         #TODO - start Lobby level
                         
     else :
         print('Sorry, that\'s not correct')
         meaningOfLife()
-
-
-def StartToPatioGate(deviation) :
-    # Function to set the scene for progressing the player from the Start level to the Patio level. 
-
-    deviation = ''
-
-    if deviation == 'Dead Phone' :
-        randomDeviation = random.randint(0,1)
-
-        if randomDeviation == 0:
-            print('Lucky you! The gate is open afterall')
-            print('~ Press Enter to go through the gate ~')
-            clearConsole(1.5)
-            locations[0].setAsVisited()
-            asciiPatioFromStart()
-           #TODO start Patio level
-
-        else :
-            if character.heightInFeet > 6 :
-                print('Being tall as its advantages...')
-                print('You grab hold of a hanging rope, climb up and over the hedge')
-                clearConsole(1.5)
-                locations[0].setAsVisited()
-                asciiPatioFromStart()
-                #TODO start Patio level
-            elif character.heightInFeet < 4 :
-                print('Being short as its advantages...')
-                print('You find a small hole in the hedge and pull yourself through')
-                clearConsole(1.5)
-                locations[0].setAsVisited()
-                asciiPatioFromStart()
-            else :
-                randomGateOptions(0)
-
-    elif deviation == 'Failed Pick Front Door' :
-        print('You walk back towards the garden gate')
-        walk()
-        print('As you approach the gate, you hear laughter, but can\'t identify the source...')
-        print('hhehe, silly child; can\'t even pick a lock')
-        sleep(1)
-        print('Not sure if you\'ve passed out and are having a weird dream ' 
-              ',\nyou hear the same voice again')
-        print('Tell you what...')
-        print('If you can tell guess my favorite super hero, I\'ll open the gate...' )
-        superHero = input('~ Have a guess at the super hero and press Enter ~').upper()
-        if superHero == 'BATMAN' :
-            print('That\'s it!, come on in...')
-            sleep(1)
-            print('As nervous as ever, you step inside the now open gate')
-            clearConsole()
-            locations[0].setAsVisited()
-            asciiPatioFromStart
-            # TODO start Patio level
-        else :
-            print('Silly fool! mwaaaawhahahahahah')
-            randomGateOptions()
-
-    else : # If this isn't a deviation
-        clearConsole(1)
-        print('\nAt the  left hand side of the house, there is a very large hedge; and a fence behind that.')
-        print('The hedge is too thick to climb through and too high for you to attempt to climb over.')
-        sleep(1.5)
-        print('\nLuckily')
-        sleep(0.3)
-        print('\n...or not')
-        sleep(0.5)
-        print('\nThere is an openning with a large gate.')
-        sleep(0.5)
-        print('If you could get through; you might be able to find shelter or get some help...')
-        input('\n~ Press Enter to see what happens next ~')
-        randomGateOptions(0)
-   
-
-def randomGateOptions(skipInt) :
-
-    print('')
-    skipInt = 0
-    minInt = 0
-    maxInt = 9
-
-    # TODO - This commented out code block bellow is designed to stop a user
-    # from randomly generating the "wait 20 seconds" option back to back (buggy atm)
-
-    #while skipInt != 1 :
-    #    randomNumber = random.randint(minInt, maxInt)
-    #randomNumber = random.randint(1, maxInt)
-
-    randomNumber = random.randint(minInt, maxInt)
-
-    if randomNumber == 0 :
-        print('Woahhh')
-        print('You appear to be stuck within the space time continum!')
-        print('It\'ll take you 20 seconds to become unstuck...')
-        for x in range(20) :
-            print(x)
-            sleep(1)
-            x = (x + 1)
-        print('You\'re still outside the gate.. let\'s try again...')
-        randomGateOptions(1)
-
-    elif randomNumber == 1 or randomNumber == 2:
-        print('The gate as an unussual lock; a riddle lock!?')
-        print('Pressing the button marked "Riddle", you hear a voice... although it doesn\'t ' +
-              'appear to be coming from the speaker on the lock')
-        print('Answer this simple riddle and the gate will open...')
-        sleep(2)
-        riddleAnswer = input('What loses its head in the morning and gets it back at night?').upper()
-        if riddleAnswer == 'A PILLOW' or riddleAnswer == 'PILLOW' :
-            print('That\'s correct... come on in')
-            print('What else could you do... you step inside...')
-            clearConsole(0)
-            locations[0].setAsVisited()
-            asciiPatioFromStart
-            # TODO start Patio level
-        else :
-            print('Thou shalt not pass!')
-            sleep(2)
-            print('Kidding... wait for 1 minute... only then can you enter!')
-            sleep(15)
-            print('...')
-            sleep(15)
-            print('...time ain\'t up yet...')
-            sleep(30)
-            print('...???')
-            sleep(60)
-            print('Oops; actually forgot about you there...')
-            print('Thou shalt pass!')
-            clearConsole(0)
-            locations[0].setAsVisited()
-            asciiPatioFromStart
-            # TODO start Patio level
-
-    elif randomNumber == 3 or randomNumber == 4 :
-        print('As you approach the gate, you notice a piece of paper taped to it\n')
-        print('It reads\n')
-        print('All you have to do to unlock the gate and enter our patio ' +
-              'is\nanswer this simple question')
-        noOfWheels = input('"If you have the money to buy any car in the world; how many ' +
-              'wheels will your dream vehicle have?" ')
-        if  noOfWheels == '2' :
-            print('Click!')
-            print('The gate opens and you step inside...')
-            clearConsole(2)
-            locations[0].setAsVisited()
-            asciiPatioFromStart()
-            # TODO start Patio level
-        else :
-            print('What kind of animal are you1?!')
-            print('For that answer; we will have to randomly generate a new character for you!\n')
-            newcharacter = CharacterCreator.createRandomCharacter()
-            print('\nNow you can enter...')
-            clearConsole(3)
-            locations[0].setAsVisited()
-            asciiPatioFromStart()
-            # TODO start Patio level
-            
-    elif randomNumber >=5 and randomNumber <= 7 :
-        # TODO - something else
-        print('As you start looking at the gate at the side of the house; you notice a shiny coin ' +
-              'on the floor and pick it up')
-        print('The coin as "Teleportation Coin" written on it... so you give it a toss')
-        headsOrTails = coinToss()
-        if headsOrTails == 'Heads' :
-            locations[0].setAsVisited()
-            print('Woooooooooooooooooooooooossssshhhh')
-            print('You\'re not outside anymore!')
-            print('You\'ve been teleported to...')
-            sleep(2)
-            print('A nursery!')
-            # TODO start Nursery level
-            input() # Development / Testing
-
-        else :
-            locations[0].setAsVisited()
-            print('Shiiiiiiiiiiiiiiiiiiiiiittttttt!!!')
-            print('You\'re not outside anymore!')
-            print('You\'ve been teleported to...')
-            sleep(2)
-            print('hmmmm... you have no idea!')
-            # TODO start Attick level
-
-    elif randomNumber >= 8 and randomNumber <= maxInt :
-        print('After looking around, you have discovered that this large gate is unlocked.')
-        print('Nervously, you open the gate and state inside...')
-        sleep(2)
-        print('...')
-        clearConsole(1.5)
-        locations[0].setAsVisited()
-        asciiPatioFromStart()
-        #TODO start Patio level
 
 
 def doorOptions(option) :
@@ -635,23 +404,68 @@ def doorOptions(option) :
     # The dialogue and options for players to pass through doorways
     # Locked option 1
     if randomNumber == 0 :
-       print('Testing - Locked option 1')
-       locations[0].setAsVisited()
+       print('The door is locked with a very sophisticated lock\nthere is no way ' +
+             'for you - or anyone! to pick this lock; it simply won\'t happen!')
+       sleep(1.5)
+       print('You take another look at the door...')
+       print('While the lock does indeed look formidable; the door and door frame ' +
+       'appears\nto only be made out of plywood!')
+       sleep(2)
+       print('If you\'re big and fit enough you can break through the door!')
+       
+       if character.heightInFeet >= 4.5 and character.fitnessLevel == 'Great' :
+           print('\nSmash!')
+           sleep(0.5)
+           print('Crash')
+           sleep(0.5)
+           currentLocation.setAsVisited()
+           return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
 
+       else :
+            Print('There is no getting through this door; the lock is unbreakable, and a ' +
+                  'weakling like you can\'t break through the door either, pathetic!')
+            # TODO - finish
+            print('You\'d better try another way')
+            return(doorOptions('Other'))
+            
+       
     # Locked option 2
     elif randomNumber >= 1 and randomNumber <= 3 :
-        print('Testing - Locked option 2')
-        locations[0].setAsVisited()
+        print('This door is locked, but it looks pickable')
+        print('Do you have lockpicks?')
+        input('~ Press Enter to check if you have lockpicks ~')
+
+        # TODO - how can we check if character is in possession of lockpicks?
+
+        currentLocation.setAsVisited()
 
     # Unlocked option 1
     elif randomNumber >= 4 and randomNumber <= 7 :
-        print('Testing - Unlocked option 1')
-        locations[0].setAsVisited()
+        print('In the darkness, what you mustook for a door,')
+        print('was in fact just a curtain.')
+        currentLocation.setAsVisited()
+        return(print('You step inside...'))
 
     # Other options
     else :
-        print('Testing - Other options')
-        locations[0].setAsVisited()
+        print('You walk towards the doorway...')
+        sleep(2.5)
+        print('Flash!')
+        print('A blinding light, explodes around the edges of the door!')
+        print('# Dice Roll #')
+        #print('Roll a 1-2, you turn away in fright!')
+        #print('Roll a 3-4, you kickin the door regardless!')
+        #print('Roll a 5-6, you open the door and...')
+        roll = diceRoll(6)
+        if roll >= 1 <= 2 :
+            currentLocation.setAsVisited()
+            return(print('You turn away in fright!'))
+        elif roll >= 3 <= 4 :
+            currentLocation.setAsVisited()
+            return(print('You kick the door in regardless!'))
+        else :
+            currentLocation.setAsVisited()
+            return(print('You open the door and...'))
 
 
 def isGameComplete() :
