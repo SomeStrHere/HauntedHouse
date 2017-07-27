@@ -42,7 +42,7 @@ class Opponent :
         pass
 
     def delayAttack() :
-        # Player is fozen/stuck to the spont, and can't continue until a delay expires
+        # Player is fozen/stuck to the spot, and can't continue until a delay expires
         pass
 
     def randomAttack() :

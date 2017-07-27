@@ -7,6 +7,11 @@ class Character :
         self.age = age
         self.fitnessLevel = fitnessLevel
         self.inventory = []
+        ## An array that includes items needed to finish the game.
+        ## This stops opponents stealing items from this array.
+        self.essentialItems = []
+        self.hp = 80
+        self.attack = 5
 
     def getItem(self, item) :
         self.inventory.append(item)
