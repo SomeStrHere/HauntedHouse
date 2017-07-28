@@ -35,7 +35,7 @@ class Opponent :
         print(questionPair['question'])
         answer = input("What is your answer? ")
 
-        while(answer not questionPair['answer'] and len(character.inventory) > 0) :
+        while((answer != questionPair['answer']) and (len(character.inventory) > 0)) :
             print("Wrong!")
             itemTaken = character.takeRandomItem()
             print("The " + self.opponentType + " takes your " + itemTaken + ".")
@@ -47,7 +47,7 @@ class Opponent :
         else :
             print("You have no items left.")
             print("The " + self.opponentType + " disappears.")
-            
+
     def delayAttack(self, character) :
         # Player is fozen/stuck to the spot, and can't continue until a delay expires
         pass

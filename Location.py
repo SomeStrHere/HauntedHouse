@@ -375,6 +375,8 @@ class Lobby(Location) :
                     sleep(1)
                     print('You can only see darkness; and can\'t make anything out; ' +
                           'you step inside...')
+                    entered = True
+                    nextLocation = 'lobby'
 
                 elif randomOption == 1 :
                     print('What was that...?')
@@ -396,7 +398,9 @@ class Lobby(Location) :
                     print('All you have to do is tell me the meaning of life?')
                     sleep(0.5)
                     print('"Well, I can\'t stay out here all night"')
-                    meaningOfLife()                
+                    meaningOfLife()
+                    entered = True
+                    nextLocation = 'lobby'                
 
                 else :
                     print('No, answer; you try again')
@@ -418,6 +422,11 @@ class Lobby(Location) :
                 nextLocation = 'basement'
                 entered = False
                 # TODO start basement level
+
+        elif(prevLocation == 'inside') :
+            print('You are in the lobby.')
+            entered = True
+            nextLocation = 'diningRoom'
 
         elif(deviation == 'Failed Pick Front Door') :
             print("LOGIC WHEN LOCK ISN'T PICKED")
@@ -461,7 +470,7 @@ class DinningRoom(Location) :
 
         if(self.visited == False and prevLocation == 'outside') :
             clearConsole(0)
-            print('\nYou walk up to the patio doors...\n')
+            print('\nYou walk towards the dining room....\n')
 
             # Generate random to determine which type of progression the player
             # makes into the Dinning Room.
