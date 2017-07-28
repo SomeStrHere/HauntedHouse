@@ -14,6 +14,8 @@ from Location import *
 
 def main() :
     
+    global interupt
+    interupt = False
     gameIntroduction()
     
 def gameIntroduction() :
@@ -116,11 +118,15 @@ def gameIntroductionMenu() :
 
         if userSelects == '1' :
 
-            entered, nextLocation = locations['lobby'].locationIntroduction()
+            entered, nextLocation = locations['lobby'].locationIntroduction(character)
 
             if(entered == True) :
                 locations['lobby'].setAsVisited()
-                currentLocation = locations['lobby']
+                currentLocation = locations[nextLocation]
+                entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = 'inside')
+                currentLocation = locations[nextLocation]
+                print(nextLocation)
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
             else :
                 if(nextLocation in locations) :
@@ -134,7 +140,7 @@ def gameIntroductionMenu() :
             varMenu = False
 
         elif userSelects == '2' :
-            entered, nextLocation = locations['garage'].locationIntroduction()
+            entered, nextLocation = locations['garage'].locationIntroduction(character)
 
             if(entered == True) :
                 locations['garage'].setAsVisited()
@@ -152,7 +158,7 @@ def gameIntroductionMenu() :
         elif userSelects == '3' :
 
             ## Runs the patio introduction and returns whether access has been granted.
-            entered, nextLocation = locations['patio'].locationIntroduction()
+            entered, nextLocation = locations['patio'].locationIntroduction(character)
 
             ## If access is given above then enter the patio area
             if entered == True :
@@ -277,7 +283,7 @@ def gameIntroductionMenu() :
                 roll = diceRoll(6)
 
                 if roll >= 5 :
-                    entered, nextLocation = locations['lobby'].locationIntroduction(deviation = 'Picked Front Door')
+                    entered, nextLocation = locations['lobby'].locationIntroduction(character, deviation = 'Picked Front Door')
                     locations['lobby'].setAsVisited()
                     currentLocation = locations['lobby']
                     # TODO - start Lobby level
@@ -315,7 +321,7 @@ def gameIntroductionMenu() :
                 print('Parents: Bye, take care')
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
-                entered, nextLocation = locations['patio'].locationIntroduction()
+                entered, nextLocation = locations['patio'].locationIntroduction(character)
 
                 ## If access is given above then enter the patio area
                 if entered == True :
@@ -505,6 +511,8 @@ def gameComplete() :
            clearConsole(0)
            gameComplete()
 
+def delayedAttack(mins, string) :
+    pass
 
 if __name__ == "__main__" :
     main()

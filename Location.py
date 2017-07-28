@@ -95,7 +95,7 @@ class Garage(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
@@ -167,7 +167,7 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
@@ -346,7 +346,7 @@ class Lobby(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
         nextLocation = 'random'
 
@@ -375,6 +375,8 @@ class Lobby(Location) :
                     sleep(1)
                     print('You can only see darkness; and can\'t make anything out; ' +
                           'you step inside...')
+                    entered = True
+                    nextLocation = 'lobby'
 
                 elif randomOption == 1 :
                     print('What was that...?')
@@ -396,7 +398,9 @@ class Lobby(Location) :
                     print('All you have to do is tell me the meaning of life?')
                     sleep(0.5)
                     print('"Well, I can\'t stay out here all night"')
-                    meaningOfLife()                
+                    meaningOfLife()
+                    entered = True
+                    nextLocation = 'lobby'                
 
                 else :
                     print('No, answer; you try again')
@@ -419,6 +423,11 @@ class Lobby(Location) :
                 entered = False
                 # TODO start basement level
 
+        elif(prevLocation == 'inside') :
+            print('You are in the lobby.')
+            entered = True
+            nextLocation = 'diningRoom'
+
         elif(deviation == 'Failed Pick Front Door') :
             print("LOGIC WHEN LOCK ISN'T PICKED")
 
@@ -430,6 +439,341 @@ class Lobby(Location) :
 
         return entered, nextLocation
 
+
+class DinningRoom(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('\nYou walk towards the dining room....\n')
+
+            # Generate random to determine which type of progression the player
+            # makes into the Dinning Room.
+
+            # Decided to not annouce like a dice roll here, because I'd like to keep
+            # the player guessing and be surprised.
+            progression = random.randint(0,6)
+
+            if (progression == 0) :
+                self.lighting = False
+                print('Peering inside, with your faced pressed tightly agains the glass; there is little to see\n' +
+                      'the place is in total darkness.')
+                print('You spot the candle holders, reflecting the moonlight through the storm cloud; it\'s about\n' +
+                      'all you can see. Still unsure if this place is abandoned, or at least vacant for the night\n ' +
+                      'or sheltering a family, asleep upstairs, you decide to make the best of what shelter you ' +
+                      'have with you, your tent.') 
+                entered = False
+                nextLocation = 'Patio'
+
+            elif (progression >= 1 and progression <= 3) :
+                self.lighting = True
+                light = self.lighting
+                print('The room is somewhat iluminated by {0}, but, you can\'t see anyone.'.format(light))
+                doorLocked = random.choice['open', 'locked']
+                print('Urged on by the storm, you try the door and find it {0}'.format(doorLocked))
+
+                if doorLocked == 'open' :
+                    print('Tentatively, you slowly open the door, and prepared to be confronted at any moment, ' +
+                          'you step inside... you\'re far too tired, and far too cold\n' +
+                          'to wait outside and hope someone finds you before you freeze to death.')
+
+                if doorLocked == 'locked' :
+                    print('Not relishing the idea of pitching up your tent on an unknown property, and\n ' +
+                          'being so cold, you could audition for Snowman! you knock on the door...\n')
+                    print('Knock')
+                    sleep(0.5)
+                    print('Knock')
+                    sleep(1)
+
+                    print('# Dice Roll #')
+                    print('Roll = 1-2; all seems well') # door opens on it's own, attack is triggered after time delay
+                    print('Roll = 3-4; someone lets you in') # ghost, vampire... unknown to player straight away
+                    print('Roll = 5+; something unexpected') # falls unconcious, awakes 1 minute later, etc
+                    input('\n~ Press Enter to roll\n')
+                    roll = diceRoll(6)
+
+                    if roll == 1 or roll == 2 :
+                        print('The lights flicker, as if someone is walking beside them...')
+                        print('but, you see no one')
+                        sleep(1)
+                        print('Click')
+                        sleep(0.5)
+                        print('The door opens, as if on its own')
+                        print('You step inside...')
+                        visited = True
+                        nextLocation = 'Dinning Room'
+
+                        ##timeout(1, attackString)
+
+                        ##attackString = (
+                            ##'Insert details of the attack here' # TODO
+                            ##)
+
+                        opponent = createRandomOpponent()
+                        opponent.itemAttack(character)
+
+                        # Execute hidden delay, can't use time.sleep as I want the delay to be in the background.
+                        # I'm researching how best to do the above.
+                        # Trigger attack after hidden delay expires.
+                        
+                    elif roll == 3 or roll == 4 :
+                        print('The air grows cold, you shiver and your spine tingles')
+                        print('The candles are out, and the thin smoke moves as if to dance')
+                        sleep(1)
+                        print('A shadow grows larger as it approaches the door')
+                        sleep(0.5)
+                        print('You can feel the hairs on the back of your neck standing up')
+                        print('Relieved and terrified in equal measure, you\'re frozen to the spot')
+                        sleep(1)
+                        print('In the darkness something reaches towards the door... difficult to see')
+                        sleep(0.3)
+                        print('Click')
+                        sleep(0.3)
+                        print('Now unlocked the door swings open')
+                        print('The darkness retreats from the doorway, as if to beckon you inside')
+                        sleep(0.5)
+                        print('You step inside')
+                        sleep(0.3)
+                        print('Sharply, the door; as if on its own, slams shut behind you')
+                        print('Click!')
+                        print('You\'re inside now!')
+                        print('You glance over to the lights which are now again lit')
+                        print('Looking back, whomever opened the door for you, as gone; you appear to be alone')
+                        visited = True
+                        nextLocation = 'Dinning Room'
+
+                    else :
+                        print('...?')
+                        sleep(2)
+                        if self.lighting == True :
+                            print('Despite, signs the house is occupied, your knocking appears to go unasnwered')
+                        else :
+                            print('Despite, the {0}, being lit, your knocking appears to go unanswered'.format(self.lightType))
+                        print('then...')
+                        sleep(0.5)
+                        print('POOF!')
+                        sleep(0.3)
+                        print('FLASH!')
+                        sleep(0.3)
+                        print('Dazed and confused you take stock of your surroundings...')
+                        print('You\'re surrounded by fog, you can\'t make anything out')
+                        sleep(1)
+                        print('Then, a voice breaks the silence')
+                        sleep(0.5)
+                        print('Earthling!')
+                        print('Thou shalt not pass... unless')
+                        print('You master our little challenge')
+                        sleep(1)
+                        print('Let the challenge begin!')
+                        Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
+
+                        if passed :
+                            print('Congratulations!')
+                            print('You have passed our challenge')
+                            sleep(1)
+                            print('The fog slowly fades; you\'re back, facing the patio doors')
+                            print('Swinging open, the doors now out of your way')
+                            sleep(0.5)
+                            print('You step inside...')
+                            visited = True
+                            nextLocation = 'Dinning Room'
+                        else :
+                            print('Pity!')
+                            sleep(0.5)
+                            print('We would have had fun with you...')
+                            print('But...')
+                            sleep(0.5)
+                            print('Rules are rules')
+                            print('You can\'t enter here, at least not yet')
+                            sleep(0.5)
+                            print('Exasperated and still freezing, you step back from the patio doors')
+                            visited = False
+                            nextLocation = 'Patio'
+                    
+            elif (progression == 3 or progression == 4) :
+                print('You can feel the warm eminating from the room; even with no one insight\n' + 
+                      'it is a dam sight more welcoming than the freezing cold stormy night outside on the patio!')
+                sleep(1)
+                print('The doors are locked, but you\'ve made up your mind')
+                print('You have little choice... you\'re going to kick your way through the patio doors!')
+                sleep(1)
+                print('You lunge forward with all your might and...')
+
+                kicksRequired = 0
+                
+                if character.fitnessLevel == 'Poor' :
+                    kicksRequired = 5
+                
+                elif character.fitnessLevel == 'Okay' :
+                    kicksRequired = 4
+
+                else :
+                    kicksRequired = 2
+
+                for steps in range(kicksRequired) :
+                    print('\nKick!')
+                    print('...')
+                    sleep(1.5) # Delay between kicks
+
+                print('You\'re through')
+                print('No alarms sounded, no one rushed to see what you were doing')
+                print('All is well... or is it?\n')
+                visited = True
+                nextLocation = 'Dinning Room'
+
+            else :
+                print('You can feel the warm eminating from the room; even with no one insight\n' + 
+                      'it is a dam sight more welcoming than the freezing cold stormy night outside on the patio!')
+                sleep(1)
+                print('A sound, a movement... something makes you look up')
+                print('It\'s a window, an open window')
+                sleep(1.5)
+                print('You\'re far too cold and tired to be pleasent about things, you\'re going inside!')
+                print('Stepping back, you take a quick run up and leap for the open window')
+
+                if (character.heightInFeet < 4.5 and character.fitnessLevel == 'Poor') :
+                    print('...')
+                    sleep(1)
+                    print('You give it your best effort, but you\'re not able to pull youself up to where you can\n' +
+                          'enter the window.')
+                    print('Annoyed, with yourself; you feel defeanted')
+                    sleep(0.5)
+                    print('What now...')
+                    visited = False
+                    nextLocation = 'Patio'
+
+                else :
+                    print('...')
+                    sleep(1)
+                    print('Got it!')
+                    print('You\'ve managed it!')
+                    print('Despite the freezing cold and torrential rain, you\'ve managed it!')
+                    sleep(1)
+                    print('Holding on to the window ledge, you pull yourself up')
+                    print('...and through the window you go.')
+                    print('You\'re inside...')
+                    visited = True
+                    nextLocation = 'Dinning Room'
+            
+        elif (self.visited == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('\nYou walk up to the door...\n') # Entering the dinning room from inside the house
+
+            indoorProgression = random.randint(0,6)
+
+            if (indoorProgression == 0) :
+                print('and it swings open in front of you')
+                print('You can hear faint chuckling as you step inside, and feel a cool breeze blow across your face')
+                print('as if someone left a window open')
+                visited = True
+                nextLocation = 'Dinning Room'
+
+            elif (indoorProgression >= 1 and indoorProgression <= 3) :
+                print('Being mindful of your predicament; being inside a house, which is not your own...')
+                print('your nervously knock on the door')
+                sleep(0.5)
+                print('Knock')
+                sleep(0.3)
+                print('Knock')
+                sleep(0.3)
+                print('You hear a voice from inside the room')
+                print('"Enter"')
+                print('Unsure of what\'s to come, you open the door and step inside')
+                print('Looking around the room, you can\'t see anyone... who was it beckoned you in...?')
+                visited = True
+                nextLocation = 'Dinning Room'
+
+            else :
+                print('You reach out to grab the handle, and it disapears in front of you; melting into the door!')
+                sleep(0.5)
+                print('Laughter seems to be all around you')
+                sleep(0.5)
+                print('You shake you head, as if to see if you\'re dreaming')
+                sleep(0.5)
+                print('Looking back, the door handle is there oncemore')
+                sleep(0.5)
+                print('Grabbing the handle, you attempt to open the door')
+                print('The handle won\'t turn, the door won\'t open, and worse still...')
+                print('You can\'t let go of the door handle, you\'re stuck!')
+                sleep(1)
+                print('Panic begins to set in... shit!, shit!')
+                sleep(0.5)
+                print('A "chuckle" can be heard, as if coming from inside the room')
+                sleep(0.3)
+                print('You like my little tric, huh?')
+                print('You\'re too stunned to answer')
+                sleep(0.5)
+                print('Answer my riddle and you will be free...')
+                print('...you don\'t seem to have much choice\n')
+
+                riddleResult = Puzzle.riddlePuzzle()
+
+                if riddleResult :
+                    print('Oh, well done; I knew you had it in you')
+                    sleep(1)
+                    print('Definatley, after first making sure your hand is free; you open the door')
+                    print('and step inside...')
+                    visited = True
+                    nextLocation = 'Dinning Room'
+
+                elif riddleResult :
+                    print('Oh, that is a shame... "laughter grows louder and louder"')
+                    print('Looks like you won\'t be going anywhere')
+                    sleep(1)
+                    print('Then silence, deadly silence... and you still can\'t remove your hand or open the door')
+                    sleep(30)
+                    sleep('"hehe')
+                    sleep(30)
+                    print('"bored now"')
+                    print('Flash!')
+                    sleep(0.3)
+                    print('Your hand is released from the door, and you fall to the ground in a heap!')
+                    print('\n~ Are you sure you want to visit the Dinning Room? Y/N ~')
+                    userAnswer = input().upper()
+
+                    if userAnswer == 'Y' :
+                        sleep(1)
+                        print('\nThe door swings open slowly')
+                        print('Cautiously, yet determined you enter the Dinning Room')
+                        visited = True
+                        nextLocation = 'Dinning Room'
+
+                    else :
+                        print('You turn away back into the Lobby')
+                        print('The door swings ajar and shuts again')
+                        print('Doing so repeatedly, as if to mock you\n')
+                        visited = False
+                        nextLocation = 'Lobby'
+
+        else :
+            print("You have returned to the dinning room.")
+
+        return entered, nextLocation
 
         
 
@@ -447,7 +791,7 @@ def createLocations() :
                        True, 'fluorescent strip lighting'
                        )
 
-    diningRoom = Location('Dinning Room', 'polished wood floor', 'pattered wallpaper',
+    diningRoom = DinningRoom('Dinning Room', 'polished wood floor', 'pattered wallpaper',
                             True, 'candles in holders'
                            )
 
