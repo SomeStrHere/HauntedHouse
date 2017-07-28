@@ -184,6 +184,7 @@ class Patio(Location) :
                     print('~ Press Enter to go through the gate ~')
                     clearConsole(1.5)
                     asciiPatioFromStart()
+                    nextLocation = 'patio'
                    #TODO start Patio level
 
                 else :
@@ -219,6 +220,8 @@ class Patio(Location) :
                     print('As nervous as ever, you step inside the now open gate')
                     clearConsole()
                     asciiPatioFromStart()
+                    entered = True
+                    nextLocation = 'patio'
                     # TODO start Patio level
                 else :
                     print('Silly fool! mwaaaawhahahahahah')
@@ -321,6 +324,8 @@ class Patio(Location) :
             clearConsole(1.5)
             asciiPatioFromStart()
             #TODO start Patio level
+
+        return access
 
 class Lobby(Location) :
 
@@ -488,7 +493,7 @@ class DinningRoom(Location) :
                       'or sheltering a family, asleep upstairs, you decide to make the best of what shelter you ' +
                       'have with you, your tent.') 
                 entered = False
-                nextLocation = 'Patio'
+                nextLocation = 'patio'
 
             elif (progression >= 1 and progression <= 3) :
                 self.lighting = True
@@ -525,8 +530,8 @@ class DinningRoom(Location) :
                         sleep(0.5)
                         print('The door opens, as if on its own')
                         print('You step inside...')
-                        visited = True
-                        nextLocation = 'Dinning Room'
+                        entered = True
+                        nextLocation = 'diningRoom'
 
                         ##timeout(1, attackString)
 
@@ -564,8 +569,8 @@ class DinningRoom(Location) :
                         print('You\'re inside now!')
                         print('You glance over to the lights which are now again lit')
                         print('Looking back, whomever opened the door for you, as gone; you appear to be alone')
-                        visited = True
-                        nextLocation = 'Dinning Room'
+                        entered = True
+                        nextLocation = 'diningRoom'
 
                     else :
                         print('...?')
@@ -590,7 +595,7 @@ class DinningRoom(Location) :
                         print('You master our little challenge')
                         sleep(1)
                         print('Let the challenge begin!')
-                        Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
+                        passed = Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
 
                         if passed :
                             print('Congratulations!')
@@ -600,8 +605,8 @@ class DinningRoom(Location) :
                             print('Swinging open, the doors now out of your way')
                             sleep(0.5)
                             print('You step inside...')
-                            visited = True
-                            nextLocation = 'Dinning Room'
+                            entered = True
+                            nextLocation = 'diningRoom'
                         else :
                             print('Pity!')
                             sleep(0.5)
@@ -613,7 +618,7 @@ class DinningRoom(Location) :
                             sleep(0.5)
                             print('Exasperated and still freezing, you step back from the patio doors')
                             entered = False
-                            nextLocation = 'Patio'
+                            nextLocation = 'patio'
                     
             elif (progression == 3 or progression == 4) :
                 print('You can feel the warm eminating from the room; even with no one insight\n' + 
@@ -644,7 +649,7 @@ class DinningRoom(Location) :
                 print('No alarms sounded, no one rushed to see what you were doing')
                 print('All is well... or is it?\n')
                 entered = True
-                nextLocation = 'Dinning Room'
+                nextLocation = 'diningRoom'
 
             else :
                 print('You can feel the warm eminating from the room; even with no one insight\n' + 
@@ -665,7 +670,7 @@ class DinningRoom(Location) :
                     sleep(0.5)
                     print('What now...')
                     entered = False
-                    nextLocation = 'Patio'
+                    nextLocation = 'patio'
 
                 else :
                     print('...')
@@ -678,7 +683,7 @@ class DinningRoom(Location) :
                     print('...and through the window you go.')
                     print('You\'re inside...')
                     entered = True
-                    nextLocation = 'Dinning Room'
+                    nextLocation = 'diningRoom'
             
         elif (self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
@@ -706,7 +711,7 @@ class DinningRoom(Location) :
                 print('Unsure of what\'s to come, you open the door and step inside')
                 print('Looking around the room, you can\'t see anyone... who was it beckoned you in...?')
                 entered = True
-                nextLocation = 'Dinning Room'
+                nextLocation = 'diningRoom'
 
             else :
                 print('You reach out to grab the handle, and it disapears in front of you; melting into the door!')
@@ -739,7 +744,7 @@ class DinningRoom(Location) :
                     print('Definatley, after first making sure your hand is free; you open the door')
                     print('and step inside...')
                     entered = True
-                    nextLocation = 'Dinning Room'
+                    nextLocation = 'diningRoom'
 
                 elif riddleResult :
                     print('Oh, that is a shame... "laughter grows louder and louder"')
@@ -768,7 +773,7 @@ class DinningRoom(Location) :
                         print('The door swings ajar and shuts again')
                         print('Doing so repeatedly, as if to mock you\n')
                         entered = False
-                        nextLocation = 'Lobby'
+                        nextLocation = 'lobby'
 
         else :
             print("You have returned to the dinning room.")
