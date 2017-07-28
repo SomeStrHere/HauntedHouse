@@ -99,7 +99,7 @@ class Garage(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'outside') :
+        if(self.visited == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk up to the garage door...\n')
             # Walk() will produce a series of strings using sleep(x) to delay each statement.
@@ -350,7 +350,7 @@ class Lobby(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'outside') :
+        if(self.visited == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk up to the front door...\n')
             walk()
@@ -468,7 +468,7 @@ class DinningRoom(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'outside') :
+        if(self.visited == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk towards the dining room....\n')
 
@@ -845,7 +845,7 @@ class Kitchen(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -882,7 +882,7 @@ class Utility(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -961,7 +961,7 @@ class MasterBedroom(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -999,7 +999,7 @@ class SecondBedroom(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -1037,7 +1037,7 @@ class Nursery(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -1075,7 +1075,7 @@ class Landing(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
@@ -1113,7 +1113,7 @@ class Attick(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(entered == False and prevLocation == 'inside') :
+        if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
             print('') # TODO
 
