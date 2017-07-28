@@ -25,7 +25,7 @@ class Location :
         return self.visited
 
     def setAsVisited(self) :
-        self.visited = True;
+        self.visited = True; # Need to chang to entered ?
 
     def setConnectedLocations(self, rooms) :
         self.connectedRooms = rooms
@@ -99,7 +99,7 @@ class Garage(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(entered == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk up to the garage door...\n')
             # Walk() will produce a series of strings using sleep(x) to delay each statement.
@@ -350,7 +350,7 @@ class Lobby(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(entered == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk up to the front door...\n')
             walk()
@@ -468,7 +468,7 @@ class DinningRoom(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(entered == False and prevLocation == 'outside') :
             clearConsole(0)
             print('\nYou walk towards the dining room....\n')
 
@@ -612,7 +612,7 @@ class DinningRoom(Location) :
                             print('You can\'t enter here, at least not yet')
                             sleep(0.5)
                             print('Exasperated and still freezing, you step back from the patio doors')
-                            visited = False
+                            entered = False
                             nextLocation = 'Patio'
                     
             elif (progression == 3 or progression == 4) :
@@ -643,7 +643,7 @@ class DinningRoom(Location) :
                 print('You\'re through')
                 print('No alarms sounded, no one rushed to see what you were doing')
                 print('All is well... or is it?\n')
-                visited = True
+                entered = True
                 nextLocation = 'Dinning Room'
 
             else :
@@ -664,7 +664,7 @@ class DinningRoom(Location) :
                     print('Annoyed, with yourself; you feel defeanted')
                     sleep(0.5)
                     print('What now...')
-                    visited = False
+                    entered = False
                     nextLocation = 'Patio'
 
                 else :
@@ -677,7 +677,7 @@ class DinningRoom(Location) :
                     print('Holding on to the window ledge, you pull yourself up')
                     print('...and through the window you go.')
                     print('You\'re inside...')
-                    visited = True
+                    entered = True
                     nextLocation = 'Dinning Room'
             
         elif (self.visited == False and prevLocation == 'inside') :
@@ -690,7 +690,7 @@ class DinningRoom(Location) :
                 print('and it swings open in front of you')
                 print('You can hear faint chuckling as you step inside, and feel a cool breeze blow across your face')
                 print('as if someone left a window open')
-                visited = True
+                entered = True
                 nextLocation = 'Dinning Room'
 
             elif (indoorProgression >= 1 and indoorProgression <= 3) :
@@ -705,7 +705,7 @@ class DinningRoom(Location) :
                 print('"Enter"')
                 print('Unsure of what\'s to come, you open the door and step inside')
                 print('Looking around the room, you can\'t see anyone... who was it beckoned you in...?')
-                visited = True
+                entered = True
                 nextLocation = 'Dinning Room'
 
             else :
@@ -738,7 +738,7 @@ class DinningRoom(Location) :
                     sleep(1)
                     print('Definatley, after first making sure your hand is free; you open the door')
                     print('and step inside...')
-                    visited = True
+                    entered = True
                     nextLocation = 'Dinning Room'
 
                 elif riddleResult :
@@ -760,14 +760,14 @@ class DinningRoom(Location) :
                         sleep(1)
                         print('\nThe door swings open slowly')
                         print('Cautiously, yet determined you enter the Dinning Room')
-                        visited = True
+                        entered = True
                         nextLocation = 'Dinning Room'
 
                     else :
                         print('You turn away back into the Lobby')
                         print('The door swings ajar and shuts again')
                         print('Doing so repeatedly, as if to mock you\n')
-                        visited = False
+                        entered = False
                         nextLocation = 'Lobby'
 
         else :
@@ -775,7 +775,395 @@ class DinningRoom(Location) :
 
         return entered, nextLocation
 
-        
+class Basement(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('') # TODO
+
+        elif(self.visited == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the basement')
+
+        return entered, nextLocation
+
+
+class Kitchen(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the kitchen')
+
+        return entered, nextLocation
+
+class Utility(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the utility rom')
+
+        return entered, nextLocation
+
+class Library(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('') # TODO
+
+        elif(self.visited == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the library')
+
+        return entered, nextLocation
+
+
+class MasterBedroom(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the master bedroom')
+
+        return entered, nextLocation
+
+
+class SecondBedroom(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the second bedroom')
+
+        return entered, nextLocation
+
+
+class Nursery(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the master nursery')
+
+        return entered, nextLocation
+
+
+class Landing(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the landing')
+
+        return entered, nextLocation
+
+
+class Attick(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(entered == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the attick')
+
+        return entered, nextLocation
+
+
+class Garden(Location) :
+
+    def __init__(self, levelName, floor, roof, lighting, lightType) :
+        super().__init__(levelName, floor, roof, lighting, lightType)
+
+    def doAction(self, diceRoll, character) :
+        if(diceRoll == 1) :
+            ## Go to new location
+            self.choiceToNextLocation()
+        elif(diceRoll == 2) :
+            ## Find items
+            self.searchLocation(character)
+        elif(diceRoll == 3) :
+            ## Get attacked by ghost etc
+            self.getAttacked(character)
+        elif(diceRoll == 4) :
+            ## Repair all(?) weapons
+            self.repairWeapons(character)
+        elif(diceRoll == 5) :
+            ## Be given a puzzle
+            self.doPuzzle()
+        elif(diceRoll == 6) :
+            self.choiceToNextLocation()
+
+    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+        entered = True
+        nextLocation = 'random'
+
+        if(self.visited == False and prevLocation == 'outside') :
+            clearConsole(0)
+            print('') # TODO
+
+        elif(self.visited == False and prevLocation == 'inside') :
+            clearConsole(0)
+            print('') # TODO
+
+        else :
+            print('You have returned to the garden')
+
+        return entered, nextLocation
+
 
 def createLocations() :
     locations = {}
@@ -783,7 +1171,7 @@ def createLocations() :
                       True, '2 large chandeliers'
                       )
 
-    basement = Location('Basement', 'bare earth floor with disturbed ground', 'floorboards', 
+    basement = Basement('Basement', 'bare earth floor with disturbed ground', 'floorboards', 
                          True, 'incandecent light fitting without a bulb'
                          )
 
@@ -795,34 +1183,34 @@ def createLocations() :
                             True, 'candles in holders'
                            )
 
-    kitchen = Location('Kitchen', 'laminate flooring', 'white painted plaster', 
+    kitchen = Kitchen('Kitchen', 'laminate flooring', 'white painted plaster', 
                             True, 'downlighters')
 
-    utility = Location('Utility Room', 'stone tiles', 'white painted plaster', 
+    utility = Utility('Utility Room', 'stone tiles', 'white painted plaster', 
                             True, 'incandecent bulb')
 
-    library = Location('Library', 'stained wood flooring', 'Dark painted plaster', 
+    library = Library('Library', 'stained wood flooring', 'Dark painted plaster', 
                             True, 'floor lamps')
 
-    masterBedroom = Location('Master Bedroom', 'carpet', 'white painted plaster', 
+    masterBedroom = MasterBedroom('Master Bedroom', 'carpet', 'white painted plaster', 
                                   True, 'incandecent bulb with shade')
 
-    secondBedroom = Location('Second Bedroom', 'carpet', 'white painted plaster', 
+    secondBedroom = SecondBedroom('Second Bedroom', 'carpet', 'white painted plaster', 
                                   True, 'incandecent bulb with shade')
 
-    nursery = Location('Nursery', 'carpet', 'white painted plaster', 
+    nursery = Nursery('Nursery', 'carpet', 'white painted plaster', 
                             True, 'incandecent bulb with shade')
 
-    landing = Location('Landing', 'carpet', 'white painted plaster',
+    landing = Landing('Landing', 'carpet', 'white painted plaster',
                            True, 'incandecent bulb with shade')
 
-    attick = Location('Attick', 'bare floorboards', 'bare brick', False, 'n/a')
+    attick = Attick('Attick', 'bare floorboards', 'bare brick', False, 'n/a')
 
     start = Location('Start Area', 'gravel drive', None, True, 'street lamp')
 
     patio = Patio('The Patio', 'grass and paving stones', None, True, 'security light')
 
-    garden = Location('The Rear Garden', 'grass', None, False, 'n/a')
+    garden = Garden('The Rear Garden', 'grass', None, False, 'n/a')
 
     start.setConnectedLocations([garage, patio, lobby, basement])
     patio.setConnectedLocations([lobby, garden])
