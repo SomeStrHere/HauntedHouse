@@ -159,7 +159,9 @@ def gameIntroductionMenu() :
                 print('Annoyed with yourself for leaving your phone in the taxi,\nyou ' +
                       'walk up to the garage door looking for some shelter.\n')
                 walk()
-                sleep(1.3)
+                sleep(1)
+
+                enterCon()
 
                 currentLocation = locations['garage']
                 entered, nextLocation = currentLocation.locationIntroduction(character)
@@ -184,14 +186,14 @@ def gameIntroductionMenu() :
                 print('\nIt\'s {0}!\n'.format(coinFace))
 
                 if coinFace == 'Heads' :
-                    walk()
+                    #walk() # This is already called in locationIntroduction
                     sleep(1.3)
                     currentLocation = locations['lobby']
                     entered, nextLocation = currentLocation.locationIntroduction(character)
 
                 elif coinFace == 'Tails':
-                    print('You walk up to the garden gate\n')
-                    walk()
+                    #print('You walk up to the garden gate\n') These two lines are already  in the locationIntroduction method.
+                    #walk()
                     sleep(1.3)
                     currentLocation = locations['patio']
                     entered, nextLocation = currentLocation.locationIntroduction(character)
@@ -238,6 +240,8 @@ def gameIntroductionMenu() :
                 sleep(0.3)
                 print('   You: Thanks, bye!')
                 print('\nPhone disconnects')
+
+                enterCon()
 
                 currentLocation = locations['patio']
                 entered, nextLocation = currentLocation.locationIntroduction(character)
