@@ -204,7 +204,7 @@ def gameIntroductionMenu() :
 
                 #TODO Need run the code for the Garage class; locationIntroduction ???
 
-            elif roll == 3 or roll == 4 :
+            elif roll == 3 or roll == 4 : 
                 print('You pull out your phone... and it\'s dead!\n' +
                       'Well that sucks! You quickly think about your options...\n\n' +
                       'You can\'t decide whether to knock on the door so early in the ' +
@@ -237,7 +237,7 @@ def gameIntroductionMenu() :
                     sleep(1.3)
                     StartToPatioGate('Dead Phone') # TODO returns an error atm
             
-            elif roll == 5 :
+            elif roll == 5 : 
                 print('You pick up your phone and call a friend...')
                 # Number of dials is random int 2 to 8
                 numberofDials = random.randint(2,8)
@@ -313,10 +313,11 @@ def gameIntroductionMenu() :
                 characterName = character.firstName # TODO
                 # Start conversation    
                 print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
+                # TODO - not sure if the above reference to character is correct, can't tell if working yet, due to other bugs
                 sleep(0.3)
-                print('{0}: I\'m sorry, I got a taxi after a party  on my way over...'.format(characterName))
-                print('{0}: and the taxi dropped me off at a strange house in the middle of nowhere...'.format(characterName))
-                print('{0}: Then the storm blew in.'.format(characterName))
+                print('    You: I\'m sorry, I got a taxi after a party  on my way over...')
+                print('    You: and the taxi dropped me off at a strange house in the middle of nowhere...')
+                print('    You: Then the storm blew in.')
                 sleep(0.3)
                 print('Parents: Oh no!')
                 sleep(0.3)
@@ -324,8 +325,8 @@ def gameIntroductionMenu() :
                 print('Parents: We\'ll wire you some Bitcoins, in case you need them')
                 print('Parents: Get shelter as best as you can, and we\'ll come pick you up once the storm breaks')
                 sleep(0.3)
-                print('{0}: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into'.format(characterName))
-                print('{0}: Bye for now'.format(characterName))
+                print('    You: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into')
+                print('    You: Bye for now')
                 print('Parents: Bye, take care')
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
