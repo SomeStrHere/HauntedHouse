@@ -120,6 +120,8 @@ class Garage(Location) :
             if roll <= 8 :
                 entered = False
                 nextLocation = 'lobby'
+                # TODO need to actually start the code for entering the front door here
+                # How do we call it?
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
@@ -129,7 +131,8 @@ class Garage(Location) :
                 print('You\'re in luck the gate as been left open')
                 input('\n~ Press Enter to go through the gate ~')
                 entered = False
-                nextLocation = 'garden'
+                nextLocation = 'patio'
+                # TODO need to put the player in the patio and start that locations activities
             else :
                 print('Lucky you; rolling that double 6!')
                 print('You find a key in the darkness, and try it in the garage door')

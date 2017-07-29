@@ -157,6 +157,9 @@ def gameIntroductionMenu() :
 
         elif userSelects == '3' :
 
+            # TODO - bug fix, option 3 currently seems to start one block of code then run into another,
+            # you can see 2 blocks of walking without story inbetween which shouldn't happen, there is also an error when you continue
+
             ## Runs the patio introduction and returns whether access has been granted.
             entered, nextLocation = locations['patio'].locationIntroduction(character)
 
