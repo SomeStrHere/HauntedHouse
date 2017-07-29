@@ -382,18 +382,23 @@ def gameIntroductionMenu() :
 def meaningOfLife() :
     print('Now... what\'s the meaning of life? Hmmm')
     answer = input('~ Enter your guess ~ ')
+    isCorrect = False
     
     if answer == '42' :
         print('That\'s it!')
         print('Now, you may enter...')
         print('\nYou step inside...')
-        locations['start'].setAsVisited()
-        currentLocation = locations['lobby']
+        isCorrect = True
+
         #TODO - start Lobby level
                         
     else :
         print('Sorry, that\'s not correct')
-        meaningOfLife()
+        isCorrect = meaningOfLife()
+
+    return isCorrect
+
+
 
 
 def doorOptions(option) :
