@@ -9,8 +9,57 @@ class Puzzle :
     def questionsPuzzle() :
 
         passed = False
+        questionPicker = random.randint(0,4)
 
-        pass
+        if questionPicker == 0 :
+            print('What is the name of the 2 base number system used in computers?')
+            answer = input().upper()
+
+            if answer == 'BINARY' or answer == 'BINARY NUMBER SYSTEM' :
+                passed = True
+
+            else :
+                passed = False
+
+        elif questionPicker == 1 :
+            print('Spell the real name of the actor who recently played Wonder Woman in 2017?')
+            answer = input().upper()
+
+            if answer == 'GAL GADOT' :
+                passed = True
+
+            else :
+                passed = False
+
+        elif questionPicker == 2 :
+            print('In the computer security sector what does DoS stand for?')
+            answer = input.upper()
+
+            if answer == 'DENIAL OF SERVICE' :
+                passed = True
+
+            else :
+                passed = False
+
+        elif questionPicker == 3 :
+            print('What year did Sega release the Sega Saturn console?')
+            answer = input()
+
+            if answer == '1995' or answer == '95' :
+                passed = True
+
+            else :
+                passed = False
+
+        else :
+            print('Which INDIVIDUAL PERSON created the Apple 1 computer?')
+            answer = input().upper()
+
+            if answer == 'STEVE WOZNIAK' :
+                passed = True
+
+            else :
+                passed = False
 
         return(passed)
 
