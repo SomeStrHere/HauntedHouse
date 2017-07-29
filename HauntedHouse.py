@@ -59,6 +59,7 @@ def gameIntroduction() :
 
     locations = createLocations()
 
+    global currentLocation
     currentLocation = locations['start']
 
     ## isGameComplete()
@@ -105,6 +106,8 @@ def gameIntroductionMenu() :
     #print(newLocation.levelName)
 
     varMenu = True
+
+    currentLocation = locations['start']
 
     while varMenu :
         print('Here are your options:\n')
