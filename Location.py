@@ -236,7 +236,7 @@ class Patio(Location) :
             print("You've returned to the patio area")
 
         return entered, nextLocation
-        
+
     def randomGateOptions(self) :
 
         print('')
@@ -489,8 +489,7 @@ class Lobby(Location) :
                     print('All you have to do is tell me the meaning of life?')
                     sleep(0.5)
                     print('"Well, I can\'t stay out here all night"')
-                    meaningOfLife()
-                    entered = True
+                    entered = meaningOfLife()
                     nextLocation = 'lobby'                
 
                 else :
@@ -517,7 +516,7 @@ class Lobby(Location) :
         elif(prevLocation == 'inside') :
             print('You are in the lobby.')
             entered = True
-            nextLocation = 'diningRoom'
+            nextLocation = 'random'
 
         elif(deviation == 'Failed Pick Front Door') :
             print("LOGIC WHEN LOCK ISN'T PICKED")

@@ -124,7 +124,6 @@ def gameIntroductionMenu() :
             entered, nextLocation = locations['lobby'].locationIntroduction(character)
 
             if(entered == True) :
-                locations['lobby'].setAsVisited()
                 currentLocation = locations[nextLocation]
                 entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = 'inside')
                 currentLocation = locations[nextLocation]
@@ -331,6 +330,8 @@ def gameIntroductionMenu() :
                 print('    You: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into')
                 print('    You: Bye for now')
                 print('Parents: Bye, take care')
+
+                enterCon()
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
                 entered, nextLocation = locations['patio'].locationIntroduction(character)
