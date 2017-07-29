@@ -134,7 +134,8 @@ def gameIntroductionMenu() :
 
         elif userSelects == '3' :
 
-            entered, nextLocation = locations['patio'].locationIntroduction(character)
+            currentLocation = locations['patio']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
             varMenu = False
 
@@ -277,7 +278,8 @@ def gameIntroductionMenu() :
 
                 enterCon()
 
-                entered, nextLocation = locations['patio'].locationIntroduction(character)
+                currentLocation = locations['patio']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
                 varMenu = False
 
