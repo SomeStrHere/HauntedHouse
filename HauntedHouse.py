@@ -192,7 +192,8 @@ def gameIntroductionMenu() :
                   '\n\nRolling a 6; you call your parents.')
 
             input('\n~ Press Enter to roll ~\n')
-            roll = diceRoll(6)
+            ##roll = diceRoll(6)
+            roll = 6
 
             print('\nYou rolled a {0}!\n'.format(roll))
 
@@ -328,6 +329,11 @@ def gameIntroductionMenu() :
                 print('    You: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into')
                 print('    You: Bye for now')
                 print('Parents: Bye, take care')
+                sleep(0.3)
+                print()
+                print("You decide to walk over to the garden gate.")
+
+                input("~Press enter to continue~")
 
                 # TODO - Add 200 bitcoins to players bitcoin wallet/balance
                 entered, nextLocation = locations['patio'].locationIntroduction(character)
