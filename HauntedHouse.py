@@ -197,11 +197,12 @@ def gameIntroductionMenu() :
             print('\nYou rolled a {0}!\n'.format(roll))
 
             if roll == 1 or roll == 2 :
-                print('Annoyed with yourself for leaving your phone in the taxi, you ' +
-                      'walk up to the garage door looking for some shelter.')
+                print('Annoyed with yourself for leaving your phone in the taxi,\nyou ' +
+                      'walk up to the garage door looking for some shelter.\n')
                 walk()
                 sleep(1.3)
-                #TODO
+
+                #TODO Need run the code for the Garage class; locationIntroduction ???
 
             elif roll == 3 or roll == 4 :
                 print('You pull out your phone... and it\'s dead!\n' +
@@ -223,7 +224,7 @@ def gameIntroductionMenu() :
                 print('\nIt\'s {0}!\n'.format(coinFace))
 
                 if coinFace == 'Heads' :
-                    print('You walk up to the front door and...')
+                    print('You walk up to the front door\n')
                     walk()
                     sleep(1.3)
                     # TODO
@@ -231,10 +232,10 @@ def gameIntroductionMenu() :
                     # or create some new statements for this deviation
 
                 elif coinFace == 'Tails':
-                    print('You walk up to the garden gate and...')
+                    print('You walk up to the garden gate\n')
                     walk()
                     sleep(1.3)
-                    StartToPatioGate('Dead Phone')
+                    StartToPatioGate('Dead Phone') # TODO returns an error atm
             
             elif roll == 5 :
                 print('You pick up your phone and call a friend...')
@@ -250,18 +251,18 @@ def gameIntroductionMenu() :
                 # Start conversation    
                 print('Friend: Hello, wha\'s up?')
                 sleep(0.3)
-                print('{0}: Oh Hi, I need some help...'.format(characterName))
-                print('{0}: I got invited to a party on the way back home from travelling...'.format(characterName))
-                print('{0}: Looks like I got a little drunk and ended up getting dropped off at a strange house...'.format(characterName))
-                print('{0}: Not sure where I am; can you help?'.format(characterName))
+                print('   You: Oh Hi, I need some help...')
+                print('   You: I got invited to a party on the way back home from travelling...')
+                print('   You: Looks like I got a little drunk and ended up getting dropped off at a strange house...')
+                print('   You: Not sure where I am; can you help?')
                 sleep(1)
                 print('Friend: That sucks... so you have no idea where you are?')
                 sleep(0.3)
-                print('{0}: No idea!'.format(characterName))
+                print('   You: No idea!')
                 sleep(0.3)
                 print('Friend: How can I help you then; is anyone around, can you find out where you are?')
                 sleep(0.3)
-                print('{0}: There is no one around; just this creepy house, and I\'m freezing!'.format(characterName))
+                print('   You: There is no one around; just this creepy house, and I\'m freezing!')
                 sleep(0.3)
                 print('Friend: Yeah; I heard about that crazy storm!')
                 print('Friend: Well, you can\'t stay out all night, get some shelter, and I\'ll try and ' +
@@ -269,16 +270,16 @@ def gameIntroductionMenu() :
                 print('Friend: Don\'t forget you can pick the door open if you need to ' +
                      'just get some shelter')
                 sleep(1)
-                print('{0}: Hey yeah, forgot about my lockpicks!'.format(characterName))
-                print('{0}: The house looks empty; so I\'ll try picking the lock'.format(characterName))
+                print('   You: Hey yeah, forgot about my lockpicks!')
+                print('   You: The house looks empty; so I\'ll try picking the lock')
                 sleep(0.3)
                 print('Friend: Good plan; if that\'t doesn\'t work, better pitch your tent...')
                 print('Friend: Stay safe, hopefully see you soon, bye!')
                 sleep(0.3)
-                print('{0}: Thanks, bye!'.format(characterName))
+                print('   You: Thanks, bye!')
                 print('\nPhone disconnects')
 
-                print('# Attempt to pick the lock #')
+                input('~ Press Enter to Attempt to pick the lock ~')
                 print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
                 # If player doesn't role a 5+ send them to patio level 
                 # (they'll need to pitch their tent or break in through the patio doors)
@@ -295,7 +296,11 @@ def gameIntroductionMenu() :
                     ## TODO - What happens if failed?
 
             else : # You rolled a 6
-                print('\nYou pick up your phone and call your parents...\n')
+                print('\nYou pick up your phone and call your parents...\n') 
+
+                # TODO - error, currently the code for the  conversation with players parents scrolls past the
+                # screen super fast, and then code continues clearing that code and running straight into other code
+                # segments which isn't correct.
 
                 # Number of dials is random int 1 to 3
                 numberofDials = random.randint(1,3)
