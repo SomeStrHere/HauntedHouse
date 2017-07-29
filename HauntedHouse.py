@@ -425,7 +425,7 @@ def doorOptions(option) :
            print('Crash')
            sleep(0.5)
            currentLocation.setAsVisited()
-           return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
+           print('/nYou\'ve done it, you\'ve smashed through the door!')
 
        else :
             Print('There is no getting through this door; the lock is unbreakable, and a ' +
@@ -450,7 +450,7 @@ def doorOptions(option) :
         print('In the darkness, what you mustook for a door,')
         print('was in fact just a curtain.')
         currentLocation.setAsVisited()
-        return(print('You step inside...'))
+        print('You step inside...')
 
     # Other options
     else :
@@ -465,13 +465,13 @@ def doorOptions(option) :
         roll = diceRoll(6)
         if roll >= 1 <= 2 :
             currentLocation.setAsVisited()
-            return(print('You turn away in fright!'))
+            print('You turn away in fright!')
         elif roll >= 3 <= 4 :
             currentLocation.setAsVisited()
-            return(print('You kick the door in regardless!'))
+            print('You kick the door in regardless!')
         else :
             currentLocation.setAsVisited()
-            return(print('You open the door and...'))
+            print('You open the door and...')
 
 
 def isGameComplete() :
