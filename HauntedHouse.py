@@ -192,8 +192,7 @@ def gameIntroductionMenu() :
                   '\n\nRolling a 6; you call your parents.')
 
             input('\n~ Press Enter to roll ~\n')
-            ##roll = diceRoll(6)
-            roll = 6
+            roll = diceRoll(6)
 
             print('\nYou rolled a {0}!\n'.format(roll))
 
