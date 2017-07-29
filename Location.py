@@ -170,7 +170,7 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
@@ -178,6 +178,7 @@ class Patio(Location) :
             clearConsole(0)
             print('\nYou walk to the garden gate...\n')
             walk()
+            print('')
             sleep(1.3)
             if deviation == 'Failed Pick Front Door' :
                 randomDeviation = random.randint(0,1)
@@ -207,7 +208,9 @@ class Patio(Location) :
                         entered = randomGateOptions()
 
             else :
-                print('As you approach the gate, you hear laughter, but can\'t identify the source...')
+                print('You walk back towards the garden gate')
+                walk()
+                print('\nAs you approach the gate, you hear laughter, but can\'t identify the source...')
                 print('hhehe, silly child; can\'t even pick a lock')
                 sleep(1)
                 print('Not sure if you\'ve passed out and are having a weird dream ' 
