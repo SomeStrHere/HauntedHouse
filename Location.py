@@ -123,11 +123,11 @@ class Garage(Location) :
             elif roll >= 9 and roll <= 11 :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
-                print('You spot the garden gate at the other side of the property...')
+                print('You spot the garden gate at the other side of the property...\n')
                 walk()
                 sleep(1.3)
                 print('You\'re in luck the gate as been left open')
-                input('~ Press Enter to go through the gate ~')
+                input('\n~ Press Enter to go through the gate ~')
                 entered = False
                 nextLocation = 'garden'
             else :
