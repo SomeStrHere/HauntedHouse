@@ -126,19 +126,15 @@ class Garage(Location) :
                 print('The garage doesn\'t offer much help')
                 sleep(0.5)
                 print('You spot the garden gate at the other side of the property...\n')
-                walk()
-                sleep(1.3)
-                print('You\'re in luck the gate as been left open')
-                input('\n~ Press Enter to go through the gate ~')
                 entered = False
                 nextLocation = 'patio'
-                # TODO need to put the player in the patio and start that locations activities
             else :
                 print('Lucky you; rolling that double 6!')
                 print('You find a key in the darkness, and try it in the garage door')
                 print('Wow! You\'r luck knows no bounds...')
                 print('You open the garage door just enough to squeeze inside...')
                 entered = True
+                nextLocation = 'garage'
 
         else :
             print("You return to the garage.")

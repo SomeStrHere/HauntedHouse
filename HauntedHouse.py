@@ -121,65 +121,21 @@ def gameIntroductionMenu() :
 
         if userSelects == '1' :
 
-            entered, nextLocation = locations['lobby'].locationIntroduction(character)
-
-            if(entered == True) :
-                currentLocation = locations[nextLocation]
-                entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = 'inside')
-                currentLocation = locations[nextLocation]
-                print(nextLocation)
-                entered, nextLocation = currentLocation.locationIntroduction(character)
-
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the lobby area")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
+            currentLocation = locations['lobby']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
             varMenu = False
 
         elif userSelects == '2' :
-            entered, nextLocation = locations['garage'].locationIntroduction(character)
+            currentLocation = locations['garage']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
-            if(entered == True) :
-                locations['garage'].setAsVisited()
-                currentLocation = locations['garage']
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the garage area.")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '3' :
 
-            # TODO - bug fix, option 3 currently seems to start one block of code then run into another,
-            # you can see 2 blocks of walking without story inbetween which shouldn't happen, there is also an error when you continue
-
-            ## Runs the patio introduction and returns whether access has been granted.
             entered, nextLocation = locations['patio'].locationIntroduction(character)
 
-            ## If access is given above then enter the patio area
-            if entered == True :
-                locations['patio'].setAsVisited()
-                currentLocation = locations['patio']
-
-            ## If not given access to the patio area above make the user choose a new location. 
-            ## Feel free if yu want to change this to teleport or something
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the patio area")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '4' :
@@ -204,7 +160,8 @@ def gameIntroductionMenu() :
                 walk()
                 sleep(1.3)
 
-                #TODO Need run the code for the Garage class; locationIntroduction ???
+                currentLocation = locations['garage']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
             elif roll == 3 or roll == 4 : 
                 print('You pull out your phone... and it\'s dead!\n' +
@@ -226,18 +183,17 @@ def gameIntroductionMenu() :
                 print('\nIt\'s {0}!\n'.format(coinFace))
 
                 if coinFace == 'Heads' :
-                    print('You walk up to the front door\n')
                     walk()
                     sleep(1.3)
-                    # TODO
-                    # We could use the same statements for option 1 on start menu
-                    # or create some new statements for this deviation
+                    currentLocation = locations['lobby']
+                    entered, nextLocation = currentLocation.locationIntroduction(character)
 
                 elif coinFace == 'Tails':
                     print('You walk up to the garden gate\n')
                     walk()
                     sleep(1.3)
-                    StartToPatioGate('Dead Phone') # TODO returns an error atm
+                    currentLocation = locations['patio']
+                    entered, nextLocation = currentLocation.locationIntroduction(character)
             
             elif roll == 5 : 
                 print('You pick up your phone and call a friend...')
@@ -251,7 +207,7 @@ def gameIntroductionMenu() :
 
                 characterName = "" # TODO
                 # Start conversation    
-                print('Friend: Hello, wha\'s up?')
+                print('Friend: Hello, what\'s up?')
                 sleep(0.3)
                 print('   You: Oh Hi, I need some help...')
                 print('   You: I got invited to a party on the way back home from travelling...')
@@ -273,7 +229,8 @@ def gameIntroductionMenu() :
                      'just get some shelter')
                 sleep(1)
                 print('   You: Hey yeah, forgot about my lockpicks!')
-                print('   You: The house looks empty; so I\'ll try picking the lock')
+                print('   You: The house looks empty; so I\'ll try picking the lock of the garden gate '+ 
+                    'if it\'s locked')
                 sleep(0.3)
                 print('Friend: Good plan; if that\'t doesn\'t work, better pitch your tent...')
                 print('Friend: Stay safe, hopefully see you soon, bye!')
@@ -281,21 +238,8 @@ def gameIntroductionMenu() :
                 print('   You: Thanks, bye!')
                 print('\nPhone disconnects')
 
-                input('~ Press Enter to Attempt to pick the lock ~')
-                print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
-                # If player doesn't role a 5+ send them to patio level 
-                # (they'll need to pitch their tent or break in through the patio doors)
-
-                roll = diceRoll(6)
-
-                if roll >= 5 :
-                    entered, nextLocation = locations['lobby'].locationIntroduction(character, deviation = 'Picked Front Door')
-                    locations['lobby'].setAsVisited()
-                    currentLocation = locations['lobby']
-                    # TODO - start Lobby level
-                else :
-                    print('Picking the lock failed...')
-                    ## TODO - What happens if failed?
+                currentLocation = locations['patio']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
             else : # You rolled a 6
                 print('\nYou pick up your phone and call your parents...\n') 
@@ -333,24 +277,8 @@ def gameIntroductionMenu() :
 
                 enterCon()
 
-                # TODO - Add 200 bitcoins to players bitcoin wallet/balance
                 entered, nextLocation = locations['patio'].locationIntroduction(character)
 
-                ## If access is given above then enter the patio area
-                if entered == True :
-                    locations['patio'].setAsVisited()
-                    currentLocation = locations['patio']
-
-                ## If not given access to the patio area above make the user choose a new location. 
-                ## Feel free if yu want to change this to teleport or something
-                else :
-                    if(nextLocation in locations) :
-                        currentLocation = locations[nextLocation]
-                    else :
-                        print("You could not enter the patio area")
-                        print()
-                        print("Please choose a new location to visit.")
-                        currentLocation.choiceToNextLocation()
                 varMenu = False
 
         elif userSelects == '5' :
