@@ -170,6 +170,73 @@ class Patio(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
+    def locationIntroduction(self, character, deviation = '') :
+        entered = True
+        nextLocation = 'random'
+        ## Only display the introduction stuff if you have not visited before
+        if(self.visited == False) :
+            clearConsole(0)
+            print('\nYou walk to the garden gate...\n')
+            walk()
+            print('')
+            sleep(1.3)
+            if deviation == 'Failed Pick Front Door' :
+                randomDeviation = random.randint(0,1)
+
+                if randomDeviation == 0:
+                    print('Lucky you! The gate is open afterall')
+                    print('~ Press Enter to go through the gate ~')
+                    clearConsole(1.5)
+                    asciiPatioFromStart()
+                    nextLocation = 'patio'
+                   #TODO start Patio level
+
+                else :
+                    if character.heightInFeet > 6 :
+                        print('Being tall as its advantages...')
+                        print('You grab hold of a hanging rope, climb up and over the hedge')
+                        clearConsole(1.5)
+                        asciiPatioFromStart()
+                        #TODO start Patio level
+                    elif character.heightInFeet < 4 :
+                        print('Being short as its advantages...')
+                        print('You find a small hole in the hedge and pull yourself through')
+                        clearConsole(1.5)
+                        asciiPatioFromStart()
+                    else :
+                        ## Execute the gate options method and decide whther you are given access
+                        entered = randomGateOptions()
+
+            else :
+                print('You walk back towards the garden gate')
+                walk()
+                print('\nAs you approach the gate, you hear laughter, but can\'t identify the source...')
+                print('hhehe, silly child; can\'t even pick a lock')
+                sleep(1)
+                print('Not sure if you\'ve passed out and are having a weird dream ' 
+                      ',\nyou hear the same voice again')
+                print('Tell you what...')
+                print('If you can tell guess my favorite super hero, I\'ll open the gate...' )
+                superHero = input('~ Have a guess at the super hero and press Enter ~').upper()
+                if superHero == 'BATMAN' :
+                    print('That\'s it!, come on in...')
+                    sleep(1)
+                    print('As nervous as ever, you step inside the now open gate')
+                    clearConsole()
+                    asciiPatioFromStart()
+                    entered = True
+                    nextLocation = 'patio'
+                    # TODO start Patio level
+                else :
+                    print('Silly fool! mwaaaawhahahahahah')
+                    entered = randomGateOptions()
+
+        else :
+            ## Simple message if you have been in the patio area already
+            print("You've returned to the patio area")
+
+        return entered, nextLocation
+        
     def randomGateOptions(self) :
 
         print('')
