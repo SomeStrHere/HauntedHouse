@@ -505,6 +505,7 @@ class Lobby(Location) :
             else :
                 print('Surprise!')
                 print('You\'ve activated a trapdoor and find yourself in an underground room.')
+                enterCon()
                 nextLocation = 'basement'
                 entered = False
                 # TODO start basement level
@@ -890,12 +891,61 @@ class Basement(Location) :
         nextLocation = 'random'
 
         if(self.visited == False and prevLocation == 'outside') :
+            # TODO - we need to connect this 'outside' version to the Lobby locationIntroduction
+            # So that it runs after the trapdoor is activated.
             clearConsole(0)
-            print('') # TODO
+            print('Thud!')
+            sleep(1)
+            print('You hit the floor, and disperse a layer of dust into the air')
+            sleep(2)
+            print('You pick yourself up and dust yourself down')
+            print('It\'s dark, you spin around trying to regain your bearings')
+            sleep(2)
+            print('Oww!')
+            print('^ You found the light fitting!')
+            print('It\'s very dark down here, you feel around for the light switch...')
+            print('\n# Dice Roll #\n')
+            print('Let\'s see if you find the light switch')
+            enterCon()
+            findSwitch = random.randint(0,1)
+
+            if findSwitch == 0 :
+                print('Found it!')
+                print('That\'s a rlief, huh')
+                print('Click')
+                print('1')
+                sleep(1)
+                print('2...')
+                sleep(1)
+                print('3..?')
+                sleep(1)
+                print('WTF!, then you realize... the light doesn\'t have a bulb! doh!')
+                print('Now what?')
+                enterCon()
+
+            else :
+                print('Nothing!')
+                sleep(1)
+                print('sih!')
+                print('You\'re eyes start to adjust to the darkness; but you still can\'t see much')
+                print('Now what?')
+                enterCon()
+
+            entered = True
+            nextLocation = 'basement'
 
         elif(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
-            print('') # TODO
+            print('Walking up to the door, you\'re already convinced it leads to either the garage\n' +
+                  'or a basement... it\'s just one of those doors')
+            sleep(1)
+            print('The doors closed, although it doesn\'t appear to have a lock')
+            sleep(1)
+            print('You reach out for the handle and...')
+            print('Open... that was easy')
+            enterCon()
+            entered = True
+            nextLocation = 'basement'
 
         else :
             print('You have returned to the basement')
@@ -1237,7 +1287,7 @@ class Garden(Location) :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and prevLocation == 'outside') : # User falls throuhg trapdoor from lobby
             clearConsole(0)
             print('') # TODO
 
