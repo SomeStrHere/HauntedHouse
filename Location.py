@@ -980,11 +980,19 @@ class Kitchen(Location) :
     def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
         entered = True
         nextLocation = 'random'
+        #('Kitchen', 'laminate flooring', 'white painted plaster', True, 'downlighters')
+        #ConnectedLocations([lobby, utility])
 
         if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
-            print('') # TODO
-
+            print('Approaching the open doorway, you\'re alert to the sounds and smells of a busy working kitchen,' +
+                  'you could be in a restaurant')
+            print('About to walk in...')
+            sleep(1.5)
+            print('The room suddenly becomes silent, as if everyone is now alert to your presence!')
+            print('The lights flicker out; the rooms in darkness now, and the silence is deafenning')
+            print('You step inside...')
+            enterCon()
         else :
             print('You have returned to the kitchen')
 
@@ -1259,7 +1267,7 @@ class Attick(Location) :
         return entered, nextLocation
 
 
-class Garden(Location) :
+class Garden(Location) : # Rear garden
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
