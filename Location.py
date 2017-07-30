@@ -1025,10 +1025,31 @@ class Utility(Location) :
     def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
         entered = True
         nextLocation = 'random'
+        #('Utility Room', 'stone tiles', 'white painted plaster', True, 'incandecent bulb')
+        #ConnectedLocations([kitchen])
 
         if(self.visited == False and prevLocation == 'inside') :
             clearConsole(0)
-            print('') # TODO
+            print('You grab the handle of the utility door and try to slide it open')
+            print('It\'s very stiff, as if it hasn\'t been used in a long time')
+            fitness = character.fitnessLevel
+            pulls = 0
+
+            if fitness == 'Poor' :
+                pulls = 8
+            elif fitness == 'Okay' :
+                pulls = 5
+            else :
+                pulls = 2
+
+            print('Grasping the door handle firmly, you pull!')
+            for x in range(pulls) :
+                print('and pull...')
+                sleep(1)
+
+            print('Finally!')
+            print('You manage to slide the door open enough so you can step inside')
+            enterCon()
 
         else :
             print('You have returned to the utility rom')
