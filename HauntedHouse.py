@@ -17,6 +17,9 @@ def main() :
     global interupt
     interupt = False
     gameIntroduction()
+    entered, nextLocation = gameIntroductionMenu()
+    gameCore(entered, nextLocation)
+
     
 def gameIntroduction() :
     global locations, character, currentLocation
@@ -96,8 +99,6 @@ def gameIntroduction() :
           'have no idea where you are, you\'re still\na little drunk, freezing cold and ' +
           'it\'s now approaching 2:30am! What are you going to do...\n'
           )
-
-    gameIntroductionMenu()
 
 def gameIntroductionMenu() :
 
@@ -317,6 +318,19 @@ def gameIntroductionMenu() :
             #TODO implement ability to exit program after x number of errors are given here
             print('\nSorry; that was an invalid option, please try again\n')
             varMenu = True
+
+    return entered, nextLocation
+
+def gameCore(entered, nextLocation) :
+
+    if entered == True :
+        changedLocation, nextLocation = currentLocation.locationIntroduction(character)
+    else :
+        currentLocation = locations[nextLocation]
+
+    while isGameComplete() != True :
+
+
 
 def meaningOfLife() :
     print('Now... what\'s the meaning of life? Hmmm')

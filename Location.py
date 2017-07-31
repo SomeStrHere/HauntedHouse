@@ -20,6 +20,7 @@ class Location :
         self.itemsAvailable = []
 
         self.visited = False
+        self.gainedAccess = False
 
     def checkVisited(self) :
         return self.visited
@@ -77,9 +78,12 @@ class Garage(Location) :
         super().__init__(levelName, floor, roof, lighting, lightType)
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -93,13 +97,16 @@ class Garage(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+        return changedLocation, nextLocation
+
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('\nYou walk up to the garage door...\n')
             # Walk() will produce a series of strings using sleep(x) to delay each statement.
@@ -136,6 +143,13 @@ class Garage(Location) :
                 entered = True
                 nextLocation = 'garage'
 
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif self.visited == False and self.gainedAccess == True :
+            ## When inside call this. Set visited as true after called.
+
         else :
             print("You return to the garage.")
 
@@ -165,73 +179,6 @@ class Patio(Location) :
             self.doPuzzle()
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
-
-    def locationIntroduction(self, character, deviation = '') :
-        entered = True
-        nextLocation = 'random'
-        ## Only display the introduction stuff if you have not visited before
-        if(self.visited == False) :
-            clearConsole(0)
-            print('\nYou walk to the garden gate...\n')
-            walk()
-            print('')
-            sleep(1.3)
-            if deviation == 'Failed Pick Front Door' :
-                randomDeviation = random.randint(0,1)
-
-                if randomDeviation == 0:
-                    print('Lucky you! The gate is open afterall')
-                    print('~ Press Enter to go through the gate ~')
-                    clearConsole(1.5)
-                    asciiPatioFromStart()
-                    nextLocation = 'patio'
-                   #TODO start Patio level
-
-                else :
-                    if character.heightInFeet > 6 :
-                        print('Being tall as its advantages...')
-                        print('You grab hold of a hanging rope, climb up and over the hedge')
-                        clearConsole(1.5)
-                        asciiPatioFromStart()
-                        #TODO start Patio level
-                    elif character.heightInFeet < 4 :
-                        print('Being short as its advantages...')
-                        print('You find a small hole in the hedge and pull yourself through')
-                        clearConsole(1.5)
-                        asciiPatioFromStart()
-                    else :
-                        ## Execute the gate options method and decide whther you are given access
-                        entered = randomGateOptions()
-
-            else :
-                print('You walk back towards the garden gate')
-                walk()
-                print('\nAs you approach the gate, you hear laughter, but can\'t identify the source...')
-                print('hhehe, silly child; can\'t even pick a lock')
-                sleep(1)
-                print('Not sure if you\'ve passed out and are having a weird dream ' 
-                      ',\nyou hear the same voice again')
-                print('Tell you what...')
-                print('If you can tell guess my favorite super hero, I\'ll open the gate...' )
-                superHero = input('~ Have a guess at the super hero and press Enter ~').upper()
-                if superHero == 'BATMAN' :
-                    print('That\'s it!, come on in...')
-                    sleep(1)
-                    print('As nervous as ever, you step inside the now open gate')
-                    clearConsole()
-                    asciiPatioFromStart()
-                    entered = True
-                    nextLocation = 'patio'
-                    # TODO start Patio level
-                else :
-                    print('Silly fool! mwaaaawhahahahahah')
-                    entered = randomGateOptions()
-
-        else :
-            ## Simple message if you have been in the patio area already
-            print("You've returned to the patio area")
-
-        return entered, nextLocation
 
     def randomGateOptions(self) :
 
@@ -327,11 +274,11 @@ class Patio(Location) :
 
         return access
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         ## Only display the introduction stuff if you have not visited before
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('\nYou walk to the garden gate...\n')
             walk()
@@ -401,6 +348,12 @@ class Patio(Location) :
                     print('Silly fool! mwaaaawhahahahahah')
                     entered = self.randomGateOptions()
 
+            if entered :
+                self.gainedAccess = True
+
+        elif self.gainedAccess == True :
+            ## Equivalent to the old 'inside'. Use this to assign visited as True
+
         else :
             ## Simple message if you have been in the patio area already
             print("You've returned to the patio area")
@@ -433,11 +386,11 @@ class Lobby(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('\nYou walk up to the front door...\n')
             walk()
@@ -510,16 +463,14 @@ class Lobby(Location) :
                 entered = False
                 # TODO start basement level
 
-        elif(prevLocation == 'inside') :
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
             print('You are in the lobby.')
             entered = True
             nextLocation = 'random'
-
-        elif(deviation == 'Failed Pick Front Door') :
-            print("LOGIC WHEN LOCK ISN'T PICKED")
-
-        elif(deviation == 'Picked Front Door') :
-            print("You manage to pick the lock and gain access to the house.")
 
         else :
             print("You have returned to the lobby area.")
@@ -551,11 +502,11 @@ class DinningRoom(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('\nYou walk towards the dining room....\n')
 
@@ -766,8 +717,12 @@ class DinningRoom(Location) :
                     print('You\'re inside...')
                     entered = True
                     nextLocation = 'diningRoom'
+
+                ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
             
-        elif (self.visited == False and prevLocation == 'inside') :
+        elif (self.visited == False and self.gainedAccess == True) :
             clearConsole(0)
             print('\nYou walk up to the door...\n') # Entering the dinning room from inside the house
 
@@ -886,11 +841,11 @@ class Basement(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             # TODO - we need to connect this 'outside' version to the Lobby locationIntroduction
             # So that it runs after the trapdoor is activated.
             clearConsole(0)
@@ -934,16 +889,12 @@ class Basement(Location) :
             entered = True
             nextLocation = 'basement'
 
-        elif(self.visited == False and prevLocation == 'inside') :
-            clearConsole(0)
-            print('Walking up to the door, you\'re already convinced it leads to either the garage\n' +
-                  'or a basement... it\'s just one of those doors')
-            sleep(1)
-            print('The doors closed, although it doesn\'t appear to have a lock')
-            sleep(1)
-            print('You reach out for the handle and...')
-            print('Open... that was easy')
-            enterCon()
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## You are INSIDE the location for the first time 
             entered = True
             nextLocation = 'basement'
 
@@ -977,13 +928,13 @@ class Kitchen(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         #('Kitchen', 'laminate flooring', 'white painted plaster', True, 'downlighters')
         #ConnectedLocations([lobby, utility])
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('Approaching the open doorway, you\'re alert to the sounds and smells of a busy working kitchen,' +
                   'you could be in a restaurant')
@@ -993,6 +944,14 @@ class Kitchen(Location) :
             print('The lights flicker out; the rooms in darkness now, and the silence is deafenning')
             print('You step inside...')
             enterCon()
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+
+            ## At the end set visited to true
         else :
             print('You have returned to the kitchen')
 
@@ -1022,13 +981,13 @@ class Utility(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
         #('Utility Room', 'stone tiles', 'white painted plaster', True, 'incandecent bulb')
         #ConnectedLocations([kitchen])
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('You grab the handle of the utility door and try to slide it open')
             print('It\'s very stiff, as if it hasn\'t been used in a long time')
@@ -1050,6 +1009,13 @@ class Utility(Location) :
             print('Finally!')
             print('You manage to slide the door open enough so you can step inside')
             enterCon()
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end of the call
 
         else :
             print('You have returned to the utility rom')
@@ -1080,15 +1046,19 @@ class Library(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
 
-        elif(self.visited == False and prevLocation == 'inside') :
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
             clearConsole(0)
             print('') # TODO
 
@@ -1122,13 +1092,20 @@ class MasterBedroom(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end of the method
 
         else :
             print('You have returned to the master bedroom')
@@ -1160,13 +1137,20 @@ class SecondBedroom(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end of the method call
 
         else :
             print('You have returned to the second bedroom')
@@ -1198,13 +1182,20 @@ class Nursery(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end. This part should only run once.
 
         else :
             print('You have returned to the master nursery')
@@ -1236,13 +1227,20 @@ class Landing(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end of the method call
 
         else :
             print('You have returned to the landing')
@@ -1274,13 +1272,20 @@ class Attick(Location) :
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'inside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'inside') :
+        if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
             print('') # TODO
+
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
+            ## Set visited to true at the end of the method call
 
         else :
             print('You have returned to the attick')
@@ -1312,15 +1317,19 @@ class Garden(Location) : # Rear garden
         elif(diceRoll == 6) :
             self.choiceToNextLocation()
 
-    def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
+    def locationIntroduction(self, character, deviation = '') :
         entered = True
         nextLocation = 'random'
 
-        if(self.visited == False and prevLocation == 'outside') : # User falls throuhg trapdoor from lobby
+        if(self.visited == False and self.gainedAccess != True) : # User falls throuhg trapdoor from lobby
             clearConsole(0)
             print('') # TODO
 
-        elif(self.visited == False and prevLocation == 'inside') :
+            ## Keep at the end of the first if statement
+            if(entered == True) :
+                self.gainedAccess = True
+
+        elif(self.visited == False and self.gainedAccess == True) :
             clearConsole(0)
             print('') # TODO
 
