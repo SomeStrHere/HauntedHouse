@@ -8,6 +8,9 @@ import random
 class Location :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
+        ## Should be assigned in child class. dictKey must be the 
+        ## same as the key value used for that object in the locations dictionary
+        self.dictKey = ''
         self.levelName = levelName
         self.floor = floor
         self.roof = roof
@@ -46,7 +49,7 @@ class Location :
 
         userChoice = input("What is your choice? ")
 
-        return self.connectedRooms[int(userChoice)]
+        return self.connectedRooms[int(userChoice)].dictKey
 
     def getAttacked(self, character) :
         attacker = Opponent.createRandomOpponent()
@@ -60,6 +63,7 @@ class Location :
         Puzzle.randomPuzzle()
 
     def repairWeapons(self, character) :
+        print('You spend some time repairing your weapons...')
         # Tools will randomly become broken after they have been used once
         # Using a broken tool will reduce success rate by 30%
         # repairing the tool will remove the decrease in success rate.
@@ -67,15 +71,20 @@ class Location :
         pass
 
     def searchLocation(self, character) :
-        itemFound = random.choice(self.itemsAvailable)
-        self.itemsAvailable.remove(itemFound)
-        character.getItem(itemFound)
+        print('You search the location for items...')
+        if(len(self.itemsAvailable) > 0):
+            itemFound = random.choice(self.itemsAvailable)
+            self.itemsAvailable.remove(itemFound)
+            character.getItem(itemFound)
+        else :
+            print('No items found')
 
 
 class Garage(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'garage'
 
     def doAction(self, diceRoll, character) :
         changedLocation = False
@@ -150,6 +159,8 @@ class Garage(Location) :
         elif self.visited == False and self.gainedAccess == True :
             ## When inside call this. Set visited as true after called.
 
+            self.visited = True
+
         else :
             print("You return to the garage.")
 
@@ -160,11 +171,15 @@ class Patio(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'patio'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -178,7 +193,10 @@ class Patio(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def randomGateOptions(self) :
 
@@ -351,8 +369,10 @@ class Patio(Location) :
             if entered :
                 self.gainedAccess = True
 
-        elif self.gainedAccess == True :
+        elif self.visited == False and self.gainedAccess == True :
             ## Equivalent to the old 'inside'. Use this to assign visited as True
+
+            self.visited = True
 
         else :
             ## Simple message if you have been in the patio area already
@@ -366,11 +386,15 @@ class Lobby(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'lobby'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -384,7 +408,10 @@ class Lobby(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -469,8 +496,7 @@ class Lobby(Location) :
 
         elif(self.visited == False and self.gainedAccess == True) :
             print('You are in the lobby.')
-            entered = True
-            nextLocation = 'random'
+            self.visited = True
 
         else :
             print("You have returned to the lobby area.")
@@ -482,11 +508,15 @@ class DinningRoom(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'diningRoom'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -500,7 +530,10 @@ class DinningRoom(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -812,6 +845,8 @@ class DinningRoom(Location) :
                         entered = False
                         nextLocation = 'lobby'
 
+            self.visited = True
+
         else :
             print("You have returned to the dinning room.")
 
@@ -821,11 +856,15 @@ class Basement(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'basement'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -839,7 +878,10 @@ class Basement(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -895,8 +937,9 @@ class Basement(Location) :
 
         elif(self.visited == False and self.gainedAccess == True) :
             ## You are INSIDE the location for the first time 
-            entered = True
-            nextLocation = 'basement'
+            
+
+            self.visited = True
 
         else :
             print('You have returned to the basement')
@@ -908,11 +951,15 @@ class Kitchen(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'kitchen'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -926,7 +973,10 @@ class Kitchen(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -952,6 +1002,7 @@ class Kitchen(Location) :
         elif(self.visited == False and self.gainedAccess == True) :
 
             ## At the end set visited to true
+            self.visited = True
         else :
             print('You have returned to the kitchen')
 
@@ -961,11 +1012,15 @@ class Utility(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'utility'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -979,7 +1034,10 @@ class Utility(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1015,8 +1073,9 @@ class Utility(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
-            ## Set visited to true at the end of the call
 
+            ## Set visited to true at the end of the call
+            self.visited = True
         else :
             print('You have returned to the utility rom')
 
@@ -1026,11 +1085,15 @@ class Library(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'library'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1044,7 +1107,10 @@ class Library(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1061,6 +1127,7 @@ class Library(Location) :
         elif(self.visited == False and self.gainedAccess == True) :
             clearConsole(0)
             print('') # TODO
+            self.visited = True
 
         else :
             print('You have returned to the library')
@@ -1072,11 +1139,15 @@ class MasterBedroom(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'masterBedroom'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1090,7 +1161,10 @@ class MasterBedroom(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1105,7 +1179,9 @@ class MasterBedroom(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
+
             ## Set visited to true at the end of the method
+            self.visited = True
 
         else :
             print('You have returned to the master bedroom')
@@ -1117,11 +1193,15 @@ class SecondBedroom(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'secondBedroom'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1135,7 +1215,10 @@ class SecondBedroom(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1150,7 +1233,9 @@ class SecondBedroom(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
+
             ## Set visited to true at the end of the method call
+            self.visited = True
 
         else :
             print('You have returned to the second bedroom')
@@ -1162,11 +1247,15 @@ class Nursery(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'nursery'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1180,7 +1269,10 @@ class Nursery(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1195,7 +1287,9 @@ class Nursery(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
+
             ## Set visited to true at the end. This part should only run once.
+            self.visited = True
 
         else :
             print('You have returned to the master nursery')
@@ -1207,11 +1301,15 @@ class Landing(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'landing'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1225,7 +1323,10 @@ class Landing(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1240,7 +1341,9 @@ class Landing(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
+
             ## Set visited to true at the end of the method call
+            self.visited = True
 
         else :
             print('You have returned to the landing')
@@ -1252,11 +1355,15 @@ class Attick(Location) :
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'attick'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1270,7 +1377,10 @@ class Attick(Location) :
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1285,7 +1395,9 @@ class Attick(Location) :
                 self.gainedAccess = True
 
         elif(self.visited == False and self.gainedAccess == True) :
+
             ## Set visited to true at the end of the method call
+            self.visited = True
 
         else :
             print('You have returned to the attick')
@@ -1297,11 +1409,15 @@ class Garden(Location) : # Rear garden
 
     def __init__(self, levelName, floor, roof, lighting, lightType) :
         super().__init__(levelName, floor, roof, lighting, lightType)
+        self.dictKey = 'garden'
 
     def doAction(self, diceRoll, character) :
+        changedLocation = False
+        nextLocation = ''
         if(diceRoll == 1) :
             ## Go to new location
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
         elif(diceRoll == 2) :
             ## Find items
             self.searchLocation(character)
@@ -1315,7 +1431,10 @@ class Garden(Location) : # Rear garden
             ## Be given a puzzle
             self.doPuzzle()
         elif(diceRoll == 6) :
-            self.choiceToNextLocation()
+            nextLocation = self.choiceToNextLocation()
+            changedLocation = True
+
+        return changedLocation, nextLocation
 
     def locationIntroduction(self, character, deviation = '') :
         entered = True
@@ -1332,6 +1451,7 @@ class Garden(Location) : # Rear garden
         elif(self.visited == False and self.gainedAccess == True) :
             clearConsole(0)
             print('') # TODO
+            self.visited = True
 
         else :
             print('You have returned to the garden')

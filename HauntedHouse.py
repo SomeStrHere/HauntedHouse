@@ -108,6 +108,7 @@ def gameIntroductionMenu() :
 
     varMenu = True
 
+    global currentLocation
     currentLocation = locations['start']
 
     while varMenu :
@@ -323,13 +324,21 @@ def gameIntroductionMenu() :
 
 def gameCore(entered, nextLocation) :
 
-    if entered == True :
-        changedLocation, nextLocation = currentLocation.locationIntroduction(character)
-    else :
-        currentLocation = locations[nextLocation]
+    global currentLocation
+
+    changedLocation = False
 
     while isGameComplete() != True :
+        if (entered == True and changedLocation == False) :
+            entered, nextLocation = currentLocation.locationIntroduction(character)
+        else :
+            currentLocation = locations[nextLocation]
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
+        if(entered == True and currentLocation.checkVisited() == True) :
+            roll = diceRoll(6)
+            print('Location is ' + currentLocation.levelName)
+            changedLocation, nextLocation = currentLocation.doAction(roll, character)
 
 
 def meaningOfLife() :
@@ -450,7 +459,7 @@ def isGameComplete() :
     for location in locations : 
 
         # Check if locations as been visited
-        if location.checkVisited() == True :
+        if locations[location].checkVisited() == True :
             # Increment counter if location as been visited
             LocationsVistedCounter = LocationsVistedCounter + 1
 
