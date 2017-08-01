@@ -54,10 +54,12 @@ class Opponent :
 
     def randomAttack() :
         # Randomly selects one of the attack methods when called
-        attacks = ['combatAttack()', 'fleeingAttack()', 'itemAttack()', 'delayAttack()', 'selectAttack()']
-        attack = random.choice(attacks)
+        ## attacks = ['combatAttack()', 'fleeingAttack()', 'itemAttack()', 'delayAttack()', 'selectAttack()']
+        ## attack = random.choice(attacks)
 
-        return(attack)
+        print('RANDOM ATTACK')
+
+        ##return(attack)
 
 def createRandomOpponent() :
 

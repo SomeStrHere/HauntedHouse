@@ -57,7 +57,6 @@ def gameIntroduction() :
         else :
             print('Invalid  input, please try again')
             sleep(2)
-            gameIntroduction()
 
 
     locations = createLocations()
@@ -332,13 +331,14 @@ def gameCore(entered, nextLocation) :
         if (entered == True and changedLocation == False) :
             entered, nextLocation = currentLocation.locationIntroduction(character)
         else :
+            previousLocation = currentLocation
             currentLocation = locations[nextLocation]
-            entered, nextLocation = currentLocation.locationIntroduction(character)
+            entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = previousLocation.inOrOut)
 
         if(entered == True and currentLocation.checkVisited() == True) :
             roll = diceRoll(6)
-            print('Location is ' + currentLocation.levelName)
-            changedLocation, nextLocation = currentLocation.doAction(roll, character)
+            changedLocation, nextLocation = currentLocation.doAction(character)
+        enterCon()
 
 
 def meaningOfLife() :
