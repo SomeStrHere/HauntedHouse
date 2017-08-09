@@ -27,7 +27,7 @@ class CharacterCreator :
 
         # This method is called in HauntedHouse.py at the character creation.
         # You can access the object from there.
-        randomCharacter = Character(firstName, age, heightInFeet, fitnessLevel)
+        randomCharacter = Character(firstName, heightInFeet, age, fitnessLevel)
         
         print("Name: " + firstName)
         print("Age: {0}".format(age))

@@ -117,7 +117,7 @@ class Garage(Location) :
 
     def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
-        nextLocation = 'random'
+        nextLocation = self.dictKey
 
         if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
@@ -431,7 +431,7 @@ class Lobby(Location) :
 
     def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
-        nextLocation = 'random'
+        nextLocation = self.dictKey
 
         if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
@@ -559,7 +559,7 @@ class DinningRoom(Location) :
 
     def locationIntroduction(self, character, deviation = '', prevLocation = 'outside') :
         entered = True
-        nextLocation = 'random'
+        nextLocation = self.dictKey
 
         if(self.visited == False and self.gainedAccess != True) :
             clearConsole(0)
@@ -684,7 +684,7 @@ class DinningRoom(Location) :
                             print('You master our little challenge')
                             sleep(1)
                             print('Let the challenge begin!')
-                            passed = Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
+                            #passed = Puzzle.riddlePuzzle() # TODO - Is this correct; I want this option to be just riddles
 
                             if passed :
                                 print('Congratulations!')
@@ -784,7 +784,7 @@ class DinningRoom(Location) :
                     print('You can hear faint chuckling as you step inside, and feel a cool breeze blow across your face')
                     print('as if someone left a window open')
                     entered = True
-                    nextLocation = 'Dinning Room'
+                    nextLocation = 'diningRoom'
 
                 elif (indoorProgression >= 1 and indoorProgression <= 3) :
                     print('Being mindful of your predicament; being inside a house, which is not your own...')
