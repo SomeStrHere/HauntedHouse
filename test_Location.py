@@ -50,3 +50,17 @@ class TestLocation :
             assert(nextLocation == 'diningRoom')
         else :
             nextLocation in ['patio']
+
+    def test_BasementIntro(self) :
+        testBasement = Basement('basement', 'carpet', None, True, 'lamp')
+        testCharacter = Character('Kieran', 6.0, 18, 'Great')
+
+        with mock.patch('builtins.input', side_effect=[0,0]):
+            entered, nextLocation = testBasement.locationIntroduction(testCharacter)
+
+        assert(entered == True or entered == False)
+
+        if entered :
+            assert(nextLocation == 'basement')
+        else :
+            nextLocation in []
