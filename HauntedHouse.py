@@ -17,6 +17,9 @@ def main() :
     global interupt
     interupt = False
     gameIntroduction()
+    entered, nextLocation = gameIntroductionMenu()
+    gameCore(entered, nextLocation)
+
     
 def gameIntroduction() :
     global locations, character, currentLocation
@@ -54,11 +57,11 @@ def gameIntroduction() :
         else :
             print('Invalid  input, please try again')
             sleep(2)
-            gameIntroduction()
 
 
     locations = createLocations()
 
+    global currentLocation
     currentLocation = locations['start']
 
     ## isGameComplete()
@@ -96,8 +99,6 @@ def gameIntroduction() :
           'it\'s now approaching 2:30am! What are you going to do...\n'
           )
 
-    gameIntroductionMenu()
-
 def gameIntroductionMenu() :
 
     #newLocation = currentLocation.choiceToNextLocation()
@@ -105,6 +106,9 @@ def gameIntroductionMenu() :
     #print(newLocation.levelName)
 
     varMenu = True
+
+    global currentLocation
+    currentLocation = locations['start']
 
     while varMenu :
         print('Here are your options:\n')
@@ -118,63 +122,22 @@ def gameIntroductionMenu() :
 
         if userSelects == '1' :
 
-            entered, nextLocation = locations['lobby'].locationIntroduction(character)
-
-            if(entered == True) :
-                locations['lobby'].setAsVisited()
-                currentLocation = locations[nextLocation]
-                entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = 'inside')
-                currentLocation = locations[nextLocation]
-                print(nextLocation)
-                entered, nextLocation = currentLocation.locationIntroduction(character)
-
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the lobby area")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
+            currentLocation = locations['lobby']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
             varMenu = False
 
         elif userSelects == '2' :
-            entered, nextLocation = locations['garage'].locationIntroduction(character)
+            currentLocation = locations['garage']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
-            if(entered == True) :
-                locations['garage'].setAsVisited()
-                currentLocation = locations['garage']
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the garage area.")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '3' :
 
-            ## Runs the patio introduction and returns whether access has been granted.
-            entered, nextLocation = locations['patio'].locationIntroduction(character)
+            currentLocation = locations['patio']
+            entered, nextLocation = currentLocation.locationIntroduction(character)
 
-            ## If access is given above then enter the patio area
-            if entered == True :
-                locations['patio'].setAsVisited()
-                currentLocation = locations['patio']
-
-            ## If not given access to the patio area above make the user choose a new location. 
-            ## Feel free if yu want to change this to teleport or something
-            else :
-                if(nextLocation in locations) :
-                    currentLocation = locations[nextLocation]
-                else :
-                    print("You could not enter the patio area")
-                    print()
-                    print("Please choose a new location to visit.")
-                    currentLocation.choiceToNextLocation()
             varMenu = False
 
         elif userSelects == '4' :
@@ -194,13 +157,17 @@ def gameIntroductionMenu() :
             print('\nYou rolled a {0}!\n'.format(roll))
 
             if roll == 1 or roll == 2 :
-                print('Annoyed with yourself for leaving your phone in the taxi, you ' +
-                      'walk up to the garage door looking for some shelter.')
+                print('Annoyed with yourself for leaving your phone in the taxi,\nyou ' +
+                      'walk up to the garage door looking for some shelter.\n')
                 walk()
-                sleep(1.3)
-                #TODO
+                sleep(1)
 
-            elif roll == 3 or roll == 4 :
+                enterCon()
+
+                currentLocation = locations['garage']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
+
+            elif roll == 3 or roll == 4 : 
                 print('You pull out your phone... and it\'s dead!\n' +
                       'Well that sucks! You quickly think about your options...\n\n' +
                       'You can\'t decide whether to knock on the door so early in the ' +
@@ -220,20 +187,19 @@ def gameIntroductionMenu() :
                 print('\nIt\'s {0}!\n'.format(coinFace))
 
                 if coinFace == 'Heads' :
-                    print('You walk up to the front door and...')
-                    walk()
+                    #walk() # This is already called in locationIntroduction
                     sleep(1.3)
-                    # TODO
-                    # We could use the same statements for option 1 on start menu
-                    # or create some new statements for this deviation
+                    currentLocation = locations['lobby']
+                    entered, nextLocation = currentLocation.locationIntroduction(character)
 
                 elif coinFace == 'Tails':
-                    print('You walk up to the garden gate and...')
-                    walk()
+                    #print('You walk up to the garden gate\n') These two lines are already  in the locationIntroduction method.
+                    #walk()
                     sleep(1.3)
-                    StartToPatioGate('Dead Phone')
+                    currentLocation = locations['patio']
+                    entered, nextLocation = currentLocation.locationIntroduction(character)
             
-            elif roll == 5 :
+            elif roll == 5 : 
                 print('You pick up your phone and call a friend...')
                 # Number of dials is random int 2 to 8
                 numberofDials = random.randint(2,8)
@@ -245,20 +211,20 @@ def gameIntroductionMenu() :
 
                 characterName = "" # TODO
                 # Start conversation    
-                print('Friend: Hello, wha\'s up?')
+                print('Friend: Hello, what\'s up?')
                 sleep(0.3)
-                print('{0}: Oh Hi, I need some help...'.format(characterName))
-                print('{0}: I got invited to a party on the way back home from travelling...'.format(characterName))
-                print('{0}: Looks like I got a little drunk and ended up getting dropped off at a strange house...'.format(characterName))
-                print('{0}: Not sure where I am; can you help?'.format(characterName))
+                print('   You: Oh Hi, I need some help...')
+                print('   You: I got invited to a party on the way back home from travelling...')
+                print('   You: Looks like I got a little drunk and ended up getting dropped off at a strange house...')
+                print('   You: Not sure where I am; can you help?')
                 sleep(1)
                 print('Friend: That sucks... so you have no idea where you are?')
                 sleep(0.3)
-                print('{0}: No idea!'.format(characterName))
+                print('   You: No idea!')
                 sleep(0.3)
                 print('Friend: How can I help you then; is anyone around, can you find out where you are?')
                 sleep(0.3)
-                print('{0}: There is no one around; just this creepy house, and I\'m freezing!'.format(characterName))
+                print('   You: There is no one around; just this creepy house, and I\'m freezing!')
                 sleep(0.3)
                 print('Friend: Yeah; I heard about that crazy storm!')
                 print('Friend: Well, you can\'t stay out all night, get some shelter, and I\'ll try and ' +
@@ -266,33 +232,27 @@ def gameIntroductionMenu() :
                 print('Friend: Don\'t forget you can pick the door open if you need to ' +
                      'just get some shelter')
                 sleep(1)
-                print('{0}: Hey yeah, forgot about my lockpicks!'.format(characterName))
-                print('{0}: The house looks empty; so I\'ll try picking the lock'.format(characterName))
+                print('   You: Hey yeah, forgot about my lockpicks!')
+                print('   You: The house looks empty; so I\'ll try picking the lock of the garden gate '+ 
+                    'if it\'s locked')
                 sleep(0.3)
                 print('Friend: Good plan; if that\'t doesn\'t work, better pitch your tent...')
                 print('Friend: Stay safe, hopefully see you soon, bye!')
                 sleep(0.3)
-                print('{0}: Thanks, bye!'.format(characterName))
+                print('   You: Thanks, bye!')
                 print('\nPhone disconnects')
 
-                print('# Attempt to pick the lock #')
-                print('Roll 5+ on a D6 to sucessfully pick the lock and enter the house.')
-                # If player doesn't role a 5+ send them to patio level 
-                # (they'll need to pitch their tent or break in through the patio doors)
+                enterCon()
 
-                roll = diceRoll(6)
-
-                if roll >= 5 :
-                    entered, nextLocation = locations['lobby'].locationIntroduction(character, deviation = 'Picked Front Door')
-                    locations['lobby'].setAsVisited()
-                    currentLocation = locations['lobby']
-                    # TODO - start Lobby level
-                else :
-                    print('Picking the lock failed...')
-                    ## TODO - What happens if failed?
+                currentLocation = locations['patio']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
             else : # You rolled a 6
-                print('\nYou pick up your phone and call your parents...\n')
+                print('\nYou pick up your phone and call your parents...\n') 
+
+                # TODO - error, currently the code for the  conversation with players parents scrolls past the
+                # screen super fast, and then code continues clearing that code and running straight into other code
+                # segments which isn't correct.
 
                 # Number of dials is random int 1 to 3
                 numberofDials = random.randint(1,3)
@@ -305,10 +265,11 @@ def gameIntroductionMenu() :
                 characterName = character.firstName # TODO
                 # Start conversation    
                 print('Parents: Hello {0}, is everything alright; we expected you hours ago?'.format(characterName))
+                # TODO - not sure if the above reference to character is correct, can't tell if working yet, due to other bugs
                 sleep(0.3)
-                print('{0}: I\'m sorry, I got a taxi after a party  on my way over...'.format(characterName))
-                print('{0}: and the taxi dropped me off at a strange house in the middle of nowhere...'.format(characterName))
-                print('{0}: Then the storm blew in.'.format(characterName))
+                print('    You: I\'m sorry, I got a taxi after a party  on my way over...')
+                print('    You: and the taxi dropped me off at a strange house in the middle of nowhere...')
+                print('    You: Then the storm blew in.')
                 sleep(0.3)
                 print('Parents: Oh no!')
                 sleep(0.3)
@@ -316,28 +277,15 @@ def gameIntroductionMenu() :
                 print('Parents: We\'ll wire you some Bitcoins, in case you need them')
                 print('Parents: Get shelter as best as you can, and we\'ll come pick you up once the storm breaks')
                 sleep(0.3)
-                print('{0}: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into'.format(characterName))
-                print('{0}: Bye for now'.format(characterName))
+                print('    You: Thank you, I\'ll get some shelter; looks like the house as a garden I can get into')
+                print('    You: Bye for now')
                 print('Parents: Bye, take care')
 
-                # TODO - Add 200 bitcoins to players bitcoin wallet/balance
-                entered, nextLocation = locations['patio'].locationIntroduction(character)
+                enterCon()
 
-                ## If access is given above then enter the patio area
-                if entered == True :
-                    locations['patio'].setAsVisited()
-                    currentLocation = locations['patio']
+                currentLocation = locations['patio']
+                entered, nextLocation = currentLocation.locationIntroduction(character)
 
-                ## If not given access to the patio area above make the user choose a new location. 
-                ## Feel free if yu want to change this to teleport or something
-                else :
-                    if(nextLocation in locations) :
-                        currentLocation = locations[nextLocation]
-                    else :
-                        print("You could not enter the patio area")
-                        print()
-                        print("Please choose a new location to visit.")
-                        currentLocation.choiceToNextLocation()
                 varMenu = False
 
         elif userSelects == '5' :
@@ -371,21 +319,48 @@ def gameIntroductionMenu() :
             print('\nSorry; that was an invalid option, please try again\n')
             varMenu = True
 
+    return entered, nextLocation
+
+def gameCore(entered, nextLocation) :
+
+    global currentLocation
+
+    changedLocation = False
+
+    while isGameComplete() != True :
+        if (entered == True and changedLocation == False) :
+            entered, nextLocation = currentLocation.locationIntroduction(character)
+        else :
+            previousLocation = currentLocation
+            currentLocation = locations[nextLocation]
+            entered, nextLocation = currentLocation.locationIntroduction(character, prevLocation = previousLocation.inOrOut)
+
+        if(entered == True and currentLocation.checkVisited() == True) :
+            roll = diceRoll(6)
+            changedLocation, nextLocation = currentLocation.doAction(character)
+        enterCon()
+
+
 def meaningOfLife() :
     print('Now... what\'s the meaning of life? Hmmm')
     answer = input('~ Enter your guess ~ ')
+    isCorrect = False
     
     if answer == '42' :
         print('That\'s it!')
         print('Now, you may enter...')
         print('\nYou step inside...')
-        locations['start'].setAsVisited()
-        currentLocation = locations['lobby']
+        isCorrect = True
+
         #TODO - start Lobby level
                         
     else :
         print('Sorry, that\'s not correct')
-        meaningOfLife()
+        isCorrect = meaningOfLife()
+
+    return isCorrect
+
+
 
 
 def doorOptions(option) :
@@ -425,7 +400,7 @@ def doorOptions(option) :
            print('Crash')
            sleep(0.5)
            currentLocation.setAsVisited()
-           return(print('/nYou\'ve done it, you\'ve smashed through the door!'))
+           print('/nYou\'ve done it, you\'ve smashed through the door!')
 
        else :
             Print('There is no getting through this door; the lock is unbreakable, and a ' +
@@ -450,7 +425,7 @@ def doorOptions(option) :
         print('In the darkness, what you mustook for a door,')
         print('was in fact just a curtain.')
         currentLocation.setAsVisited()
-        return(print('You step inside...'))
+        print('You step inside...')
 
     # Other options
     else :
@@ -465,13 +440,13 @@ def doorOptions(option) :
         roll = diceRoll(6)
         if roll >= 1 <= 2 :
             currentLocation.setAsVisited()
-            return(print('You turn away in fright!'))
+            print('You turn away in fright!')
         elif roll >= 3 <= 4 :
             currentLocation.setAsVisited()
-            return(print('You kick the door in regardless!'))
+            print('You kick the door in regardless!')
         else :
             currentLocation.setAsVisited()
-            return(print('You open the door and...'))
+            print('You open the door and...')
 
 
 def isGameComplete() :
@@ -484,7 +459,7 @@ def isGameComplete() :
     for location in locations : 
 
         # Check if locations as been visited
-        if location.checkVisited() == True :
+        if locations[location].checkVisited() == True :
             # Increment counter if location as been visited
             LocationsVistedCounter = LocationsVistedCounter + 1
 

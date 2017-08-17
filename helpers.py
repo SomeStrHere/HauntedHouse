@@ -84,3 +84,6 @@ def getRandomQuestion() :
 
     return random.choice(questions)
 
+def enterCon() :
+    input("~Press enter to continue~")
+
